@@ -71,7 +71,7 @@ __sbit __at (0xC7) P4_7     ;
 
 /* AUXR1 bits */
 #define BIT_NUM_DPS         0
-#define BIT_NUM_GF2         2
+#define BIT_NUM_GF2         3
 #define BIT_NUM_UART_P1     7
 
 /* BUS_SPEED bits */
