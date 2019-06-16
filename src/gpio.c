@@ -74,30 +74,32 @@ void GPIO_configMode(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin,GPIO_mode mode)
                 /* P1 */
                 case PERIPH_GPIO_1:
                 {
-                    P1M0 = P0M0 & (~pin);
-                    P1M1 = P0M1 | pin;
+                    P1M0 = P1M0 & (~pin);
+                    P1M1 = P1M1 | pin;
                 } break;
                 /* P2 */
                 case PERIPH_GPIO_2:
                 {
-                    P2M0 = P0M0 & (~pin);
-                    P2M1 = P0M1 | pin;
+                    P2M0 = P2M0 & (~pin);
+                    P2M1 = P2M1 | pin;
                 } break;
                 /* P3 */
                 case PERIPH_GPIO_3:
                 {
-                    P3M0 = P0M0 & (~pin);
-                    P3M1 = P0M1 | pin;
+                    P3M0 = P3M0 & (~pin);
+                    P3M1 = P3M1 | pin;
                 } break;
                 /* P4 */
                 case PERIPH_GPIO_4:
                 {
-                    P4M0 = P0M0 & (~pin);
-                    P4M1 = P0M1 | pin;
+                    P4M0 = P4M0 & (~pin);
+                    P4M1 = P4M1 | pin;
                 } break;
+                /* default */
+                default: break;
             }
         } break;
-        
+
         /* open-drain state */
         case GPIO_mode_OD:
         {
@@ -112,30 +114,32 @@ void GPIO_configMode(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin,GPIO_mode mode)
                 /* P1 */
                 case PERIPH_GPIO_1:
                 {
-                    P1M0 = P0M0 | pin;
-                    P1M1 = P0M1 | pin;
+                    P1M0 = P1M0 | pin;
+                    P1M1 = P1M1 | pin;
                 } break;
                 /* P2 */
                 case PERIPH_GPIO_2:
                 {
-                    P2M0 = P0M0 | pin;
-                    P2M1 = P0M1 | pin;
+                    P2M0 = P2M0 | pin;
+                    P2M1 = P2M1 | pin;
                 } break;
                 /* P3 */
                 case PERIPH_GPIO_3:
                 {
-                    P3M0 = P0M0 | pin;
-                    P3M1 = P0M1 | pin;
+                    P3M0 = P3M0 | pin;
+                    P3M1 = P3M1 | pin;
                 } break;
                 /* P4 */
                 case PERIPH_GPIO_4:
                 {
-                    P4M0 = P0M0 | pin;
-                    P4M1 = P0M1 | pin;
+                    P4M0 = P4M0 | pin;
+                    P4M1 = P4M1 | pin;
                 } break;
+                /* default */
+                default: break;
             }
         } break;
-        
+
         /* pull-push output mode */
         case GPIO_mode_PP:
         {
@@ -150,30 +154,32 @@ void GPIO_configMode(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin,GPIO_mode mode)
                 /* P1 */
                 case PERIPH_GPIO_1:
                 {
-                    P1M0 = P0M0 | pin;
-                    P1M1 = P0M1 & (~pin);
+                    P1M0 = P1M0 | pin;
+                    P1M1 = P1M1 & (~pin);
                 } break;
                 /* P2 */
                 case PERIPH_GPIO_2:
                 {
-                    P2M0 = P0M0 | pin;
-                    P2M1 = P0M1 & (~pin);
+                    P2M0 = P2M0 | pin;
+                    P2M1 = P2M1 & (~pin);
                 } break;
                 /* P3 */
                 case PERIPH_GPIO_3:
                 {
-                    P3M0 = P0M0 | pin;
-                    P3M1 = P0M1 & (~pin);
+                    P3M0 = P3M0 | pin;
+                    P3M1 = P3M1 & (~pin);
                 } break;
                 /* P4 */
                 case PERIPH_GPIO_4:
                 {
-                    P4M0 = P0M0 | pin;
-                    P4M1 = P0M1 & (~pin);
+                    P4M0 = P4M0 | pin;
+                    P4M1 = P4M1 & (~pin);
                 } break;
+                /* default */
+                default: break;
             }
         } break;
-        
+
         /* quai-bidirectional mode */
         case GPIO_mode_QBD:
         {
@@ -188,30 +194,32 @@ void GPIO_configMode(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin,GPIO_mode mode)
                 /* P1 */
                 case PERIPH_GPIO_1:
                 {
-                    P1M0 = P0M0 & (~pin);
-                    P1M1 = P0M1 & (~pin);
+                    P1M0 = P1M0 & (~pin);
+                    P1M1 = P1M1 & (~pin);
                 } break;
                 /* P2 */
                 case PERIPH_GPIO_2:
                 {
-                    P2M0 = P0M0 & (~pin);
-                    P2M1 = P0M1 & (~pin);
+                    P2M0 = P2M0 & (~pin);
+                    P2M1 = P2M1 & (~pin);
                 } break;
                 /* P3 */
                 case PERIPH_GPIO_3:
                 {
-                    P3M0 = P0M0 & (~pin);
-                    P3M1 = P0M1 & (~pin);
+                    P3M0 = P3M0 & (~pin);
+                    P3M1 = P3M1 & (~pin);
                 } break;
                 /* P4 */
                 case PERIPH_GPIO_4:
                 {
-                    P4M0 = P0M0 & (~pin);
-                    P4M1 = P0M1 & (~pin);
+                    P4M0 = P4M0 & (~pin);
+                    P4M1 = P4M1 & (~pin);
                 } break;
+                /* default */
+                default: break;
             }
         } break;
-        
+
         default:break;
     }
 }
