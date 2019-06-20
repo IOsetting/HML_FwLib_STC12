@@ -63,7 +63,7 @@ Certainly, you can just add *inc* and *src* directory into your project structur
 Welcome suggestions and contribution from you! You can fork it or contact us via *[mcu@zhishan-iot.tk](mailto:mcu@zhishan-iot.tk)*.
 
 ## License
-HML_FwLib_STC11 is licensed under the [WTPL2](http://wtfpl2.com/).
+HML_FwLib_STC11 is licensed under the [WTFPL2](http://wtfpl2.com/).
 
 ##  Team
 
