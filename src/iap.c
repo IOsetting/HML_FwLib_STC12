@@ -95,7 +95,7 @@ byte IAP_readByte(unsigned int addr)
     IAP_setAddress(addr);
     IAP_setCommand(IAP_command_read);
     IAP_trig();
-    _nop_();
+    NOP();
     dat = IAP_DATA;
     IAP_idle();
     
@@ -159,7 +159,7 @@ bool IAP_writeByte(unsigned int addr,byte dat)
     IAP_setCommand(IAP_command_write);
     IAP_DATA = dat;
     IAP_trig();
-    _nop_();
+    NOP();
     IAP_idle();
     status = IAP_isSuccess();
 

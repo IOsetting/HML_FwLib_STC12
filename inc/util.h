@@ -12,8 +12,8 @@
 #define ___UTIL_H___
 
 /* ----- @header file ----- */
+#include <compiler.h>
 #include "stc11.h"
-#include "intrasm.h"
 #include "macro.h"
 
 /* ----- @function ----- */

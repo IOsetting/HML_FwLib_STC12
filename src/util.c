@@ -76,7 +76,7 @@ void sleep(u16 t)
 
         while(t--)
         {
-            _nop_();
+            NOP();
             i = 5;
             j = 70;
             do
@@ -89,8 +89,8 @@ void sleep(u16 t)
 
         while(t--)
         {
-            _nop_();
-            _nop_();
+            NOP();
+            NOP();
             i =5;
             j = 100;
             do
