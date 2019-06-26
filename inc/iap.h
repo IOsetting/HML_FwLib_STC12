@@ -12,9 +12,9 @@
 #define ___IAP_H___
 
 /* ----- @header file ----- */
+#include <compiler.h>
 #include <stdbool.h>
 #include "stc11.h"
-#include "intrasm.h"
 #include "macro.h"
 #include "util.h"
 

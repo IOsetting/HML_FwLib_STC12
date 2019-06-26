@@ -16,7 +16,6 @@
 #include "exti.h"
 #include "gpio.h"
 #include "iap.h"
-#include "intrasm.h"
 #include "macro.h"
 #include "mem.h"
 #include "pwr.h"
