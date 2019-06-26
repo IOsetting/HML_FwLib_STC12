@@ -12,7 +12,7 @@ Please visit [detail page](https://hw.zhishan-iot.tk/page/hml/detail/fwlib_stc10
 ## Feature
 + :dart:Based on [SDCC compiler](http://sdcc.sourceforge.net/).
 + Cover all on-chip resource of STC11 series MCUs.
-+ Open all source code on [Github](https://github.com) and licensed under the [WTPL2](http://wtfpl2.com/).
++ Open all source code on [Github](https://github.com) and licensed under the [WTPL2](https://wtfpl2.com/).
 + Readable code and provide examples to help you get started it.
 
 # What's working
@@ -55,7 +55,7 @@ The macro mark the model of target MCU and is defined in *macro.h*. The default 
 #### conditional compilation
 In order to ensure the projects based on HML_FwLib_STC11 can be downloaded into the limited on-chip flash space of STC89 MCUs, the developers can modify the macro definition named `___COMPILE_XXX___` in *macro.h* to specify which piece of code should be compiled, thus to reduce the size of the HEX file. If user only use GPIO module, then user just need to enable `___COMPILE_GPIO___` macro definition in macro.h. Some macros for conditional compilation rely on others. For example, before you define the macro definition `___COMPILE_UART___`, the macro `___COMPILE_EXTI___` and `___COMPILE_TIM___` should be defined, otherwise the compilation would be failed.
 ### code & compilation
-There is a source file named *test.c* under *usr* directory, we have put a main function here. User can add and modify own code here, then enter <kbd>make</kbd> in terminal, the Makefile will work and complete compilation. From version [V0R1](https://github.com/MCU-ZHISHAN-IoT/HML_FwLib_STC11/releases/tag/v0.0.1), you can enter <kbd>make help</kbd> to get all usages, and former version makefile only support <kbd>make</kbd>, <kbd>make clean</kbd>, <kbd>make mostlyclean</kbd>(change into <kbd>make distclean</kbd> now)
+There is a source file named *test.c* under *usr* directory, we have put a main function here. User can add and modify own code here, then enter <kbd>make</kbd> in terminal, the Makefile will work and complete compilation. Besides, user can enter <kbd>make help</kbd> to get all usages.
 
 Certainly, you can just add *inc* and *src* directory into your project structure, and write your own makefile to build a custom project. 
 
@@ -63,7 +63,7 @@ Certainly, you can just add *inc* and *src* directory into your project structur
 Welcome suggestions and contribution from you! You can fork it or contact us via *[mcu@zhishan-iot.tk](mailto:mcu@zhishan-iot.tk)*.
 
 ## License
-HML_FwLib_STC11 is licensed under the [WTFPL2](http://wtfpl2.com/).
+HML_FwLib_STC11 is licensed under the [WTFPL2](https://wtfpl2.com/).
 
 ##  Team
 
