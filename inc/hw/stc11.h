@@ -101,7 +101,7 @@ __sbit __at (0xC7) P4_7     ;
 
 /* P4SW bits */
 #define BIT_NUM_NA_P44      4
-#define BIT_NUM_NA_P45      5
+#define BIT_NUM_ALE_P45     5
 #define BIT_NUM_NA_P46      6
 
 /* PCON bits */

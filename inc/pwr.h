@@ -1,24 +1,32 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:operations about power management
- * @Required-compiler:SDCC
- * @Support-mcu:STC micro STC11 series
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file        pwr.h
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \brief       operations for power management
+ * \note        
+ * \version     v0.0
+ * \ingroup     PWR
+******************************************************************************/
  
 #ifndef ___PWR_H___
 #define ___PWR_H___
 
-/* ----- @header file ----- */
+/*****************************************************************************
+ *                             header file                                   *
+ *****************************************************************************/
 #include <stdbool.h>
 #include <stdint.h>
-#include "stc11.h"
+/*****************************************************************************/
+#include "hw/stc11.h"
 #include "macro.h"
 
-/* ----- @enumeration type ----- */
-/* mark wakeup pins for power-down mode */
+/*****************************************************************************
+ *                           enumeration type                                *
+ *****************************************************************************/
+
+/**
+ *\brief: mark wakeup pins for power-down mode
+ */
 typedef enum
 {
     PWR_PD_IEPIN_RXD = 0x1,
@@ -26,7 +34,10 @@ typedef enum
     PWR_PD_IEPIN_T1  = 0x3
 } PWR_PD_IEPIN;
 
-/* ----- @function ----- */
+
+/*****************************************************************************
+ *                          function declare                                 *
+ *****************************************************************************/
 void PWR_idle(void);
 void PWR_powerDown(void);
 void PWR_LVD_clearFlag(void);

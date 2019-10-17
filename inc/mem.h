@@ -1,23 +1,30 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:
- * #define macro that allow you to directly access the different memory areas of the 8051.
- * #include the similar functions like <absacc.h> in Keil
- * @Required-compiler:SDCC
- * @Support-mcu:STC micro STC11 series
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file        mem.h
+ * \author      Weillun Fong | wlf@zhishan-iot.tk
+ * \brief       operations for memory zone of MCU
+ * \note        allow you to directly access the different memory areas of STC11
+ *              series MCU
+ * \version     v0.0
+ * \ingroup     MEM
+******************************************************************************/
 
 #ifndef ___MEM_H___
 #define ___MEM_H___
 
-/* ----- @header file ----- */
-#include "stc11.h"
+/*****************************************************************************
+ *                             header file                                   *
+ *****************************************************************************/
+#include "hw/stc11.h"
 #include "macro.h"
 
-/* ----- @macro ----- */
+/*****************************************************************************
+ *                                macro                                      *
+ *****************************************************************************/
+
+/**
+ *\brief: for access target zone directly
+ */
 #define __CBYTE ((unsigned char volatile __code  *) 0)
 #define __DBYTE ((unsigned char volatile __data  *) 0)
 #define __PBYTE ((unsigned char volatile __pdata *) 0)
@@ -28,8 +35,13 @@
 #define __PWORD ((unsigned int volatile __pdata *) 0)
 #define __XWORD ((unsigned int volatile __xdata *) 0)
 
-/* ----- @enumeration type ----- */
-/* mark read/write pulse length */
+/*****************************************************************************
+ *                           enumeration type                                *
+ *****************************************************************************/
+
+/**
+ *\brief: mark read/write pulse length 
+ */
 typedef enum
 {
     MEM_BUS_accessCycleLength_1T      = 0x00,         /* the MOVX read/write pulse is one clock cycle */
@@ -43,7 +55,9 @@ typedef enum
     MEM_BUS_accessCycleLength_default = 0x03          /* default value is four clock cycles */
 } MEM_BUS_accessCycleLength;
 
-/* mark bus stable time */
+/**
+ *\brief: mark bus stable time
+ */
 typedef enum
 {
     MEM_BUS_addressSetupTimeLength_1T      = 0x00,    /* one clock cycle */
@@ -53,7 +67,9 @@ typedef enum
     MEM_BUS_addressSetupTimeLength_default = 0x02     /* default value is three clock cycles */
 } MEM_BUS_addressSetupTimeLength;
 
-/* ----- @function ----- */
+/*****************************************************************************
+ *                          function declare                                 *
+ *****************************************************************************/
 void MEM_BUS_setAccessCycleLength(MEM_BUS_accessCycleLength len);
 void MEM_BUS_setAddressSetupTimeLength(MEM_BUS_addressSetupTimeLength len);
 void MEM_cmd_ale(Action a);

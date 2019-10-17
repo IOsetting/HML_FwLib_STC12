@@ -1,22 +1,29 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:includes some definitions for operating watch dog
- * @Required-compiler:SDCC
- * @Support-mcu:STC micro STC11 series
- * @Version:V0
- */
- 
+/*****************************************************************************/
+/** 
+ * \file        wdt.h
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \brief       operations for watchdog
+ * \note        
+ * \version     v0.0
+ * \ingroup     WDT
+******************************************************************************/
+
 #ifndef ___WDT_H___
 #define ___WDT_H___
 
-/* ----- @header file ----- */
-#include "stc11.h"
+/*****************************************************************************
+ *                             header file                                   *
+ *****************************************************************************/
+#include "hw/stc11.h"
 #include "macro.h"
 
-/* ----- @enumeration type ----- */
-/* mark prescale factor */
+/*****************************************************************************
+ *                           enumeration type                                *
+ *****************************************************************************/
+ 
+/**
+ *\brief: mark prescale factor
+ */
 typedef enum
 {
     WDT_prescale_2   = 0x00,
@@ -29,10 +36,12 @@ typedef enum
     WDT_prescale_256 = 0x07
 } WDT_prescale;
 
-/* ----- @function ----- */
-void WDT_clear(void);
+/*****************************************************************************
+ *                          function declare                                 *
+ *****************************************************************************/
 void WDT_cmd(Action a);
 void WDT_cmd_idleCount(Action a);
+void WDT_feed(void);
 void WDT_setPrescale(WDT_prescale pre);
 
 #endif

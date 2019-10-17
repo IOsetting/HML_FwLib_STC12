@@ -1,33 +1,39 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:includes some definitions for operating UART module
- * @Required-compiler:SDCC
- * @Support-mcu:STC micro STC11 series
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file        uart.c
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \brief       operations for UART
+ * \note        
+ * \version     v0.1
+ * \ingroup     UART
+******************************************************************************/
 
 #ifndef ___UART_H___
 #define ___UART_H___
 
-/* ----- @header file ----- */
+/*****************************************************************************
+ *                             header file                                   *
+ *****************************************************************************/
 #include <stdint.h>
-#include "stc11.h"
-#include "macro.h"
+/*****************************************************************************/
 #include "rcc.h"
 #include "tim.h"
-#include "util.h"
 
-/* ----- @enumeration type ----- */
-/* mark baud rate generator of UART */
+/*****************************************************************************
+ *                           enumeration type                                *
+ *****************************************************************************/
+/**
+ *\brief: mark baud rate generator of UART
+ */
 typedef enum
 {
     UART_baudrateGenerator_brt  = 0x1,    /* independent baud rate generator */
     UART_baudrateGenerator_tim1 = 0x0     /* timer 1 */
 } UART_baudrateGenerator;
 
-/* mark work mode */
+/**
+ *\brief: mark work mode
+ */
 typedef enum
 {
     UART_mode_0 = 0x0,  /* 8-bit shift register */
@@ -36,15 +42,22 @@ typedef enum
     UART_mode_3 = 0x3   /* 9-bit UART,variable baud rate */
 } UART_mode;
 
-/* mark function pin location */
+/**
+ *\brief: mark function pin location
+ */
 typedef enum
 {
     UART_pinmap_0 = 0x0,     /* P30(Rx)/P31(Tx) */
     UART_pinmap_1 = 0x1      /* P16(Rx)/P17(Tx) */
 } UART_pinmap;
 
-/* ----- @structure define ----- */
-/* mark configure structure */
+/*****************************************************************************
+ *                           structure define                                *
+ *****************************************************************************/
+
+/**
+ *\brief: mark configure structure
+ */
 typedef struct
 {
     uint32_t       baudrate;
@@ -56,10 +69,11 @@ typedef struct
     Action         multiBaudrate;
     UART_pinmap    pinmap;
     Action         receiveState;
-    
 } UART_configTypeDef;
 
-/* ----- @function ----- */
+/*****************************************************************************
+ *                          function declare                                 *
+ *****************************************************************************/
 void UART_cmd_mode0_multiBaudrate(Action a);
 void UART_cmd_multiBaudrate(Action a);
 void UART_cmd_receive(Action a);
@@ -72,10 +86,7 @@ void UART_sendString(char *str);
 void UART_setBaudGenerator(UART_baudrateGenerator gen);
 void UART_setMode(UART_mode m);
 void UART_setPin(UART_pinmap pm);
-void UART_BRT_cmd(Action a);
-void UART_BRT_setPrescaler(RCC_BRT_prescaler pre);
-void UART_BRT_setValue(unsigned char val);
-void UART_INT_setPriority(Action a);
 void UART_INT_cmd(Action a);
+void UART_INT_setPriority(Action a);
 
 #endif

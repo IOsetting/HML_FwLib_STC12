@@ -1,18 +1,23 @@
-#Author      :Weilun Fong | wlf(at)zhishan-iot.tk
-#Description :record error code defined by HML
-#E-mail      :mcu(at)zhishan-iot.tk
-#FwLib       :HML_FwLib_STC11
+#Author      : Weilun Fong | wlf@zhishan-iot.tk
+#Description : record error code which defined by HML
 
-ERROR_CODE LIST >>
- -0x01
-  (@macro.h) User need to specify model of target MCU.
- -0x02
-  (@macro.h) User need to specify a frequency value of extern crystal oscillator via macro; The default value is 11059200L.
- -0x03
-  (@macro.h) Invalid operation in configuration of compilation macro. Macro ___COMPILE_MEM___ depends on ___COMPILE_GPIO___.
- -0x04
-  (@macro.h) Invalid operation in configuration of compilation macro. Macro ___COMPILE_PWR___ depends on ___COMPILE_GPIO___.
- -0x05
-  (@macro.h) Invalid operation in configuration of compilation macro. Macro ___COMPILE_RCC___ depends on ___COMPILE_UTIL___.
- -0x06
-  (@macro.h) Invalid operation in configuration of compilation macro. Macro ___COMPILE_UART___ depends on ___COMPILE_RCC___, ___COMPILE_TIM___, ___COMPILE_UTIL___.
+ - 0x01
+    User need define input clock frequency via macro __CONF_FRE_CLKIN in conf.h.
+
+ - 0x02
+    HML gets a unknown or unsupported MCU model, please change value of macro __CONF_MCU_MODEL in conf.h.
+
+ - 0x03
+    Please specify MCU model via macro __CONF_MCU_MODEL in conf.h.
+
+ - 0x04
+    Specified MCU model does not support IAP function.
+
+ - 0x05
+    Invalid operation in configuration of compilation macro. Macro __CONF_COMPILE_RCC depends on __CONF_COMPILE_UTIL.
+
+ - 0x06
+    Invalid operation in configuration of compilation macro. Macro __CONF_COMPILE_UART depends on __CONF_COMPILE_RCC, __CONF_COMPILE_TIM, __CONF_COMPILE_UTIL.
+
+ - 0x07
+    User need update their own SDCC tool-chain, because HML_FwLib_STC11 requires v3.6.0 or later version.

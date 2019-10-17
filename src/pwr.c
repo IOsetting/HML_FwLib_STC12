@@ -1,117 +1,158 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:operations about power management
- * @Required-compiler:SDCC
- * @Support-mcu:STC micro STC11 series
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file        pwr.c
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \brief       operations for power management
+ * \note        
+ * \version     v0.0
+ * \ingroup     PWR
+******************************************************************************/
 
 #include "pwr.h"
 
-#ifdef ___COMPILE_PWR___
+#ifdef __CONF_COMPILE_PWR
 
-/*
- * @Prototype:void PWR_idle(void)
- * @Parameter:None
- * @Ret-val:None
- * @Note:enter idle mode
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       enable idle mode
+ * \param[in]   
+ * \return      none
+ * \ingroup     PWR
+ * \remarks     
+******************************************************************************/
 void PWR_idle(void)
 {
     SET_BIT_MASK(PCON,IDL);
 }
 
-/*
- * @Prototype:void PWR_powerDown(void)
- * @Parameter:None
- * @Ret-val:None
- * @Note:make MCU enter power down mode
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       enable power down mode
+ * \param[in]   
+ * \return      none
+ * \ingroup     PWR
+ * \remarks     
+******************************************************************************/
 void PWR_powerDown(void)
 {
     SET_BIT_MASK(PCON,PD);
 }
 
-/*
- * @Prototype:void PWR_LVD_clearFlag(void)
- * @Parameter:None
- * @Ret-val:None
- * @Note:clear LVDF bit in PCON register
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       clear LVDF bit in PCON register
+ * \param[in]   
+ * \return      none
+ * \ingroup     PWR
+ * \remarks     
+******************************************************************************/
 void PWR_LVD_clearFlag(void)
 {
     CLR_BIT_MASK(PCON,LVDF);
 }
 
-/*
- * @Prototype:void PWR_LVD_cmd(Action a)
- * @Parameter:(1)a:expected status
- * @Ret-val:None
- * @Note:enable or disable LVD(low voltage level detect) module
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       enable or disable LVD(low voltage level detect) module
+ * \param[in]   a: expected status
+ * \return      none
+ * \ingroup     PWR
+ * \remarks     
+******************************************************************************/
 void PWR_LVD_cmd(Action a)
 {
      CONFB(P4SW,BIT_NUM_NA_P46,~a);
 }
 
-/*
- * @Prototype:FunctionalState PWR_LVD_getFlag(void)
- * @Parameter:None
- * @Ret-val:current value of LVDF bit
- * @Note:get value of LVDF bit in PCON register
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       get value of LVDF bit in PCON register
+ * \param[in]   
+ * \return      none
+ * \ingroup     PWR
+ * \remarks     current value of LVDF bit
+******************************************************************************/
 FunctionalState PWR_LVD_getFlag(void)
 {
     return ((FunctionalState)GET_BIT(PCON,LVDF));
 }
 
-/*
- * @Prototype:void PWR_LVD_INT_cmd(Action a)
- * @Parameter:(1)a:expected status
- * @Ret-val:
- * @Note:enable or disable interrupt status of LVD(low voltage level detect) module
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       enable or disable interrupt status of LVD module
+ * \param[in]   a: expected status
+ * \return      none
+ * \ingroup     PWR
+ * \remarks     
+******************************************************************************/
 void PWR_LVD_INT_cmd(Action a)
 {
     ELVD = (FunctionalState)a;
 }
 
-/*
- * @Prototype:void PWR_PD_IE_cmd(PWR_PD_IEPIN pin,Action a)
- * @Parameter:(1)pin:target pin;(2)a:expected status
- * @Ret-val:
- * @Note:disable or enable one pin for waking up MCU from power down state
- */
+
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       disable or enable specified pin for waking up MCU from power 
+ *              down state
+ * \param[in]   a  : expected status
+ * \param[in]   pin: target pin
+ * \return      none
+ * \ingroup     PWR
+ * \remarks     
+******************************************************************************/
 void PWR_PD_IE_cmd(PWR_PD_IEPIN pin,Action a)
 {
     switch(pin)
     {
-        case PWR_PD_IEPIN_RXD:CONFB(WAKE_CLKO,BIT_NUM_RD_PIN_IE,a);break;
-        case PWR_PD_IEPIN_T0 :CONFB(WAKE_CLKO,BIT_NUM_T0_PIN_IE,a);break;
-        case PWR_PD_IEPIN_T1 :CONFB(WAKE_CLKO,BIT_NUM_T1_PIN_IE,a);break;
-        default:break;
+        case PWR_PD_IEPIN_RXD: CONFB(WAKE_CLKO,BIT_NUM_RD_PIN_IE,a); break;
+        case PWR_PD_IEPIN_T0 : CONFB(WAKE_CLKO,BIT_NUM_T0_PIN_IE,a); break;
+        case PWR_PD_IEPIN_T1 : CONFB(WAKE_CLKO,BIT_NUM_T1_PIN_IE,a); break;
+        default: break;
     }
 }
 
-/*
- * @Prototype:void PWR_WKT_cmd(Action a)
- * @Parameter:(1)a:expected action
- * @Ret-val:
- * @Note:disable or enable wake timer under power down mode
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       enable or disable wake-up timer under power down mode
+ * \param[in]   a: expected status
+ * \return      none
+ * \ingroup     PWR
+ * \remarks     
+******************************************************************************/
 void PWR_WKT_cmd(Action a)
 {
     CONFB(WKTCH,BIT_NUM_WKTEN,a);
 }
 
-/*
- * @Prototype:bool PWR_WKT_setWakeCount(uint16_t c)
- * @Parameter:(1)c:count cycle, the wake counter costume about 560us per cycle
- * @Ret-val:(1)true:valid input argument; (2)false: invalid argument
- * @Note:
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       set how many wake-up clock cycle consume until MCU wakes up by 
+ *              itself
+ * \param[in]   c: expected status
+ * \return      if parameter 'c' is larger than 4096, the function will return
+ *              false
+ * \ingroup     PWR
+ * \remarks     length of clock cycle is about 560us(not accurate)
+******************************************************************************/
 bool PWR_WKT_setWakeCount(uint16_t c)
 {
     if(c > 4096)
@@ -127,4 +168,6 @@ bool PWR_WKT_setWakeCount(uint16_t c)
     }
 }
 
+#else
+    #warning Nothing to be done... User should remove .c file which is disabled by compile control macro from current directory.
 #endif

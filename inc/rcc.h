@@ -1,24 +1,32 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:reset and clock control
- * @Required-compiler:SDCC
- * @Support-mcu:STC micro STC11 series
- * @Version:V0
- */
- 
+/*****************************************************************************/
+/** 
+ * \file        rcc.h
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \brief       operation for reset and clock control
+ * \note        
+ * \version     v0.0
+ * \ingroup     RCC
+******************************************************************************/
+
 #ifndef ___RCC_H___
 #define ___RCC_H___
 
-/* ----- @header file ----- */
+/*****************************************************************************
+ *                             header file                                   *
+ *****************************************************************************/
 #include <stdint.h>
-#include "stc11.h"
-#include "macro.h"
+/*****************************************************************************/
+#include "hw/stc11.h"
+/*****************************************************************************/
 #include "util.h"
 
-/* ----- @enumeration type ----- */
-/* mark division factor */
+/*****************************************************************************
+ *                           enumeration type                                *
+ *****************************************************************************/
+
+/**
+ *\brief: mark division factor
+ */
 typedef enum
 {
     RCC_prescaler_1   = 0x00,
@@ -31,14 +39,18 @@ typedef enum
     RCC_prescaler_128 = 0x07
 } RCC_prescaler;
 
-/* mark prescaler factor */
+/**
+ *\brief: mark prescaler factor
+ */
 typedef enum
 {
     RCC_BRT_prescaler_1  = 0x1,   /* count per 1 clock cycle */
     RCC_BRT_prescaler_12 = 0x0    /* count per 12 clock cycles */
 } RCC_BRT_prescaler;
 
-/* ----- @function ----- */
+/*****************************************************************************
+ *                          function declare                                 *
+ *****************************************************************************/
 void RCC_BRT_cmd(Action a);
 void RCC_BRT_setClockOutput(Action a);
 void RCC_BRT_setPrescaler(RCC_BRT_prescaler pre);

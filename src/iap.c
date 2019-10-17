@@ -1,34 +1,44 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:operations of IAP resource
- * @Required-compiler:SDCC
- * @Support-mcu:STC micro STC11 series
- * @Version:V0
- */
- 
+/*****************************************************************************/
+/** 
+ * \file        iap.c
+ * \author      Jiabin Hsu | zsiothsu@zhishan-iot.tk
+ * \brief       operations for IAP module
+ * \note        
+ * \version     v0.0
+ * \ingroup     IAP
+******************************************************************************/
+
 #include "iap.h"
 
-#ifdef ___COMPILE_IAP___
+#ifdef HAVE_IAP
 
-/*
- * @Prototype:void IAP_cmd(Action a)
- * @Parameter:(1)a:expected action
- * @Ret-val:
- * @Note:launch or stop IAP/ISP module
- */
+#ifdef __CONF_COMPILE_IAP
+
+/*****************************************************************************/
+/** 
+ * \author      Jiabin Hsu
+ * \date        
+ * \brief       enable or disable IAP module
+ * \param[in]   a : expected action
+ * \return      none
+ * \ingroup     IAP
+ * \remarks     
+******************************************************************************/
 void IAP_cmd(Action a)
 {
     CONFB(IAP_CONTR,BIT_NUM_IAPEN,a);
 }
 
-/*
- * @Prototype:bool IAP_eraseByte(unsigned int addr)
- * @Parameter:(1)addr:operating address
- * @Ret-val:
- * @Note:clear the value of the register in the specified address
- */
+/*****************************************************************************/
+/** 
+ * \author      Jiabin Hsu
+ * \date        
+ * \brief       erase all data of specified IAP area
+ * \param[in]   addr: address of target area
+ * \return      complete to erase(true) or failed to execute operation(false)
+ * \ingroup     IAP
+ * \remarks     
+******************************************************************************/
 bool IAP_eraseByte(unsigned int addr)
 {
     bool status = false;
@@ -49,12 +59,16 @@ bool IAP_eraseByte(unsigned int addr)
     return status;
 }
 
-/*
- * @Prototype:void IAP_idle(void)
- * @Parameter:
- * @Ret-val:
- * @Note:Let IAP be idle
- */
+/*****************************************************************************/
+/** 
+ * \author      Jiabin Hsu
+ * \date        
+ * \brief       make IAP module be in idle mode
+ * \param[in]   
+ * \return      none
+ * \ingroup     IAP
+ * \remarks     
+******************************************************************************/
 void IAP_idle(void)
 {
     IAP_cmd(DISABLE);
@@ -62,12 +76,16 @@ void IAP_idle(void)
     IAP_setCommand(IAP_command_idle);
 }
 
-/*
- *@Prototype:bool IAP_isSuccess(void)
- *@Parameter:
- *@Ret-val:IAP trigger status
- *@Note:if succeed in triggering,the function will return true,or it will return false
- */
+/*****************************************************************************/
+/** 
+ * \author      Jiabin Hsu
+ * \date        
+ * \brief       get result of IAP command execution
+ * \param[in]   
+ * \return      none
+ * \ingroup     IAP
+ * \remarks     
+******************************************************************************/
 bool IAP_isSuccess(void)
 {
     if(GET_BIT(IAP_CONTR,CMD_FAIL))
@@ -81,16 +99,20 @@ bool IAP_isSuccess(void)
     }
 }
 
-/*
- * @Prototype:byte IAP_readByte(unsigned int addr)
- * @Parameter:(1)addr:operating address
- * @Ret-val:byte
- * @Note:read the value of the register in the specified address
- */
+/*****************************************************************************/
+/** 
+ * \author      Jiabin Hsu
+ * \date        
+ * \brief       read value of specified area
+ * \param[in]   addr: address of specified area
+ * \return      none
+ * \ingroup     IAP
+ * \remarks     
+******************************************************************************/
 byte IAP_readByte(unsigned int addr)
 {
     byte dat = 0x00;
-    
+
     IAP_cmd(ENABLE);
     IAP_setAddress(addr);
     IAP_setCommand(IAP_command_read);
@@ -98,53 +120,68 @@ byte IAP_readByte(unsigned int addr)
     NOP();
     dat = IAP_DATA;
     IAP_idle();
-    
+
     return dat;
 }
 
-/*
- * @Prototype:void IAP_setAddress(unsigned int addr)
- * @Parameter:(1)addr:operating address
- * @Ret-val:
- * @Note:setting the address to be operated
- */
+/*****************************************************************************/
+/** 
+ * \author      Jiabin Hsu
+ * \date        
+ * \brief       set address register for acess target IAP area
+ * \param[in]   addr: address of specified area
+ * \return      none
+ * \ingroup     IAP
+ * \remarks     
+******************************************************************************/
 void IAP_setAddress(unsigned int addr)
 {
     IAP_ADDRL = addr;
     IAP_ADDRH = addr >> 0x8;
 }
 
-/*
- * @Prototype:void IAP_setCommand(IAP_command cmd)
- * @Parameter:(1)cmd:set current command
- * @Ret-val:
- * @Note:set command
- */
+/*****************************************************************************/
+/** 
+ * \author      Jiabin Hsu
+ * \date        
+ * \brief       send IAP command to IAP module by writing IAP_CMD register
+ * \param[in]   cmd: expected IAP command
+ * \return      none
+ * \ingroup     IAP
+ * \remarks     
+******************************************************************************/
 void IAP_setCommand(IAP_command cmd)
 {
     IAP_CMD = cmd;
 }
 
-/*
- * @Prototype:void IAP_trig(void)
- * @Parameter:
- * @Ret-val:
- * @Note:Trigger instruction
- */
+/*****************************************************************************/
+/** 
+ * \author      Jiabin Hsu
+ * \date        
+ * \brief       trigger instruction
+ * \param[in]   
+ * \return      none
+ * \ingroup     IAP
+ * \remarks     
+******************************************************************************/
 void IAP_trig(void)
 {
     IAP_TRIG = 0x5A;
     IAP_TRIG = 0xA5;
 }
 
-/*
- * @Prototype:void IAP_writeByte(unsigned int addr,byte dat)
- * @Parameter:
- *  (1)addr:operating address
- *  (2)dat:target data
- * @Ret-val:
- * @Note:write the value into the register in the specified address
- */
+/*****************************************************************************/
+/** 
+ * \author      Jiabin Hsu
+ * \date        
+ * \brief       write data to specified IAP area
+ * \param[in]   addr: address of target IAP area
+ * \param[in]   dat : one byte of data
+ * \return      write successfully(true) or not(false)
+ * \ingroup     IAP
+ * \remarks     
+******************************************************************************/
 bool IAP_writeByte(unsigned int addr,byte dat)
 {
     bool status = false;
@@ -165,5 +202,9 @@ bool IAP_writeByte(unsigned int addr,byte dat)
 
     return status;
 }
+
+#else
+    #warning Nothing to be done... User should remove .c file which is disabled by compile control macro from current directory.
+#endif
 
 #endif

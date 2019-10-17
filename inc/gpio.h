@@ -1,22 +1,29 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:operate on-chip GPIO module
- * @Required-compiler:SDCC
- * @Support-mcu:STC micro STC11 series
- * @Version:V0
- */
- 
+/*****************************************************************************/
+/** 
+ * \file        gpio.h
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \brief       operations for GPIO module
+ * \note        
+ * \version     v0.0
+ * \ingroup     GPIO
+******************************************************************************/
+
 #ifndef ___GPIO_H___
 #define ___GPIO_H___
  
-/* ----- @header file ----- */
-#include "stc11.h"
+/*****************************************************************************
+ *                             header file                                   *
+ *****************************************************************************/
+#include "hw/stc11.h"
 #include "macro.h"
  
-/* ----- @enumeration type ----- */
-/* define port */
+/*****************************************************************************
+ *                           enumeration type                                *
+ *****************************************************************************/     
+
+/**
+ *\brief: define port
+ */
 typedef enum
 {
     PERIPH_GPIO_0 = 0x0,
@@ -26,7 +33,9 @@ typedef enum
     PERIPH_GPIO_4 = 0x4
 } PERIPH_GPIO;
 
-/* define pin */
+/**
+ *\brief: define pin
+ */
 typedef enum
 {
     PERIPH_GPIO_PIN_0 = 0x01,
@@ -39,7 +48,9 @@ typedef enum
     PERIPH_GPIO_PIN_7 = 0x80
 } PERIPH_GPIO_PIN;
 
-/* mark input/output mode */
+/**
+ *\brief: mark work mode
+ */
 typedef enum
 {
     GPIO_mode_HIS = 0x2,     /* high-impedance state */
@@ -48,8 +59,13 @@ typedef enum
     GPIO_mode_QBD = 0x0      /* quasi-bidirectional(be compatible with classical 8051 MCUs) */
 } GPIO_mode;
 
-/* ----- @structure define ----- */
-/* a structure for GPIO configuration */
+/*****************************************************************************
+ *                           structure define                                *
+ *****************************************************************************/
+
+/**
+ *\brief: for GPIO configuration
+ */
 typedef struct
 {
     FunctionalState value;
@@ -57,7 +73,9 @@ typedef struct
     PERIPH_GPIO_PIN pin;
 } GPIO_configTypeDef;
 
-/* ----- @function ----- */
+/*****************************************************************************
+ *                          function declare                                 *
+ *****************************************************************************/
 void GPIO_config(PERIPH_GPIO gpio,GPIO_configTypeDef *gc);
 void GPIO_configBitValue(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin,FunctionalState f);
 void GPIO_configMode(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin,GPIO_mode mode);

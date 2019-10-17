@@ -1,25 +1,82 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:includes some definitions for operating IAP module
- * @Required-compiler:SDCC
- * @Support-mcu:STC micro STC11 series
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file        iap.h
+ * \author      Jiabin Hsu | zsiothsu@zhishan-iot.tk
+ * \brief       operations for IAP module
+ * \note        
+ * \version     v0.0
+ * \ingroup     IAP
+******************************************************************************/
 
 #ifndef ___IAP_H___
 #define ___IAP_H___
 
-/* ----- @header file ----- */
-#include <compiler.h>
+/*****************************************************************************
+ *                             header file                                   *
+ *****************************************************************************/
 #include <stdbool.h>
-#include "stc11.h"
-#include "macro.h"
+/*****************************************************************************/
+#include "hw/stc11.h"
+/*****************************************************************************/
 #include "util.h"
 
-/* ----- @enumeration type ----- */
-/* mark command of IAP */
+/*****************************************************************************
+ *                                macro                                      *
+ *****************************************************************************/
+#define IAP_ADDR_START 0x0000
+
+#if (HML_MCU_MODEL == MCU_MODEL_STC11F01E)       || \
+    (HML_MCU_MODEL == MCU_MODEL_STC11L01E)       || \
+    (HML_MCU_MODEL == MCU_MODEL_STC11F02E)       || \
+    (HML_MCU_MODEL == MCU_MODEL_STC11L02E)       || \
+    (HML_MCU_MODEL == MCU_MODEL_STC11F03E)       || \
+    (HML_MCU_MODEL == MCU_MODEL_STC11L03E)
+        #define IAP_ADDR_END 0x07FF
+#elif (HML_MCU_MODEL == MCU_MODEL_STC11F04E)     || \
+      (HML_MCU_MODEL == MCU_MODEL_STC11L04E)     || \
+      (HML_MCU_MODEL == MCU_MODEL_STC11F05E)     || \
+      (HML_MCU_MODEL == MCU_MODEL_STC11L05E)     || \
+      (HML_MCU_MODEL == MCU_MODEL_STC11F60XE)    || \
+      (HML_MCU_MODEL == MCU_MODEL_STC11L60XE)
+        #define IAP_ADDR_END 0x03FF
+#elif (HML_MCU_MODEL == MCU_MODEL_IAP11F06)      || \
+      (HML_MCU_MODEL == MCU_MODEL_IAP11L06)
+        #define IAP_ADDR_END 0x17FF
+#elif (HML_MCU_MODEL == MCU_MODEL_STC11F08XE)    || \
+      (HML_MCU_MODEL == MCU_MODEL_STC11L08XE)
+        #define IAP_ADDR_END 0xD3FF
+#elif (HML_MCU_MODEL == MCU_MODEL_STC11F16XE)    || \
+      (HML_MCU_MODEL == MCU_MODEL_STC11L16XE)
+        #define IAP_ADDR_END 0xB3FF
+#elif (HML_MCU_MODEL == MCU_MODEL_STC11F32XE)    || \
+      (HML_MCU_MODEL == MCU_MODEL_STC11L32XE)
+        #define IAP_ADDR_END 0x73FF
+#elif (HML_MCU_MODEL == MCU_MODEL_STC11F40XE)    || \
+      (HML_MCU_MODEL == MCU_MODEL_STC11L40XE)
+        #define IAP_ADDR_END 0x53FF
+#elif (HML_MCU_MODEL == MCU_MODEL_STC11F48XE)    || \
+      (HML_MCU_MODEL == MCU_MODEL_STC11L48XE)
+        #define IAP_ADDR_END 0x33FF
+#elif (HML_MCU_MODEL == MCU_MODEL_STC11F52XE)    || \
+      (HML_MCU_MODEL == MCU_MODEL_STC11L52XE)
+        #define IAP_ADDR_END 0x23FF
+#elif (HML_MCU_MODEL == MCU_MODEL_STC11F56XE)    || \
+      (HML_MCU_MODEL == MCU_MODEL_STC11L56XE)
+        #define IAP_ADDR_END 0x13FF
+#elif (HML_MCU_MODEL == MCU_MODEL_IAP11F62X)     || \
+      (HML_MCU_MODEL == MCU_MODEL_IAP11L62X)
+        #define IAP_ADDR_END 0xF7FF
+#else
+    #define IAP_ADDR_END 0x0000
+#endif
+
+/*****************************************************************************
+ *                           enumeration type                                *
+ *****************************************************************************/
+
+/**
+ *\brief: define IAP command
+ */
 typedef enum
 {
     IAP_command_idle  = 0x0,
@@ -28,64 +85,9 @@ typedef enum
     IAP_command_erase = 0x3
 } IAP_command;
 
-/* ---------- address define --------- */
-#define IAP_ADDR_START 0x0000
-
-#if (_MCU_MODEL_ == _MCU_STC11F01E_)  || (_MCU_MODEL_ == _MCU_STC11L01E_) || \
-    (_MCU_MODEL_ == _MCU_STC11F02E_)  || (_MCU_MODEL_ == _MCU_STC11L02E_) || \
-    (_MCU_MODEL_ == _MUC_STC11F03E_)  || (_MCU_MODEL_ == _MUC_STC11L03E_) || \
-    (_MCU_MODEL_ == _MCU_STC11F60XE_) || (_MCU_MODEL_ == _MCU_STC11L60XE_)
-
-    #define IAP_ADDR_END 0x07FF
-
-#elif (_MCU_MODEL_ == _MCU_STC11F04E_) || (_MCU_MODEL_ == _MCU_STC11L04E_) || \
-      (_MCU_MODEL_ == _MCU_STC11F05E_) || (_MCU_MODEL_ == _MCU_STC11L05E_)
-
-    #define IAP_ADDR_END 0x03FF
-
-#elif (_MCU_MODEL_ == _MCU_IAP11F06) || (_MCU_MODEL_ == _MCU_IAP11L06_)
-
-    #define IAP_ADDR_END 0x17FF
-
-#elif (_MCU_MODEL_ == _MCU_STC11F08XE_) || (_MCU_MODEL_ == _MCU_STC11L08XE_)
-
-    #define IAP_ADDR_END 0xD3FF
-
-#elif (_MCU_MODEL_ == _MCU_STC11F16XE_) || (_MCU_MODEL_ == _MCU_STC11L16XE_)
-
-    #define IAP_ADDR_END 0xB3FF
-
-#elif (_MCU_MODEL_ == _MCU_STC11F32XE_) || (_MCU_MODEL_ == _MCU_STC11L32XE_)
-
-    #define IAP_ADDR_END 0x73FF
-
-#elif (_MCU_MODEL_ == _MCU_STC11F40XE_) || (_MCU_MODEL_ == _MCU_STC11L40XE_)
-
-    #define IAP_ADDR_END 0x53FF
-
-#elif (_MCU_MODEL_ == _MCU_STC11F48XE_) || (_MCU_MODEL_ == _MCU_STC11L48XE)
-
-    #define IAP_ADDR_END 0x33FF
-
-#elif (_MCU_MODEL_ == _MCU_STC11F52XE_) || (_MCU_MODEL_ == _MCU_STC11L52XE)
-
-    #define IAP_ADDR_END 0x23FF
-
-#elif (_MCU_MODEL_ == _MCU_STC11F56XE_) || (_MCU_MODEL_ == _MCU_STC11L56XE_)
-
-    #define IAP_ADDR_END 0x13FF
-
-#elif (_MCU_MODEL_ == _MCU_IAP11F62X_) || (_MCU_MODEL_ == _MCU_IAP11L62X_)
-
-    #define IAP_ADDR_END 0xF7FF
-
-#else
-
-    #define IAP_ADDR_END 0x0000
-
-#endif
-
-/* ----- @function ----- */
+/*****************************************************************************
+ *                          function declare                                 *
+ *****************************************************************************/
 void IAP_cmd(Action a);
 bool IAP_eraseByte(unsigned int addr);
 void IAP_idle(void);

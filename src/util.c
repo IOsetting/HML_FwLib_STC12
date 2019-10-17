@@ -1,52 +1,66 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:provides some public functions
- * @Required-complier:SDCC
- * @Support-mcu:STC micro STC11 series
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file        util.c
+ * \author      Weillun Fong | wlf@zhishan-iot.tk
+ * \brief       public interface
+ * \note        
+ * \version     v0.0
+ * \ingroup     UTIL
+******************************************************************************/
 
 #include "util.h"
 
-#ifdef ___COMPILE_UTIL___
+#ifdef __CONF_COMPILE_UTIL
 
-/*
- * @Prototype:void disableAllInterrupts(void)
- * @Parameter:
- * @Ret-val:
- * @Note:disable all interrupts
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       disable master switch of MCU interrupt
+ * \param[in]   
+ * \return      none
+ * \ingroup     UTIL
+ * \remarks     
+******************************************************************************/
 void disableAllInterrupts(void)
 {
     EA = RESET;
 }
 
-/*
- * @Prototype:void enableAllInterrupts(void)
- * @Parameter:
- * @Ret-val:
- * @Note:enable total switch of interrupts
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       enable master switch of MCU interrupt
+ * \param[in]   
+ * \return      none
+ * \ingroup     UTIL
+ * \remarks     
+******************************************************************************/
 void enableAllInterrupts(void)
 {
     EA = SET;
 }
 
-/*
- * @Prototype:unsigned int pow(unsigned char x,unsigned char y)
- * @Parameter:(1)x:base;(2)y:power exponent
- * @Ret-val:result
- * @Note:
- *  (1)calculate result of x^y, data type of return value is unsigned int because of limited zone of 8051 MCU
- *  (2)due to SDCC doesn't provide this function, we write a lite version here.
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       self-define pow function
+ * \param[in]   x: base
+ * \param[in]   y: power exponent
+ * \return      calculate result
+ * \ingroup     UTIL
+ * \remarks     (1)calculate result of x^y, data type of return value is 
+ *              unsigned int because of limited zone of 8051 MCU
+ *              (2)due to SDCC doesn't provide this function, we write a lite 
+ *              version here
+******************************************************************************/
 unsigned int pow(unsigned char x,unsigned char y)
 {
     u8 base = x;
-    
-    if(y == 0)
+
+    if (y == 0)
     {
         return 1;
     }
@@ -57,22 +71,26 @@ unsigned int pow(unsigned char x,unsigned char y)
             x = x*base;
         }
     }
-    
+
     return x;
 }
 
-/*
- * @Prototype:void sleep(u16 t)
- * @Parameter:(1)how many ms users expected
- * @Ret-val:
- * @Note:software delay according to frequency of crystal oscillator
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       software delay according to MCU clock frequency
+ * \param[in]   t: how many one ms you want to delay
+ * \return      none
+ * \ingroup     UTIL
+ * \remarks     
+******************************************************************************/
 void sleep(u16 t)
 {
     u8 i = 0x00;
     u8 j = 0x00;
-    
-    #if ( _FRE_OSC_ == 11059200L )
+
+    #if ( MCU_FRE_CLK == 11059200L )
 
         while(t--)
         {
@@ -85,7 +103,7 @@ void sleep(u16 t)
             } while (--i);
         }
         
-    #elif ( _FRE_OSC_ == 12000000L )
+    #elif ( MCU_FRE_CLK == 12000000L )
 
         while(t--)
         {
@@ -100,11 +118,12 @@ void sleep(u16 t)
         }
         
     #else
-        
+
     //TODO
-    
+
     #endif
 }
 
+#else
+    #warning Nothing to be done... User should remove .c file which is disabled by compile control macro from current directory.
 #endif
-

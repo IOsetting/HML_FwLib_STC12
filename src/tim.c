@@ -1,72 +1,86 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:operations for timer resource
- * @Required-compiler:SDCC
- * @Support-mcu:STC micro STC11 series
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file        tim.c
+ * \author      Jiabin Hsu   | zsiothsu@zhishan-iot.tk
+ * \author      Weillun Fong | wlf@zhishan-iot.tk
+ * \brief       operations for timers
+ * \note        
+ * \version     v0.0
+ * \ingroup     TIM
+******************************************************************************/
 
 #include "tim.h"
 
-#ifdef ___COMPILE_TIM___
+#ifdef __CONF_COMPILE_TIM
 
-/*
- * @Prototype:unsigned int TIM_calcValue(unsigned int t,TIM_mode m)
- * @Parameter:
- *  (1)t:initial value of time (t/us)
- *  (2)m:work mode(refer to header file)
- * @Ret-val:initial value of timer counter register(if return 0x0000, it means that the time has over the limit)
- * @Note:calculate timer counter register value
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       calculate initial value for THx/TLx register
+ * \param[in]   t  : expected timing cycle(unit: us)
+ * \param[in]   m  : work mode of timer
+ * \param[in]   pre: prescaler factor
+ * \return      initial value of timer counter register(if return 0x0000, it 
+ *              means that the time has over the limit)
+ * \ingroup     TIM
+ * \remarks     
+******************************************************************************/
 unsigned int TIM_calculateValue(unsigned int t,TIM_mode m,TIM_prescaler prescaler)
 {
-    /* MachineCycle:12/_FRE_OSC_ */
-    unsigned int maxTick = 0x0000;
+    unsigned int maxTick = 0x0000;     /* MachineCycle:12/MCU_FRE_CLK */
+
     switch(m)
     {
-        case TIM_mode_0:maxTick = 0x1FFF;break;
-        case TIM_mode_1:maxTick = 0xFFFF;break;
-        case TIM_mode_2:maxTick = 0x00FF;break;
-        case TIM_mode_3:maxTick = 0x00FF;break;
-        default:break;
+        case TIM_mode_0: maxTick = 0x1FFF; break;
+        case TIM_mode_1: maxTick = 0xFFFF; break;
+        case TIM_mode_2: maxTick = 0x00FF; break;
+        case TIM_mode_3: maxTick = 0x00FF; break;
+        default: break;
     }
 
-    if((t*prescaler)/(_FRE_OSC_/1000000) >= maxTick )
+    if ((t*prescaler)/(MCU_FRE_CLK/1000000) >= maxTick )
     {
         return 0;
     }
     else
     {
-        return (maxTick+1-((t*prescaler)/(_FRE_OSC_/1000000)));
+        return (maxTick+1-((t*prescaler)/(MCU_FRE_CLK/1000000)));
     }
 }
 
-/*
- * @Prototype:void TIM_cmd(PERIPH_TIM tim,Action a)
- * @Parameter:
- *  (1)tim:target timer module
- *  (2)a:expected action
- * @Ret-val:
- * @Note:launch or stop timer
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       lanuch timer or not
+ * \param[in]   tim: target timer
+ * \param[in]   a  : expected state
+ * \return      none
+ * \ingroup     TIM
+ * \remarks     
+******************************************************************************/
 void TIM_cmd(PERIPH_TIM tim,Action a)
 {
     switch(tim)
     {
-        case PERIPH_TIM_0:TR0 = a;break;
-        case PERIPH_TIM_1:TR1 = a;break;
-        default:break;
+        case PERIPH_TIM_0: TR0 = a; break;
+        case PERIPH_TIM_1: TR1 = a; break;
+        default: break;
     }
 }
 
-/*
- * @Prototype:void TIM_cmd_clockOutput(PERIPH_TIM tim,Action a)
- * @Parameter:(1)tim:target timer module;(2)a:expected action
- * @Ret-val:
- * @Note:configure status of timer's clock output
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       enable or disable clock output
+ * \param[in]   tim: target timer
+ * \param[in]   a  : expected state
+ * \return      none
+ * \ingroup     TIM
+ * \remarks     
+******************************************************************************/
 void TIM_cmd_clockOutput(PERIPH_TIM tim,Action a)
 {
     switch(tim)
@@ -77,14 +91,17 @@ void TIM_cmd_clockOutput(PERIPH_TIM tim,Action a)
     }
 }
 
-/*
- * @Prototype:void TIM_config(PERIPH_TIM tim,TIM_configTypeDef *tc)
- * @Parameter:
- *  (1)tim:target timer module
- *  (2)tc:custom configure reference info.,look up details in header file
- * @Ret-val:
- * @Note:configure target timer
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       configure target timer
+ * \param[in]   tim: target timer
+ * \param[in]   tc : pointer to a struct includes all configuration information
+ * \return      none
+ * \ingroup     TIM
+ * \remarks     
+******************************************************************************/
 void TIM_config(PERIPH_TIM tim,TIM_configTypeDef *tc)
 {
     TIM_setFunction(tim,tc->function);
@@ -95,80 +112,102 @@ void TIM_config(PERIPH_TIM tim,TIM_configTypeDef *tc)
     TIM_INT_setPriority(tim,tc->interruptPriority);
 }
 
-/*
- * @Prototype:unsigned int TIM_getValue(PERIPH_TIM tim)
- * @Parameter:(1)tim:target timer module
- * @Ret-val:value(if return 0,means user call this function with error ways)
- * @Note:get timer's value
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       get value of target timer initial value register
+ * \param[in]   tim: target timer
+ * \return      current value of target timer initial value register, it will 
+ *              return 0 when pass a wrong patameter
+ * \ingroup     TIM
+ * \remarks     
+******************************************************************************/
 unsigned int TIM_getValue(PERIPH_TIM tim)
 {
     switch(tim)
     {
-        case PERIPH_TIM_0:return ((TH0 << 0x08) | TL0);
-        case PERIPH_TIM_1:return ((TH1 << 0x08) | TL1);
-        default:return 0;
+        case PERIPH_TIM_0: return ((TH0 << 0x08) | TL0);
+        case PERIPH_TIM_1: return ((TH1 << 0x08) | TL1);
+        default: return 0;
     }
 }
 
-/*
- * @Prototype:bool TIM_isOverflow(PERIPH_TIM tim)
- * @Parameter:(1)tim:target timer module
- * @Ret-val:(1)false:not overflow;(2)true:overflow;
- * @Note:check value register timer if is overflow
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       get overflow state of specified timer
+ * \param[in]   tim: target timer
+ * \return      true(overflow) or false
+ * \ingroup     TIM
+ * \remarks     
+******************************************************************************/
 bool TIM_isOverflow(PERIPH_TIM tim)
 {
     switch(tim)
     {
-        case PERIPH_TIM_0:return (bool)TF0;
-        case PERIPH_TIM_1:return (bool)TF1;
-        default:return false;
+        case PERIPH_TIM_0: return (bool)TF0;
+        case PERIPH_TIM_1: return (bool)TF1;
+        default: return false;
     }
 }
 
-/*
- * @Prototype:void TIM_setFunction(PERIPH_TIM tim,TIM_function f)
- * @Parameter:
- * (1)tim:target timer module
- * (2)f:expected function
- * @Ret-val:
- * @Note:configure the module as counter mode or timer mode
- */
+
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       set specified timer as counter or timer
+ * \param[in]   tim: target timer
+ * \param[in]   f  : expected function, and the value mustbe TIM_function_cnt 
+ *              or TIM_function_tim
+ * \return      none
+ * \ingroup     TIM
+ * \remarks     
+******************************************************************************/
 void TIM_setFunction(PERIPH_TIM tim,TIM_function f)
 {
     switch(tim)
     {
-        case PERIPH_TIM_0:CONFB(TMOD,BIT_NUM_T0_CT,f);break;
-        case PERIPH_TIM_1:CONFB(TMOD,BIT_NUM_T1_CT,f);break;
-        default:break;
+        case PERIPH_TIM_0: CONFB(TMOD,BIT_NUM_T0_CT,f); break;
+        case PERIPH_TIM_1: CONFB(TMOD,BIT_NUM_T1_CT,f); break;
+        default: break;
     }
 }
 
-/*
- * @Prototype:void TIM_setMode(PERIPH_TIM tim,TIM_mode m)
- * @Parameter:
- * (1)tim:target timer module
- * (2)m:work mode(refer to header file)
- * @Ret-val:
- * @Note:set work mode of timer
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       set work mode of specified timer
+ * \param[in]   tim: target timer
+ * \param[in]   m  : work mode(TIM_mode_0~3)
+ * \return      none
+ * \ingroup     TIM
+ * \remarks     
+******************************************************************************/
 void TIM_setMode(PERIPH_TIM tim,TIM_mode m)
 {
     switch(tim)
     {
-        case PERIPH_TIM_0:TMOD = (TMOD & 0xFC) | m;break;
-        case PERIPH_TIM_1:TMOD = (TMOD & 0xCF) | (m << 0x04);break;
-        default:break;
+        case PERIPH_TIM_0: TMOD = (TMOD & 0xFC) | m; break;
+        case PERIPH_TIM_1: TMOD = (TMOD & 0xCF) | (m << 0x04); break;
+        default: break;
     }
 }
 
-/*
- *@Prototype:void TIM_setPrescaler(PERIPH_TIM tim,TIM_prescaler pre)
- *@Parameter:(1)tim:target timer module;(2)pre:prescaler value
- *@Ret-val:
- *@Note:select 1T or 12T mode
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       set prescaler factor for selecting 1T or 12T mode
+ * \param[in]   tim: target timer
+ * \param[in]   pre: prescaler factor value
+ * \return      none
+ * \ingroup     TIM
+ * \remarks     
+******************************************************************************/
 void TIM_setPrescaler(PERIPH_TIM tim,TIM_prescaler pre)
 {
     switch(tim)
@@ -195,19 +234,21 @@ void TIM_setPrescaler(PERIPH_TIM tim,TIM_prescaler pre)
                 CLR_BIT_MASK(AUXR,T1x12);
             }
         } break;
-        default:break;
+        default: break;
     }
 }
 
-
-/*
- * @Prototype:void TIM_setValue(PERIPH_TIM tim,unsigned int val)
- * @Parameter:
- * (1)tim:target timer module
- * (2)val:expected value
- * @Ret-val:
- * @Note:set value in value register of specified timer module
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       set initial value register of target timer
+ * \param[in]   tim: target timer
+ * \param[in]   val: expected value
+ * \return      none
+ * \ingroup     TIM
+ * \remarks     
+******************************************************************************/
 void TIM_setValue(PERIPH_TIM tim,unsigned int val)
 {
     switch(tim)
@@ -222,44 +263,53 @@ void TIM_setValue(PERIPH_TIM tim,unsigned int val)
             TH1 = (u8)((val >> 0x8) & 0x00FF);
             TL1 = (u8)(val & 0x00FF);
         } break;
-        default:break;
+        default: break;
     }
 }
 
-/*
- * @Prototype:void TIM_INT_cmd(PERIPH_TIM tim,Action a)
- * @Parameter:
- * (1)tim:target timer module
- * (2)a:expected action,decide disable or enable timer interrupt
- * @Ret-val:
- * @Note:disable or enable timer interrupt
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       enable or disable interrupt function of target timer
+ * \param[in]   tim: target timer
+ * \param[in]   a  : expected state
+ * \return      none
+ * \ingroup     TIM
+ * \remarks     
+******************************************************************************/
 void TIM_INT_cmd(PERIPH_TIM tim,Action a)
 {
     switch(tim)
     {
-        case PERIPH_TIM_0:ET0 = a;break;
-        case PERIPH_TIM_1:ET1 = a;break;
+        case PERIPH_TIM_0: ET0 = a; break;
+        case PERIPH_TIM_1: ET1 = a; break;
         default:break;
     }
 }
 
-/*
- * @Prototype:void TIM_INT_setPriority(PERIPH_TIM tim,Action p)
- * @Parameter:
- * (1)tim:target timer module
- * (2)p:expected interrupt priority class
- * @Ret-val:
- * @Note:set priority of TIM module
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       set interrupt priority of target timer
+ * \param[in]   tim: target timer
+ * \param[in]   p  : expected interrupt priority(ENABLE: high priority; DISABLE:
+ *              low priority)
+ * \return      none
+ * \ingroup     TIM
+ * \remarks     
+******************************************************************************/
 void TIM_INT_setPriority(PERIPH_TIM tim,Action p)
 {
     switch(tim)
     {
-        case PERIPH_TIM_0:PT0 = p;break;
-        case PERIPH_TIM_1:PT1 = p;break;
-        default:break;
+        case PERIPH_TIM_0: PT0 = p; break;
+        case PERIPH_TIM_1: PT1 = p; break;
+        default: break;
     }
 }
 
+#else
+    #warning Nothing to be done... User should remove .c file which is disabled by compile control macro from current directory.
 #endif

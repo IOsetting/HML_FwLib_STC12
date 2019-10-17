@@ -1,65 +1,83 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:
- * #contains definitions that allow you to directly access the different memory areas of the 8051.
- * #have the similar functions like <absacc.h> in Keil
- * @Required-compiler:SDCC
- * @Support-mcu:STC micro STC11 series
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file        mem.c
+ * \author      Weillun Fong | wlf@zhishan-iot.tk
+ * \brief       operations for memory zone of MCU
+ * \note        allow you to directly access the different memory areas of STC11
+ *              series MCU
+ * \version     v0.0
+ * \ingroup     MEM
+******************************************************************************/
+
 
 #include "mem.h"
 
-#ifdef ___COMPILE_MEM___
+#ifdef __CONF_COMPILE_MEM
 
-/*
- * @Prototype:void MEM_BUS_setAccessCycleLength(MEM_BUS_accessCycleLength len)
- * @Parameter:(1)len: expected length
- * @Ret-val:None
- * @Note:configure the MOVX read/write pulse
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       configure the MOVX read/write pulse
+ * \param[in]   len: expected time length
+ * \return      none
+ * \ingroup     MEM
+ * \remarks     
+******************************************************************************/
 void MEM_BUS_setAccessCycleLength(MEM_BUS_accessCycleLength len)
 {
     BUS_SPEED = (BUS_SPEED & 0xF7) | len;
 }
 
-/*
- * @Prototype:void MEM_BUS_setAddressSetupTimeLength(MEM_BUS_addressSetupTimeLength len)
- * @Parameter:(1)len: expected length
- * @Ret-val:None
- * @Note:configure setup time and hold time of the P0 address until negative edge on pin ALE
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       configure P0 address setup time and hold time to ALE negative edge
+ * \param[in]   len: expected time length
+ * \return      none
+ * \ingroup     MEM
+ * \remarks     configure P0 address setup time and hold time to ALE negative edge
+******************************************************************************/
 void MEM_BUS_setAddressSetupTimeLength(MEM_BUS_addressSetupTimeLength len)
 {
     BUS_SPEED = (BUS_SPEED & 0xCF) | (len << 0x4);
 }
 
-/*
- * @Prototype:void MEM_cmd_ale(Action a)
- * @Parameter:(1)a:expected state
- * @Ret-val:None
- * @Note:enable or disable ALE pin
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       enable or disable pin ALE for Intel 8080 Bus
+ * \param[in]   a: expected state
+ * \return      none
+ * \ingroup     MEM
+ * \remarks     (1) disable ALE: as GPIO P45
+ *              (2) enable ALE : ALE is active only during a MOVX or MOVC instruction
+******************************************************************************/
 void MEM_cmd_ale(Action a)
 {
-    CONFB(P4SW,BIT_NUM_NA_P45,~a);
+    CONFB(P4SW,BIT_NUM_ALE_P45,~a);
 }
 
-/*
- * @Prototype:void MEM_cmd_internalExtendedRam(Action a)
- * @Parameter:(1)a:expected state
- * @Ret-val:
- * @Note:enable or disable internal extended RAM access
- *  > there is a RAM area integrated insides STC90 MCUs and it's independent in physics
- *  > if you enable this function,this area will occupy address zone in the beginning(RD+ series is 0000H~03FFH(1024 bytes),RC series is 0000H~00FFH(256 bytes));or this RAM area is hide,the MCU is as same as classical 8051 MCU now
- *  > if you want to enable this function,please remember select the option in STC-ISP
- */
+
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       enable or disable pin ALE for Intel 8080 Bus
+ * \param[in]   a: expected state
+ * \return      none
+ * \ingroup     MEM
+ * \remarks     there is 64K-byte(0x0000~0xFFFF) addressing space available for 
+ *              STC11 series MCU to access external data RAM and it's independent
+ *              in logic.
+******************************************************************************/
 void MEM_cmd_internalExtendedRam(Action a)
 {
     CONFB(AUXR,BIT_NUM_EXTRAM,~a);
 }
 
+#else
+    #warning Nothing to be done... User should remove .c file which is disabled by compile control macro from current directory.
 #endif
-

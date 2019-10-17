@@ -1,28 +1,42 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:includes all header file of the HML_FwLib_STC11
- * @Required-compiler:SDCC
- * @Support-mcu:STC micro STC11 series
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file        conf.h
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \brief       HML configurations, this file need to be modified by users
+ * \note        
+ * \version     v0.0
+ * \ingroup     generic
+******************************************************************************/
 
 #ifndef ___CONF_H___
 #define ___CONF_H___
 
-/* ----- @header file ----- */
-#include "bit.h"
-#include "exti.h"
-#include "gpio.h"
-#include "iap.h"
-#include "macro.h"
-#include "mem.h"
-#include "pwr.h"
-#include "rcc.h"
-#include "tim.h"
-#include "uart.h"
-#include "util.h"
-#include "wdt.h"
+/*****************************************************************************
+ *                                macro                                      *
+ *****************************************************************************/
+
+/**
+ *\brief: configure clock frequency of MCU
+ */
+#define __CONF_FRE_CLKIN 11059200L
+
+/**
+ *\brief: configure module of MCU
+ */
+#define __CONF_MCU_MODEL MCU_MODEL_STC11F04E
+
+/**
+ *\brief: select HML module which take part in compilation
+ */
+#define __CONF_COMPILE_EXTI
+#define __CONF_COMPILE_GPIO
+#define __CONF_COMPILE_IAP
+#define __CONF_COMPILE_MEM
+#define __CONF_COMPILE_PWR
+#define __CONF_COMPILE_RCC
+#define __CONF_COMPILE_TIM
+#define __CONF_COMPILE_UART
+#define __CONF_COMPILE_UTIL
+#define __CONF_COMPILE_WDT
 
 #endif
