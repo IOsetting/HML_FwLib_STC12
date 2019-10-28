@@ -1,22 +1,30 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @Compiler:SDCC v3.6.0
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:a example which shows that how to use HML_FwLib_STC10 to use watchdog module
- * @Test-board:ZS5110
- * @Test-mcu:STC11F16XE
- * @Version:V0
- */
- 
-#include "conf.h"
+/*****************************************************************************/
+/** 
+ * \file       wdt_feedDog.c
+ * \author     Weilun Fong | wlf@zhishan-iot.tk
+ * \date       
+ * \brief      a example of watchdog module
+ * \note       
+ * \version    v0.0
+ * \ingroup    example
+ * \remarks    test-board: ZS5110; test-MCU: STC11F16XE
+******************************************************************************/
 
-/*
- * @Prototype:void sys_init(void)
- * @Parameter:None
- * @Ret-val:None
- * @Note:init MCU
- */
+/*****************************************************************************
+ *                             header file                                   *
+ *****************************************************************************/
+#include "hml.h"
+
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       initial MCU
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void sys_init(void)
 {
     UART_configTypeDef uc;
@@ -36,7 +44,16 @@ void sys_init(void)
     WDT_cmd(ENABLE);
 }
 
-/* ----- @main ----- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       main function
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void main(void)
 {
     sys_init();
@@ -46,7 +63,7 @@ void main(void)
     {
         /*feed watchdog per 500ms*/
         sleep(500);
-        WDT_clear();
+        WDT_feed();
         UART_sendString("watch dog has been fed\r\n");
     }
 }

@@ -1,17 +1,30 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @Compiler:SDCC v3.6.0
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:a demo which shows power-down mode
- * @Test-board:ZS5110
- * @Test-mcu:STC11F16XE
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file       gpio_toggleIo.c
+ * \author     Weilun Fong | wlf@zhishan-iot.tk
+ * \date       
+ * \brief      example show how to use HML_FwLib_STC11 to toggle GPIO bit
+ * \note       
+ * \version    v0.0
+ * \ingroup    example
+ * \remarks    test-board: ZS5110; test-MCU: STC11F16XE
+******************************************************************************/
 
-#include "conf.h"
+/*****************************************************************************
+ *                             header file                                   *
+ *****************************************************************************/
+#include "hml.h"
 
-/* ----- @main ----- */
+/*****************************************************************************/
+/** 
+ * \author      Amy Chung
+ * \date        
+ * \brief       main function
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void main(void)
 {
     GPIO_resetBitValue(PERIPH_GPIO_2,PERIPH_GPIO_PIN_0);

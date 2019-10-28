@@ -1,26 +1,36 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @Compiler:SDCC v3.6.0
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:a demo which shows how to get frequency of the factory RC clock from internal RAM
- * @Test-board:ZS5110
- * @Test-mcu:STC11F16XE
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file       mem_getFactoryClockData.c
+ * \author     Weilun Fong | wlf@zhishan-iot.tk
+ * \date       
+ * \brief      example for get frequency
+ * \note       a example which shows how to get frequency of the factory RC 
+ *             clock from internal RAM
+ * \version    v0.0
+ * \ingroup    example
+ * \remarks    test-board: ZS5110; test-MCU: STC11F16XE
+******************************************************************************/
 
-/* ----- @header file ----- */
-#include "conf.h"
+/*****************************************************************************
+ *                             header file                                   *
+ *****************************************************************************/
+#include "hml.h"
 
-/* ----- @macro ----- */
+/*****************************************************************************
+ *                                macro                                      *
+ *****************************************************************************/
 #define ADDR_RAM_FACTORY_RC_CLK 0xFC   /* mark address */
 
-/*
- * @Prototype:app_getFactoryClockData(byte *dat)
- * @Parameter:(1)*dat:the pointer of the area for storing data
- * @Ret-val:None
- * @Note:get factory clock data from internal RAM(address is 0xFC~0xFF)
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       get factory clock data from internal RAM(address is 0xFC~0xFF)
+ * \param[in]   *dat: the pointer of the area for storing data
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void app_getFactoryClockData(byte *dat)
 {
     u8 i = 0;
@@ -32,12 +42,16 @@ void app_getFactoryClockData(byte *dat)
     }
 }
 
-/*
- * @Prototype:void sys_init(void)
- * @Parameter:None
- * @Ret-val:None
- * @Note:init MCU
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       initial MCU
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void sys_init(void)
 {
     UART_configTypeDef uc;
@@ -55,12 +69,17 @@ void sys_init(void)
     UART_config(&uc);
 }
 
-/*
- * @Prototype:void util_byteToHexString(byte src,char *res)
- * @Parameter:(1)src:the byte of date which is going to transfer; (2)res:a array for storing result
- * @Ret-val:None
- * @Note:transfer byte to hex string
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       transfer byte to hex string
+ * \param[in]   src: the byte of date which is going to transfer
+ * \param[in]   res: a array for storing result
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void util_byteToHexString(byte src,char *res)
 {
     u8 i = 2;
@@ -87,7 +106,16 @@ void util_byteToHexString(byte src,char *res)
 
 }
 
-/* ----- @main ----- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       main function
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void main(void)
 {
     byte accessResult[4];    /* store results */

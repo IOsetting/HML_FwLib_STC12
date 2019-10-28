@@ -1,17 +1,30 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @Compiler:SDCC v3.6.0
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:a example which shows how to configure pin ALE/P45 as GPIO
- * @Test-board:ZS5110
- * @Test-mcu:STC11F16XE
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file       gpio_p45.c
+ * \author     Weilun Fong | wlf@zhishan-iot.tk
+ * \date       
+ * \brief      show how to use HML_FwLib_STC11 to toggle GPIO bit
+ * \note       a example which shows how to configure pin ALE/P45 as GPIO
+ * \version    v0.0
+ * \ingroup    example
+ * \remarks    test-board: ZS5110; test-MCU: STC11F16XE
+******************************************************************************/
 
-#include "conf.h"
+/*****************************************************************************
+ *                             header file                                   *
+ *****************************************************************************/
+#include "hml.h"
 
-/* ----- @main ----- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       main function
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void main(void)
 {    
     GPIO_P45_cmd(ENABLE);

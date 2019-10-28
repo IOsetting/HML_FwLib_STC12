@@ -1,22 +1,31 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @Compiler:SDCC v3.6.0
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:a example which shows how to use HML_FwLib_STC10 to toggle P10 state per one second by TIM0 module
- * @Test-board:ZS5110
- * @Test-mcu:STC11F16XE
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file       tim_toggleIo.c
+ * \author     Weilun Fong | wlf@zhishan-iot.tk
+ * \date       
+ * \brief      a example which shows how to toggle state of specified pin periodic
+ *             via timers' interrupt
+ * \note       
+ * \version    v0.0
+ * \ingroup    example
+ * \remarks    test-board: ZS5110; test-MCU: STC11F16XE
+******************************************************************************/
 
-#include "conf.h"
+/*****************************************************************************
+ *                             header file                                   *
+ *****************************************************************************/
+#include "hml.h"
 
-/*
- * @Prototype:void sys_init(void)
- * @Parameter:
- * @Ret-val:
- * @Note:init MCU
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       initial MCU
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void sys_init(void)
 {
     TIM_configTypeDef tc;
@@ -33,19 +42,32 @@ void sys_init(void)
     TIM_cmd(PERIPH_TIM_0,ENABLE);
 }
 
-/* ----- @main ----- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       main function
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void main(void)
 {
     sys_init();
     while(true);
 }
 
-/*
- * @Prototype:void tim0_isr(void)
- * @Parameter:
- * @Ret-val:
- * @Note:interrupt handle function for TIM0
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       interrupt service function for TIM0
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void tim0_isr(void) __interrupt TF0_VECTOR
 {
     static u8 i = 0;

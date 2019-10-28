@@ -1,22 +1,31 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @Compiler:SDCC v3.6.0
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:a example which shows how to toggle IO by EXTI module
- * @Test-board:ZS5110
- * @Test-mcu:STC11F16XE
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file       exti_toggleIo.c
+ * \author     Weilun Fong | wlf@zhishan-iot.tk
+ * \date       
+ * \brief      example for interrupt priority
+ * \note       a example which shows how to use HML_FwLib_STC11 to toggle P12 
+ *             state when EXTI is trigged
+ * \version    v0.0
+ * \ingroup    example
+ * \remarks    test-board: ZS5110; test-MCU: STC11F16XE
+******************************************************************************/
 
-#include "conf.h"
+/*****************************************************************************
+ *                             header file                                   *
+ *****************************************************************************/
+#include "hml.h"
 
-/*
- * @Prototype:void sys_init(void)
- * @Parameter:None
- * @Ret-val:None
- * @Note:init MCU
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       initial MCU
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void sys_init(void)
 {
     EXTI_configTypeDef ec;
@@ -30,19 +39,32 @@ void sys_init(void)
     GPIO_setBitValue(PERIPH_GPIO_2,PERIPH_GPIO_PIN_0);
 }
 
-/* ----- @main ----- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       main function
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void main(void)
 {
     sys_init();
     while(true);
 }
 
-/*
- * @Prototype:void exti1_isr(void)
- * @Parameter:None
- * @Ret-val:None
- * @Note:interrupt function for EXTI1, pin INT1 is connected to a button on board
- */
+/*****************************************************************************/
+/** 
+ * \author      Amy Chung
+ * \date        
+ * \brief       interrupt service function for EXTI1
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void exti1_isr(void) __interrupt IE1_VECTOR
 {
     GPIO_toggleBitValue(PERIPH_GPIO_2,PERIPH_GPIO_PIN_0);

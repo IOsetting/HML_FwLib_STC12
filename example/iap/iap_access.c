@@ -1,25 +1,35 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @Compiler:SDCC v3.6.0
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:a demo which shows how to access IAP area
- * @Test-board:ZS5110
- * @Test-mcu:STC11F16XE
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file       iap_access.c
+ * \author     Weilun Fong | wlf@zhishan-iot.tk
+ * \date       
+ * \brief      show how to use HML_FwLib_STC11 to execute access operation on IAP
+ * \note       
+ * \version    v0.0
+ * \ingroup    example
+ * \remarks    test-board: ZS5110; test-MCU: STC11F16XE
+******************************************************************************/
 
-#include "conf.h"
+/*****************************************************************************
+ *                             header file                                   *
+ *****************************************************************************/
+#include "hml.h"
 
-/* ----- @macro ----- */
+/*****************************************************************************
+ *                                macro                                      *
+ *****************************************************************************/
 #define IAP_ADDR_TEST IAP_ADDR_START    /* mark target area */   
 
-/*
- * @Prototype:void sys_init(void)
- * @Parameter:None
- * @Ret-val:None
- * @Note:init MCU
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       initial MCU
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void sys_init(void)
 {
     UART_configTypeDef uc;
@@ -38,12 +48,17 @@ void sys_init(void)
     IAP_cmd(ENABLE);
 }
 
-/*
- * @Prototype:void util_byteToHexString(byte src,char *res)
- * @Parameter:(1)src:the byte of date which is going to transfer; (2)res:a array for storing result
- * @Ret-val:None
- * @Note:transfer byte to hex string
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       transfer byte to hex string
+ * \param[in]   src: the byte of date which is going to transfer
+ * \param[in]   res: a array for storing result
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void util_byteToHexString(byte src,char *res)
 {
     u8 i = 2;
@@ -70,7 +85,16 @@ void util_byteToHexString(byte src,char *res)
 
 }
 
-/* ----- @main ----- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       main function
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void main(void)
 {
     char accessResult[3];                             /* store results */

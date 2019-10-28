@@ -1,28 +1,33 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @Compiler:SDCC v3.6.0
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:a example which shows power-down mode and recover from it.
- * @Test-board:ZS5110
- * @Test-mcu:STC11F16XE
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file       pwr_powerDown.c
+ * \author     Weilun Fong | wlf@zhishan-iot.tk
+ * \date       
+ * \brief      example for interrupt priority
+ * \note       (1) a example which shows power-down mode and recover from it
+ *             (2) P32/P33 are connected to key
+ *             (3) user had better use IRC as clock source when run this segment 
+ *             of code
+ * \version    v0.0
+ * \ingroup    example
+ * \remarks    test-board: ZS5110; test-MCU: STC11F16XE
+******************************************************************************/
 
-#include "conf.h"
+/*****************************************************************************
+ *                             header file                                   *
+ *****************************************************************************/
+#include "hml.h"
 
-/*
- * @Extra-note:
- *  (1)P32/P33 are connected to key
- *  (2)user had better use IRC as clock source when run this segment of code
- */
-
-/*
- * @Prototype:void sys_init(void)
- * @Parameter:None
- * @Ret-val:None
- * @Note:init MCU
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       initial MCU
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void sys_init(void)
 {
     EXTI_configTypeDef ec;
@@ -48,7 +53,16 @@ void sys_init(void)
     
 }
 
-/* ----- @main ----- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       main function
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void main(void)
 {
     sys_init();
@@ -71,12 +85,16 @@ void main(void)
     }
 }
 
-/*
- * @Prototype:void exti0_isr(void) __interrupt IE0_VECTOR
- * @Parameter:
- * @Ret-val:
- * @Note:interrupt handle function for EXTI0
- */
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       interrupt service function for EXTI0
+ * \param[in]   
+ * \return      none
+ * \ingroup     example
+ * \remarks     
+******************************************************************************/
 void exti0_isr(void) __interrupt IE0_VECTOR
 {    
     /* do nothing, recover when one extern interrupt is triggered */
