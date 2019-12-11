@@ -8,7 +8,7 @@
  * \ingroup     PWR
 ******************************************************************************/
 
-#include "pwr.h"
+#include "hml/pwr.h"
 
 #ifdef __CONF_COMPILE_PWR
 

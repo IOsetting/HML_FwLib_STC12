@@ -8,24 +8,25 @@
  * \ingroup     UTIL
 ******************************************************************************/
 
-#ifndef ___UTIL_H___
-#define ___UTIL_H___
+#ifndef ___HML_UTIL_H___
+#define ___HML_UTIL_H___
 
 /*****************************************************************************
  *                             header file                                   *
  *****************************************************************************/
 #include <compiler.h>
 /*****************************************************************************/
-#include "hw/stc11.h"
+#include "hml/stc11.h"
 /*****************************************************************************/
-#include "macro.h"
+#include "hml/macro.h"
+#include "hml/types.h"
 
 /*****************************************************************************
  *                          function declare                                 *
  *****************************************************************************/
 void disableAllInterrupts(void);
 void enableAllInterrupts(void);
-unsigned int pow(unsigned char x,unsigned char y);
-void sleep(u16 t);
+uint16_t pow(uint8_t x,uint8_t y);
+void sleep(uint16_t t);
 
 #endif

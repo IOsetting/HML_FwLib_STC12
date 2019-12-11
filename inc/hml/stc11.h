@@ -1,15 +1,15 @@
-/*
- * @Author:
- *  #Weilun Fong | wlf(at)zhishan-iot.tk
- * @E-mail:mcu(at)zhishan-iot.tk
- * @File-description:STC11xx header file
- * @Required-compiler:SDCC
- * @Support-mcu:STC micro STC11 series
- * @Version:V0
- */
+/*****************************************************************************/
+/** 
+ * \file        stc11.h
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \brief       STC11xx header file
+ * \note        
+ * \version     v0.0
+ * \ingroup     generic
+******************************************************************************/
 
-#ifndef ___STC11_H___
-#define ___STC11_H___
+#ifndef ___HML_STC11_H___
+#define ___HML_STC11_H___
 
 #include <8051.h>
 #include "bit.h"

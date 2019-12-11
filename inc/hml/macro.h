@@ -8,44 +8,13 @@
  * \ingroup     generic
 ******************************************************************************/
 
-#ifndef ___MACRO_H___
-#define ___MACRO_H___
+#ifndef ___HML_MACRO_H___
+#define ___HML_MACRO_H___
 
 /*****************************************************************************
  *                             header file                                   *
  *****************************************************************************/
-#include "conf.h"
-
-/*****************************************************************************
- *                             type define                                   *
- *****************************************************************************/
-typedef unsigned char byte;
-typedef unsigned char u8;
-typedef unsigned int  u16;
-typedef unsigned int  word;
-
-/*****************************************************************************
- *                           enumeration type                                *
- *****************************************************************************/
-
-/**
- *\brief: mark user action
- */
-typedef enum
-{
-    DISABLE = 0x0,
-    ENABLE  = !DISABLE
-} Action;
-
-
-/**
- *\brief: mark bit value/state
- */
-typedef enum
-{
-    RESET = 0x0,
-    SET   = !RESET
-} FunctionalState;
+#include "hml/conf.h"
 
 /*****************************************************************************
  *                                macro                                      *

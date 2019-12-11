@@ -1,19 +1,19 @@
 /*****************************************************************************/
 /** 
- * \file       iap_access.c
- * \author     Weilun Fong | wlf@zhishan-iot.tk
- * \date       
- * \brief      show how to use HML_FwLib_STC11 to execute access operation on IAP
- * \note       
- * \version    v0.0
- * \ingroup    example
- * \remarks    test-board: ZS5110; test-MCU: STC11F16XE
+ * \file        iap_access.c
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \date        
+ * \brief       show how to use HML_FwLib_STC11 to execute access operation on IAP
+ * \note        
+ * \version     v0.0
+ * \ingroup     example
+ * \remarks     test-board: ZS5110; test-MCU: STC11F16XE
 ******************************************************************************/
 
 /*****************************************************************************
  *                             header file                                   *
  *****************************************************************************/
-#include "hml.h"
+#include "hml/hml.h"
 
 /*****************************************************************************
  *                                macro                                      *
@@ -33,7 +33,7 @@
 void sys_init(void)
 {
     UART_configTypeDef uc;
-    
+
     uc.baudrate                    = 9600;                           /* baud rate is 9600bps */
     uc.baudrateGenerator           = UART_baudrateGenerator_brt;     /* select BRT as baud rate generator */
     uc.baudGeneratorPrescalerState = ENABLE;
@@ -61,9 +61,9 @@ void sys_init(void)
 ******************************************************************************/
 void util_byteToHexString(byte src,char *res)
 {
-    u8 i = 2;
+    uint8_t i = 2;
     byte tmp = 0;
-    
+
     res = res + 2;
     *res = '\0';
     
@@ -82,7 +82,6 @@ void util_byteToHexString(byte src,char *res)
         }
         src = src / 0x10;
     }
-
 }
 
 /*****************************************************************************/
@@ -99,7 +98,7 @@ void main(void)
 {
     char accessResult[3];                             /* store results */
     char __code test_data[3] = {0x20, 0x19, 0x04};    /* test data */
-    u8 i = 0;
+    uint8_t i = 0;
 
     sys_init();
     UART_sendString("MCU boot...\r\n\0");
@@ -118,7 +117,6 @@ void main(void)
             {
                 UART_sendString("Fail to write test byte\r\n\0");
             }
-
             /* read and show access result */
             util_byteToHexString(IAP_readByte(IAP_ADDR_TEST+i),accessResult);       
             UART_sendString("Access result: 0x");

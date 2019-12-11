@@ -1,20 +1,20 @@
 /*****************************************************************************/
 /** 
- * \file       pwr_idleMode.c
- * \author     Weilun Fong | wlf@zhishan-iot.tk
- * \date       
- * \brief      example for idle mode
- * \note       (1) a example which shows how to enter into idle mode and recover 
- *             from it
- * \version    v0.0
- * \ingroup    example
- * \remarks    test-board: ZS5110; test-MCU: STC11F16XE
+ * \file        pwr_idleMode.c
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \date        
+ * \brief       example for idle mode
+ * \note        (1) a example which shows how to enter into idle mode and recover 
+ *              from it
+ * \version     v0.0
+ * \ingroup     example
+ * \remarks     test-board: ZS5110; test-MCU: STC11F16XE
 ******************************************************************************/
 
 /*****************************************************************************
  *                             header file                                   *
  *****************************************************************************/
-#include "hml.h"
+#include "hml/hml.h"
 
 /*****************************************************************************/
 /** 
@@ -29,7 +29,7 @@
 void sys_init(void)
 {
     EXTI_configTypeDef ec;
-    
+
     ec.mode     = EXTI_mode_fallEdge;
     ec.priority = DISABLE;
     EXTI_config(PERIPH_EXTI_0,&ec);
@@ -52,11 +52,11 @@ void sys_init(void)
 void main(void)
 {
     sys_init();
+
     while(true)
     {
         sleep(200);
         GPIO_toggleBitValue(PERIPH_GPIO_1,PERIPH_GPIO_PIN_0);
-        
         /* check state of KEY(connected to P33) */
         if(GPIO_getBitValue(PERIPH_GPIO_3,PERIPH_GPIO_PIN_3) == RESET)
         {

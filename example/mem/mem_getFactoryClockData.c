@@ -1,20 +1,20 @@
 /*****************************************************************************/
 /** 
- * \file       mem_getFactoryClockData.c
- * \author     Weilun Fong | wlf@zhishan-iot.tk
- * \date       
- * \brief      example for get frequency
- * \note       a example which shows how to get frequency of the factory RC 
- *             clock from internal RAM
- * \version    v0.0
- * \ingroup    example
- * \remarks    test-board: ZS5110; test-MCU: STC11F16XE
+ * \file        mem_getFactoryClockData.c
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \date        
+ * \brief       example for get frequency
+ * \note        a example which shows how to get frequency of the factory RC 
+ *              clock from internal RAM
+ * \version     v0.0
+ * \ingroup     example
+ * \remarks     test-board: ZS5110; test-MCU: STC11F16XE
 ******************************************************************************/
 
 /*****************************************************************************
  *                             header file                                   *
  *****************************************************************************/
-#include "hml.h"
+#include "hml/hml.h"
 
 /*****************************************************************************
  *                                macro                                      *
@@ -33,7 +33,7 @@
 ******************************************************************************/
 void app_getFactoryClockData(byte *dat)
 {
-    u8 i = 0;
+    uint8_t i = 0;
 
     /* the data is stored in a specified area, address range of the ara is from 0xFC to 0xFF in internal RAM of STC10 MCU */
     for(i = 0;i < 4;i++)
@@ -82,7 +82,7 @@ void sys_init(void)
 ******************************************************************************/
 void util_byteToHexString(byte src,char *res)
 {
-    u8 i = 2;
+    uint8_t i = 2;
     byte tmp = 0;
 
     res = res + 2;
@@ -103,7 +103,6 @@ void util_byteToHexString(byte src,char *res)
         }
         src = src / 0x10;
     }
-
 }
 
 /*****************************************************************************/
@@ -120,7 +119,7 @@ void main(void)
 {
     byte accessResult[4];    /* store results */
     char buffer[2];
-    u8 i = 0;
+    uint8_t i = 0;
 
     sys_init();
 
@@ -137,7 +136,6 @@ void main(void)
             UART_sendString(buffer);
         }
         UART_sendString("\r\n");
-
         sleep(1000);    /* gap time */
     }
 }

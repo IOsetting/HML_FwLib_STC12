@@ -1,19 +1,19 @@
 /*****************************************************************************/
 /** 
- * \file       wdt_feedDog.c
- * \author     Weilun Fong | wlf@zhishan-iot.tk
- * \date       
- * \brief      a example of watchdog module
- * \note       
- * \version    v0.0
- * \ingroup    example
- * \remarks    test-board: ZS5110; test-MCU: STC11F16XE
+ * \file        wdt_feedDog.c
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \date        
+ * \brief       a example of watchdog module
+ * \note        
+ * \version     v0.0
+ * \ingroup     example
+ * \remarks     test-board: ZS5110; test-MCU: STC11F16XE
 ******************************************************************************/
 
 /*****************************************************************************
  *                             header file                                   *
  *****************************************************************************/
-#include "hml.h"
+#include "hml/hml.h"
 
 /*****************************************************************************/
 /** 
@@ -28,7 +28,7 @@
 void sys_init(void)
 {
     UART_configTypeDef uc;
-    
+
     uc.baudrate                    = 9600;                           /* baud rate is 9600bps */
     uc.baudrateGenerator           = UART_baudrateGenerator_tim1;    /* select timer-1 as baud rate generator */
     uc.baudGeneratorPrescalerState = ENABLE;
@@ -58,7 +58,7 @@ void main(void)
 {
     sys_init();
     UART_sendString("Startup MCU...\r\n");   /* startup info */
-    
+
     while(true)
     {
         /*feed watchdog per 500ms*/

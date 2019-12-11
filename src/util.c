@@ -8,7 +8,7 @@
  * \ingroup     UTIL
 ******************************************************************************/
 
-#include "util.h"
+#include "hml/util.h"
 
 #ifdef __CONF_COMPILE_UTIL
 
@@ -56,9 +56,9 @@ void enableAllInterrupts(void)
  *              (2)due to SDCC doesn't provide this function, we write a lite 
  *              version here
 ******************************************************************************/
-unsigned int pow(unsigned char x,unsigned char y)
+uint16_t pow(uint8_t x,uint8_t y)
 {
-    u8 base = x;
+    uint8_t base = x;
 
     if (y == 0)
     {
@@ -85,10 +85,10 @@ unsigned int pow(unsigned char x,unsigned char y)
  * \ingroup     UTIL
  * \remarks     
 ******************************************************************************/
-void sleep(u16 t)
+void sleep(uint16_t t)
 {
-    u8 i = 0x00;
-    u8 j = 0x00;
+    uint8_t i = 0x00;
+    uint8_t j = 0x00;
 
     #if ( MCU_FRE_CLK == 11059200L )
 

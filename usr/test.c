@@ -1,19 +1,19 @@
 /*****************************************************************************/
 /** 
- * \file       test.c
- * \author     Weilun Fong | wlf@zhishan-iot.tk
- * \date       
- * \brief      a demo file
- * \note       
- * \version    v0.0
- * \ingroup    generic
- * \remarks    test-board: generic; test-MCU: generic
+ * \file        test.c
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \date        
+ * \brief       a demo file
+ * \note        
+ * \version     v0.0
+ * \ingroup     generic
+ * \remarks     test-board: generic; test-MCU: generic
 ******************************************************************************/
 
 /*****************************************************************************
  *                             header file                                   *
  *****************************************************************************/
-#include "hml.h"
+#include "hml/hml.h"
 
 /*****************************************************************************/
 /** 

@@ -14,11 +14,7 @@
 /*****************************************************************************
  *                             header file                                   *
  *****************************************************************************/
-#include <stdint.h>
-/*****************************************************************************/
-#include "hw/stc11.h"
-/*****************************************************************************/
-#include "util.h"
+#include "hml/util.h"
 
 /*****************************************************************************
  *                           enumeration type                                *
@@ -54,7 +50,7 @@ typedef enum
 void RCC_BRT_cmd(Action a);
 void RCC_BRT_setClockOutput(Action a);
 void RCC_BRT_setPrescaler(RCC_BRT_prescaler pre);
-void RCC_BRT_setValue(unsigned char val);
+void RCC_BRT_setValue(uint8_t val);
 void RCC_setClockDivisionFactor(RCC_prescaler d);
 void RCC_softwareReset(void);
 uint32_t RCC_getSystemClockFrequency(void);

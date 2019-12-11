@@ -8,7 +8,7 @@
  * \ingroup     UART
 ******************************************************************************/
 
-#include "uart.h"
+#include "hml/uart.h"
 
 #ifdef __CONF_COMPILE_UART
 
@@ -24,7 +24,7 @@
 ******************************************************************************/
 void UART_cmd_mode0_multiBaudrate(Action a)
 {
-    /*
+    /**
      * DISABLE: the baud rate is equal to classical 8051 MCU (twelve divided-frequency)
      * ENABLE : the baud rate is two divided-frequency
      */
@@ -138,12 +138,12 @@ void UART_config(UART_configTypeDef *uc)
  * \ingroup     UART
  * \remarks     
 ******************************************************************************/
-unsigned int UART_getBaudGeneratorInitValue(UART_baudrateGenerator gen,uint32_t baud)
+uint16_t UART_getBaudGeneratorInitValue(UART_baudrateGenerator gen,uint32_t baud)
 {
     /* multi baud rate */
-    unsigned char flag_pre  = 0x0;
-    unsigned char flag_smod = 0x0;
-    unsigned int  res = 0x0000;
+    uint8_t   flag_pre  = 0x0;
+    uint8_t   flag_smod = 0x0;
+    uint16_t  res = 0x0000;
 
     /* check prescaler */
     if (gen == UART_baudrateGenerator_brt)

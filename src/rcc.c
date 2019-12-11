@@ -8,11 +8,11 @@
  * \ingroup     RCC
 ******************************************************************************/
 
-#include "rcc.h"
+#include "hml/rcc.h"
 
 #ifdef __CONF_COMPILE_RCC
 
-u8 df = 0x1;       /* mark current divided factor */
+uint8_t df = 0x1;       /* mark current divided factor */
 
 /*****************************************************************************/
 /** 
@@ -71,7 +71,7 @@ void RCC_BRT_setPrescaler(RCC_BRT_prescaler pre)
  * \ingroup     RCC
  * \remarks     
 ******************************************************************************/
-void RCC_BRT_setValue(unsigned char val)
+void RCC_BRT_setValue(uint8_t val)
 {
     BRT = val;
 }

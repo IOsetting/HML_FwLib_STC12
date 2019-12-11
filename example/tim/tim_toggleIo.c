@@ -1,20 +1,20 @@
 /*****************************************************************************/
 /** 
- * \file       tim_toggleIo.c
- * \author     Weilun Fong | wlf@zhishan-iot.tk
- * \date       
- * \brief      a example which shows how to toggle state of specified pin periodic
- *             via timers' interrupt
- * \note       
- * \version    v0.0
- * \ingroup    example
- * \remarks    test-board: ZS5110; test-MCU: STC11F16XE
+ * \file        tim_toggleIo.c
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \date        
+ * \brief       a example which shows how to toggle state of specified pin periodic
+ *              via timers' interrupt
+ * \note        
+ * \version     v0.0
+ * \ingroup     example
+ * \remarks     test-board: ZS5110; test-MCU: STC11F16XE
 ******************************************************************************/
 
 /*****************************************************************************
  *                             header file                                   *
  *****************************************************************************/
-#include "hml.h"
+#include "hml/hml.h"
 
 /*****************************************************************************/
 /** 
@@ -70,7 +70,7 @@ void main(void)
 ******************************************************************************/
 void tim0_isr(void) __interrupt TF0_VECTOR
 {
-    static u8 i = 0;
+    static uint8_t i = 0;
 
     TIM_setValue(PERIPH_TIM_0,65536-50000); /* reload initial value */
     i++;

@@ -9,8 +9,7 @@
  * \ingroup     MEM
 ******************************************************************************/
 
-
-#include "mem.h"
+#include "hml/mem.h"
 
 #ifdef __CONF_COMPILE_MEM
 

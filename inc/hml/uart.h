@@ -1,6 +1,6 @@
 /*****************************************************************************/
 /** 
- * \file        uart.c
+ * \file        uart.h
  * \author      Weilun Fong | wlf@zhishan-iot.tk
  * \brief       operations for UART
  * \note        
@@ -8,16 +8,14 @@
  * \ingroup     UART
 ******************************************************************************/
 
-#ifndef ___UART_H___
-#define ___UART_H___
+#ifndef ___HML_UART_H___
+#define ___HML_UART_H___
 
 /*****************************************************************************
  *                             header file                                   *
  *****************************************************************************/
-#include <stdint.h>
-/*****************************************************************************/
-#include "rcc.h"
-#include "tim.h"
+#include "hml/rcc.h"
+#include "hml/tim.h"
 
 /*****************************************************************************
  *                           enumeration type                                *
@@ -78,7 +76,7 @@ void UART_cmd_mode0_multiBaudrate(Action a);
 void UART_cmd_multiBaudrate(Action a);
 void UART_cmd_receive(Action a);
 void UART_config(UART_configTypeDef *uc);
-unsigned int UART_getBaudGeneratorInitValue(UART_baudrateGenerator gen,uint32_t baud);
+uint16_t UART_getBaudGeneratorInitValue(UART_baudrateGenerator gen,uint32_t baud);
 FunctionalState UART_isReceived(void);
 FunctionalState UART_isTransmitted(void);
 void UART_sendByte(byte dat);

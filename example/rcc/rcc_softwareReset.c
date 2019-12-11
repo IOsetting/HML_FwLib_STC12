@@ -1,20 +1,20 @@
 /*****************************************************************************/
 /** 
- * \file       rcc_softwareReset.c
- * \author     Weilun Fong | wlf@zhishan-iot.tk
- * \date       
- * \brief      example for software reset
- * \note       a example which shows software reset via state of \
- *             IO(connected to LED)
- * \version    v0.0
- * \ingroup    example
- * \remarks    test-board: ZS5110; test-MCU: STC11F16XE
+ * \file        rcc_softwareReset.c
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \date        
+ * \brief       example for software reset
+ * \note        a example which shows software reset via state of \
+ *              IO(connected to LED)
+ * \version     v0.0
+ * \ingroup     example
+ * \remarks     test-board: ZS5110; test-MCU: STC11F16XE
 ******************************************************************************/
 
 /*****************************************************************************
  *                             header file                                   *
  *****************************************************************************/
-#include "hml.h"
+#include "hml/hml.h"
 
 /*****************************************************************************/
 /** 
@@ -29,7 +29,7 @@
 void sys_init(void)
 {
     EXTI_configTypeDef ec;
-    
+
     ec.mode     = EXTI_mode_fallEdge;
     ec.priority = DISABLE;
     EXTI_config(PERIPH_EXTI_0,&ec);
@@ -72,7 +72,7 @@ void main(void)
 void exti0_isr(void) __interrupt IE0_VECTOR
 {    
     disableAllInterrupts();
-    
+
     /* indicate the MCU is going to reset */
     GPIO_setBitValue(PERIPH_GPIO_1,PERIPH_GPIO_PIN_0 | PERIPH_GPIO_PIN_1 | PERIPH_GPIO_PIN_2);
     sleep(500);
@@ -82,6 +82,6 @@ void exti0_isr(void) __interrupt IE0_VECTOR
     sleep(250);
     GPIO_toggleBitValue(PERIPH_GPIO_1,PERIPH_GPIO_PIN_2);
     sleep(250);
-    
+
     RCC_softwareReset();
 }

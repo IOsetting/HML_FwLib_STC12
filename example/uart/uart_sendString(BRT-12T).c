@@ -1,20 +1,20 @@
 /*****************************************************************************/
 /** 
- * \file       uart_sendString(BRT-12T).c
- * \author     Weilun Fong | wlf@zhishan-iot.tk
- * \date       
- * \brief      a example which shows how to send a string via UART
+ * \file        uart_sendString_brt_12t.c
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \date        
+ * \brief       a example which shows how to send a string via UART
  * \note       
- * \version    v0.0
- * \ingroup    example
- * \remarks    test-board: ZS5110; test-MCU: STC11F16XE; use BRT-12T as baudrate
- *             generator
+ * \version     v0.0
+ * \ingroup     example
+ * \remarks     test-board: ZS5110; test-MCU: STC11F16XE; use BRT-12T as baudrate
+ *              generator
 ******************************************************************************/
 
 /*****************************************************************************
  *                             header file                                   *
  *****************************************************************************/
-#include "hml.h"
+#include "hml/hml.h"
 
 /*****************************************************************************/
 /** 
@@ -29,7 +29,7 @@
 void sys_init(void)
 {
     UART_configTypeDef uc;
-    
+
     uc.baudrate                    = 9600;                          /* baud rate is 9600bps */
     uc.baudrateGenerator           = UART_baudrateGenerator_brt;    /* select timer-1 as baud rate generator */
     uc.baudGeneratorPrescalerState = ENABLE;                        /* 12T mode */
@@ -54,7 +54,7 @@ void sys_init(void)
  * \remarks     
 ******************************************************************************/
 void main(void)
-{    
+{
     sys_init();
 
     while(true)

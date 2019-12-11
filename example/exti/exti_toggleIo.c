@@ -1,20 +1,20 @@
 /*****************************************************************************/
 /** 
- * \file       exti_toggleIo.c
- * \author     Weilun Fong | wlf@zhishan-iot.tk
- * \date       
- * \brief      example for interrupt priority
- * \note       a example which shows how to use HML_FwLib_STC11 to toggle P12 
- *             state when EXTI is trigged
- * \version    v0.0
- * \ingroup    example
- * \remarks    test-board: ZS5110; test-MCU: STC11F16XE
+ * \file        exti_toggleIo.c
+ * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \date        
+ * \brief       example for interrupt priority
+ * \note        a example which shows how to use HML_FwLib_STC11 to toggle P12 
+ *              state when EXTI is trigged
+ * \version     v0.0
+ * \ingroup     example
+ * \remarks     test-board: ZS5110; test-MCU: STC11F16XE
 ******************************************************************************/
 
 /*****************************************************************************
  *                             header file                                   *
  *****************************************************************************/
-#include "hml.h"
+#include "hml/hml.h"
 
 /*****************************************************************************/
 /** 
