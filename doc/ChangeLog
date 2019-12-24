@@ -1,10 +1,10 @@
-#FwLib       :HML_FwLib_STC11
-#Description :ChangeLog of HML_FwLib_STC11
-#E-mail      :mcu@zhishant-iot.tk
-#Organization:ZHISHAN-IoT(https://zhishan-iot.tk)
-#Page        :https://hw.zhishant-iot.tk/page/hml/detail/fwlib_stc11.html
+#FwLib       : HML_FwLib_STC11
+#Description : ChangeLog of HML_FwLib_STC11
+#E-mail      : mcu@zhishant-iot.tk
+#Organization: ZHISHAN-IoT(https://zhishan-iot.tk)
+#Page        : https://hw.zhishant-iot.tk/page/hml/detail/fwlib_stc11.html
 
->Version :
+>Version : v0.0.0
  Alias   :
- Date    :
- Note    :The first version of HML_FwLib_STC11!
+ Date    : 2019-12-24
+ Note    : The first version of HML_FwLib_STC11!
