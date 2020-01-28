@@ -28,15 +28,15 @@
 /**
  *\brief: select HML module which take part in compilation
  */
-#define __CONF_COMPILE_EXTI
-#define __CONF_COMPILE_GPIO
-#define __CONF_COMPILE_IAP
-#define __CONF_COMPILE_MEM
-#define __CONF_COMPILE_PWR
-#define __CONF_COMPILE_RCC
-#define __CONF_COMPILE_TIM
-#define __CONF_COMPILE_UART
-#define __CONF_COMPILE_UTIL
-#define __CONF_COMPILE_WDT
+#define __CONF_COMPILE_EXTI  1
+#define __CONF_COMPILE_GPIO  1
+#define __CONF_COMPILE_IAP   1
+#define __CONF_COMPILE_MEM   1
+#define __CONF_COMPILE_PWR   1
+#define __CONF_COMPILE_RCC   1
+#define __CONF_COMPILE_TIM   1
+#define __CONF_COMPILE_UART  1
+#define __CONF_COMPILE_UTIL  1
+#define __CONF_COMPILE_WDT   1
 
 #endif

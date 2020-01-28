@@ -4,13 +4,13 @@
  * \author      Weilun Fong | wlf@zhishan-iot.tk
  * \brief       operations for watchdog
  * \note        
- * \version     v0.1
+ * \version     v0.0
  * \ingroup     WDT
 ******************************************************************************/
 
 #include "hml/wdt.h"
 
-#ifdef __CONF_COMPILE_WDT
+#ifdef COMPILE_WDT
 
 /*****************************************************************************/
 /** 

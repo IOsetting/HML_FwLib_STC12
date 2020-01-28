@@ -10,7 +10,7 @@
 
 #include "hml/pwr.h"
 
-#ifdef __CONF_COMPILE_PWR
+#ifdef COMPILE_PWR
 
 /*****************************************************************************/
 /** 

@@ -10,7 +10,7 @@
 
 #include "hml/uart.h"
 
-#ifdef __CONF_COMPILE_UART
+#ifdef COMPILE_UART
 
 /*****************************************************************************/
 /** 

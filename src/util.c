@@ -10,7 +10,7 @@
 
 #include "hml/util.h"
 
-#ifdef __CONF_COMPILE_UTIL
+#ifdef COMPILE_UTIL
 
 /*****************************************************************************/
 /** 

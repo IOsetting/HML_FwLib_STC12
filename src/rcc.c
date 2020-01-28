@@ -10,7 +10,7 @@
 
 #include "hml/rcc.h"
 
-#ifdef __CONF_COMPILE_RCC
+#ifdef COMPILE_RCC
 
 uint8_t df = 0x1;       /* mark current divided factor */
 

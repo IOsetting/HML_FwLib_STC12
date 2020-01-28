@@ -16,3 +16,4 @@
              - support <library> target, user can get usage via <make help>
              - optimize <make version> function
            (2)refactor hml/version.h
+           (3)optimize macro for compile select

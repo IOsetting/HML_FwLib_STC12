@@ -146,6 +146,43 @@
         (model == MCU_MODEL_IAP11L62X)      \
     )
 
+/**
+ *\brief: compile select
+ */
+#if (__CONF_COMPILE_EXTI == 1)
+    #define COMPILE_EXTI
+#endif
+#if (__CONF_COMPILE_GPIO == 1)
+    #define COMPILE_GPIO
+#endif
+#if (__CONF_COMPILE_IAP == 1)
+    #define COMPILE_IAP
+#endif
+#if (__CONF_COMPILE_MEM == 1)
+    #define COMPILE_MEM
+#endif
+#if (__CONF_COMPILE_PWR == 1)
+    #define COMPILE_PWR
+#endif
+#if (__CONF_COMPILE_EXTI == 1)
+    #define COMPILE_EXTI
+#endif
+#if (__CONF_COMPILE_RCC == 1)
+    #define COMPILE_RCC
+#endif
+#if (__CONF_COMPILE_TIM == 1)
+    #define COMPILE_TIM
+#endif
+#if (__CONF_COMPILE_UART == 1)
+    #define COMPILE_UART
+#endif
+#if (__CONF_COMPILE_UTIL == 1)
+    #define COMPILE_UTIL
+#endif
+#if (__CONF_COMPILE_WDT == 1)
+    #define COMPILE_WDT
+#endif
+
 /*****************************************************************************
  *                           run-time check                                  *
  *****************************************************************************/
@@ -187,17 +224,17 @@
  *\brief: HML compile selection check
  */
 #ifndef HAVE_IAP
-    #ifdef __CONF_COMPILE_IAP
+    #ifdef COMPILE_IAP
         #error HML run-time check: error: specified MCU model does not support IAP function. (ERROR_CODE-0x04)
     #endif
 #endif
 
-#if (defined __CONF_COMPILE_RCC) && (!defined __CONF_COMPILE_UTIL)
+#if (defined COMPILE_RCC) && (!defined COMPILE_UTIL)
     #error HML run-time check: error: RCC depends on UTIL, please make sure to enable them it in conf.h (ERROR_CODE-0x05)
 #endif
 
-#ifdef __CONF_COMPILE_UART
-    #if (!defined __CONF_COMPILE_RCC) || (!defined __CONF_COMPILE_TIM) || (!defined __CONF_COMPILE_UTIL)
+#ifdef COMPILE_UART
+    #if (!defined COMPILE_RCC) || (!defined COMPILE_TIM) || (!defined COMPILE_UTIL)
         #error HML run-time check: error: UART epends on RCC, TIM and UTIL, please make sure to enable them all at the same time in conf.h. (ERROR_CODE-0x06)
     #endif
 #endif
