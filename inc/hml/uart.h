@@ -18,6 +18,11 @@
 #include "hml/tim.h"
 
 /*****************************************************************************
+ *                             array define                                  *
+ *****************************************************************************/
+static __code char hexTable[16] = { '0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+
+/*****************************************************************************
  *                           enumeration type                                *
  *****************************************************************************/
 /**
@@ -77,9 +82,11 @@ void UART_cmd_multiBaudrate(Action a);
 void UART_cmd_receive(Action a);
 void UART_config(UART_configTypeDef *uc);
 uint16_t UART_getBaudGeneratorInitValue(UART_baudrateGenerator gen,uint32_t baud);
+byte UART_getByte(void);
 FunctionalState UART_isReceived(void);
 FunctionalState UART_isTransmitted(void);
 void UART_sendByte(byte dat);
+void UART_sendHex(uint8_t hex);
 void UART_sendString(char *str);
 void UART_setBaudGenerator(UART_baudrateGenerator gen);
 void UART_setMode(UART_mode m);

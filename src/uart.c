@@ -190,6 +190,21 @@ uint16_t UART_getBaudGeneratorInitValue(UART_baudrateGenerator gen,uint32_t baud
 /*****************************************************************************/
 /** 
  * \author      Weilun Fong
+ * \date        2020/02/09
+ * \brief       get result of UART receiver
+ * \param[in]   
+ * \return      none
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+byte UART_getByte(void)
+{
+    return SBUF;
+}
+
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
  * \date        
  * \brief       get state of receiver
  * \param[in]   
@@ -233,6 +248,22 @@ void UART_sendByte(byte dat)
     SBUF = dat;
     while(!TI);
     TI = RESET;
+}
+
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        2020/02/09
+ * \brief       output a hex number with character format via UART
+ * \param[in]   hex: expected hex number(range: 0x0 ~ 0xF)
+ * \return      none
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+void UART_sendHex(uint8_t hex)
+{
+    UART_sendByte(hexTable[hex >> 0x4]);
+    UART_sendByte(hexTable[hex & 0xF]);
 }
 
 /*****************************************************************************/
