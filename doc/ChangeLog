@@ -15,7 +15,9 @@
  Note    : (1)update Makefile to v0.2.6
              - support <library> target, user can get usage via <make help>
              - optimize <make version> function
+              update Makefile to v0.3.1
+             - optimize Makefile structure and print format
+             - support MCU, CLKFRE, CODE, XRAM, CONF, VERBOSE variable
            (2)refactor hml/version.h
            (3)optimize macro for compile select
            (4)add function UART_getByte and UART_sendHex
-
