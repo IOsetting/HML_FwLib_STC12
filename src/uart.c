@@ -25,10 +25,11 @@
 void UART_cmd_mode0_multiBaudrate(Action a)
 {
     /**
-     * DISABLE: the baud rate is equal to classical 8051 MCU (twelve divided-frequency)
-     * ENABLE : the baud rate is two divided-frequency
+     * \note
+     *  DISABLE: the baud rate is equal to classical 8051 MCU (twelve divided-frequency)
+     *  ENABLE : the baud rate is two divided-frequency
      */
-    CONFB(AUXR,BIT_NUM_UART_M0x6,a);
+    CONFB(AUXR, BIT_NUM_UART_M0x6, a);
 }
 
 /*****************************************************************************/
@@ -43,7 +44,7 @@ void UART_cmd_mode0_multiBaudrate(Action a)
 ******************************************************************************/
 void UART_cmd_multiBaudrate(Action a)
 {
-    CONFB(PCON,BIT_NUM_SMOD0,a);
+    CONFB(PCON, BIT_NUM_SMOD0, a);
 }
 
 /*****************************************************************************/
@@ -103,7 +104,7 @@ void UART_config(UART_configTypeDef *uc)
         {
             RCC_BRT_setPrescaler(RCC_BRT_prescaler_1);
         }
-        RCC_BRT_setValue(UART_getBaudGeneratorInitValue(UART_baudrateGenerator_brt,uc->baudrate));
+        RCC_BRT_setValue(UART_getBaudGeneratorInitValue(UART_baudrateGenerator_brt, uc->baudrate));
     }
     else
     {
@@ -121,9 +122,10 @@ void UART_config(UART_configTypeDef *uc)
             tc.prescaler = TIM_prescaler_1;
         }
         tc.value             = 0x00;   /* because of logic order, the value need to be reloaded one more time */
-        TIM_config(PERIPH_TIM_1,&tc);
-        TIM_cmd(PERIPH_TIM_1,ENABLE);
-        TIM_setValue(PERIPH_TIM_1,UART_getBaudGeneratorInitValue(UART_baudrateGenerator_tim1,uc->baudrate));
+        TIM_config(PERIPH_TIM_1, &tc);
+        TIM_cmd(PERIPH_TIM_1, ENABLE);
+        TIM_setValue(PERIPH_TIM_1, \
+                     UART_getBaudGeneratorInitValue(UART_baudrateGenerator_tim1,uc->baudrate));
     }
 }
 
@@ -148,11 +150,11 @@ uint16_t UART_getBaudGeneratorInitValue(UART_baudrateGenerator gen,uint32_t baud
     /* check prescaler */
     if (gen == UART_baudrateGenerator_brt)
     {
-        flag_pre = GET_BIT(AUXR,BRTx12);
+        flag_pre = GET_BIT(AUXR, BRTx12);
     }
     else
     {
-        flag_pre = GET_BIT(AUXR,T1x12);
+        flag_pre = GET_BIT(AUXR, T1x12);
     }
 
     /* check multi-rate control bit */
@@ -165,20 +167,20 @@ uint16_t UART_getBaudGeneratorInitValue(UART_baudrateGenerator gen,uint32_t baud
     if (flag_pre)
     {
         /* check overflow */
-        if(baud < RCC_getSystemClockFrequency()/16*pow(2,flag_smod))
+        if (baud < RCC_getSystemClockFrequency()/16*pow(2, flag_smod))
         {
             res = (unsigned char)(256 - RCC_getSystemClockFrequency()/baud/32);
         }
     }
     else
     {
-        if(baud < RCC_getSystemClockFrequency()/12/16*pow(2,flag_smod))
+        if (baud < RCC_getSystemClockFrequency()/12/16*pow(2, flag_smod))
         {
-            res = (unsigned char)(256 - RCC_getSystemClockFrequency()/baud/12/32*pow(2,flag_smod));
+            res = (unsigned char)(256 - RCC_getSystemClockFrequency()/baud/12/32*pow(2, flag_smod));
         }
     }
 
-    if(gen != UART_baudrateGenerator_brt)
+    if (gen != UART_baudrateGenerator_brt)
     {
         res = res & 0x00FF;
         res = (res << 0x8) | res;
@@ -287,17 +289,6 @@ void UART_sendString(char *str)
     }
 }
 
-/*
- * @Prototype:void UART_setBaudGenerator(UART_baudrateGenerator gen)
- * @Parameter:(1)gen:expected generator
- * @Ret-val:None
- * @Note:specify baud rate generator of UART
- */
-void UART_setBaudGenerator(UART_baudrateGenerator gen)
-{
-    CONFB(AUXR,BIT_NUM_S1BRS,gen);
-}
-
 /*****************************************************************************/
 /** 
  * \author      Weilun Fong
@@ -308,23 +299,38 @@ void UART_setBaudGenerator(UART_baudrateGenerator gen)
  * \ingroup     UART
  * \remarks     
 ******************************************************************************/
-void UART_setMode(UART_mode m)
+void UART_setBaudGenerator(UART_baudrateGenerator gen)
+{
+    CONFB(AUXR, BIT_NUM_S1BRS, gen);
+}
+
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       set work mode of UART
+ * \param[in]   mode: expected work mode
+ * \return      none
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+void UART_setMode(UART_mode mode)
 {
     /**
-     * @Extra-note:
-     *  A.UART_mode_0 (8-bit shift register)
+     * \note
+     *  - UART_mode_0 (8-bit shift register)
      *    When UART_M0x6 bit is 0, the baud rate is _SYS_CLK_/12. Otherwise, it's _SYS_CLK_/2
-     *  B.UART_mode_1 (8-bit UART,variable baud rate)
+     *  - UART_mode_1 (8-bit UART,variable baud rate)
      *    The baud rate is (2^SMOD)/32*[Overflow rate of baud rate generator]
      *
-     * @How to calculate overflow rate of baud rate generator?
+     *  How to calculate overflow rate of baud rate generator?
      *  >T1x12 = 0: the rate is _SYS_CLK_/12/(256-TH1)
      *  >T1x12 = 1: the rate is _SYS_CLK_/(256-TH1)
      *  >BRTx12 = 0: the rate is _SYS_CLK_/12/(256-BRT)
      *  >BRTx12 = 1: the rate is _SYS_CLK_/(256-BRT)
      */
 
-    SCON = (SCON & 0x3F) | ((unsigned char)m << 0x6);
+    SCON = (SCON & 0x3F) | ((uint8_t)mode << 0x6);
 }
 
 /*****************************************************************************/
@@ -339,7 +345,7 @@ void UART_setMode(UART_mode m)
 ******************************************************************************/
 void UART_setPin(UART_pinmap pm)
 {
-    CONFB(AUXR1,BIT_NUM_UART_P1,pm);
+    CONFB(AUXR1, BIT_NUM_UART_P1, pm);
 }
 
 /*****************************************************************************/

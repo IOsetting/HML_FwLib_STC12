@@ -18,19 +18,19 @@
  * \author      Weilun Fong
  * \date        
  * \brief       calculate initial value for THx/TLx register
- * \param[in]   t  : expected timing cycle(unit: us)
- * \param[in]   m  : work mode of timer
- * \param[in]   pre: prescaler factor
+ * \param[in]   t   : expected timing cycle(unit: us)
+ * \param[in]   mode: work mode of timer
+ * \param[in]   pre : prescaler factor
  * \return      initial value of timer counter register(if return 0x0000, it 
  *              means that the time has over the limit)
  * \ingroup     TIM
  * \remarks     
 ******************************************************************************/
-uint16_t TIM_calculateValue(uint16_t t,TIM_mode m,TIM_prescaler pre)
+uint16_t TIM_calculateValue(uint16_t t, TIM_mode mode, TIM_prescaler pre)
 {
-    uint16_t maxTick = 0x0000;     /* MachineCycle:12/MCU_FRE_CLK */
+    uint16_t maxTick = 0x0000;     /* MachineCycle: 12/MCU_FRE_CLK */
 
-    switch(m)
+    switch (mode)
     {
         case TIM_mode_0: maxTick = 0x1FFF; break;
         case TIM_mode_1: maxTick = 0xFFFF; break;
@@ -60,9 +60,9 @@ uint16_t TIM_calculateValue(uint16_t t,TIM_mode m,TIM_prescaler pre)
  * \ingroup     TIM
  * \remarks     
 ******************************************************************************/
-void TIM_cmd(PERIPH_TIM tim,Action a)
+void TIM_cmd(PERIPH_TIM tim, Action a)
 {
-    switch(tim)
+    switch (tim)
     {
         case PERIPH_TIM_0: TR0 = a; break;
         case PERIPH_TIM_1: TR1 = a; break;
@@ -81,12 +81,12 @@ void TIM_cmd(PERIPH_TIM tim,Action a)
  * \ingroup     TIM
  * \remarks     
 ******************************************************************************/
-void TIM_cmd_clockOutput(PERIPH_TIM tim,Action a)
+void TIM_cmd_clockOutput(PERIPH_TIM tim, Action a)
 {
-    switch(tim)
+    switch (tim)
     {
-        case PERIPH_TIM_0: CONFB(WAKE_CLKO,BIT_NUM_T0CLKO,a); break;
-        case PERIPH_TIM_1: CONFB(WAKE_CLKO,BIT_NUM_T1CLKO,a); break;
+        case PERIPH_TIM_0: CONFB(WAKE_CLKO, BIT_NUM_T0CLKO, a); break;
+        case PERIPH_TIM_1: CONFB(WAKE_CLKO, BIT_NUM_T1CLKO, a); break;
         default: break;
     }
 }
@@ -102,14 +102,14 @@ void TIM_cmd_clockOutput(PERIPH_TIM tim,Action a)
  * \ingroup     TIM
  * \remarks     
 ******************************************************************************/
-void TIM_config(PERIPH_TIM tim,TIM_configTypeDef *tc)
+void TIM_config(PERIPH_TIM tim, TIM_configTypeDef *tc)
 {
-    TIM_setFunction(tim,tc->function);
-    TIM_setMode(tim,tc->mode);
-    TIM_setValue(tim,tc->value);
-    TIM_setPrescaler(tim,tc->prescaler);
-    TIM_INT_cmd(tim,tc->interruptState);
-    TIM_INT_setPriority(tim,tc->interruptPriority);
+    TIM_setFunction(tim, tc->function);
+    TIM_setMode(tim, tc->mode);
+    TIM_setValue(tim, tc->value);
+    TIM_setPrescaler(tim, tc->prescaler);
+    TIM_INT_cmd(tim, tc->interruptState);
+    TIM_INT_setPriority(tim, tc->interruptPriority);
 }
 
 /*****************************************************************************/
@@ -125,7 +125,7 @@ void TIM_config(PERIPH_TIM tim,TIM_configTypeDef *tc)
 ******************************************************************************/
 uint16_t TIM_getValue(PERIPH_TIM tim)
 {
-    switch(tim)
+    switch (tim)
     {
         case PERIPH_TIM_0: return ((TH0 << 0x08) | TL0);
         case PERIPH_TIM_1: return ((TH1 << 0x08) | TL1);
@@ -145,7 +145,7 @@ uint16_t TIM_getValue(PERIPH_TIM tim)
 ******************************************************************************/
 bool TIM_isOverflow(PERIPH_TIM tim)
 {
-    switch(tim)
+    switch (tim)
     {
         case PERIPH_TIM_0: return (bool)TF0;
         case PERIPH_TIM_1: return (bool)TF1;
@@ -166,12 +166,12 @@ bool TIM_isOverflow(PERIPH_TIM tim)
  * \ingroup     TIM
  * \remarks     
 ******************************************************************************/
-void TIM_setFunction(PERIPH_TIM tim,TIM_function f)
+void TIM_setFunction(PERIPH_TIM tim, TIM_function f)
 {
-    switch(tim)
+    switch (tim)
     {
-        case PERIPH_TIM_0: CONFB(TMOD,BIT_NUM_T0_CT,f); break;
-        case PERIPH_TIM_1: CONFB(TMOD,BIT_NUM_T1_CT,f); break;
+        case PERIPH_TIM_0: CONFB(TMOD, BIT_NUM_T0_CT, f); break;
+        case PERIPH_TIM_1: CONFB(TMOD, BIT_NUM_T1_CT, f); break;
         default: break;
     }
 }
@@ -181,18 +181,18 @@ void TIM_setFunction(PERIPH_TIM tim,TIM_function f)
  * \author      Weilun Fong
  * \date        
  * \brief       set work mode of specified timer
- * \param[in]   tim: target timer
- * \param[in]   m  : work mode(TIM_mode_0~3)
+ * \param[in]   tim : target timer
+ * \param[in]   mode: work mode(TIM_mode_0~3)
  * \return      none
  * \ingroup     TIM
  * \remarks     
 ******************************************************************************/
-void TIM_setMode(PERIPH_TIM tim,TIM_mode m)
+void TIM_setMode(PERIPH_TIM tim, TIM_mode mode)
 {
     switch(tim)
     {
-        case PERIPH_TIM_0: TMOD = (TMOD & 0xFC) | m; break;
-        case PERIPH_TIM_1: TMOD = (TMOD & 0xCF) | (m << 0x04); break;
+        case PERIPH_TIM_0: TMOD = (TMOD & 0xFC) | mode; break;
+        case PERIPH_TIM_1: TMOD = (TMOD & 0xCF) | (mode << 0x04); break;
         default: break;
     }
 }
@@ -208,30 +208,30 @@ void TIM_setMode(PERIPH_TIM tim,TIM_mode m)
  * \ingroup     TIM
  * \remarks     
 ******************************************************************************/
-void TIM_setPrescaler(PERIPH_TIM tim,TIM_prescaler pre)
+void TIM_setPrescaler(PERIPH_TIM tim, TIM_prescaler pre)
 {
-    switch(tim)
+    switch (tim)
     {
         case PERIPH_TIM_0:
         {
-            if(pre == TIM_prescaler_1)
+            if (pre == TIM_prescaler_1)
             {
-                SET_BIT_MASK(AUXR,T0x12);
+                SET_BIT_MASK(AUXR, T0x12);
             }
             else
             {
-                CLR_BIT_MASK(AUXR,T0x12);
+                CLR_BIT_MASK(AUXR, T0x12);
             }
         } break;
         case PERIPH_TIM_1:
         {
-            if(pre == TIM_prescaler_1)
+            if (pre == TIM_prescaler_1)
             {
-                SET_BIT_MASK(AUXR,T1x12);   /* 1T mode */
+                SET_BIT_MASK(AUXR, T1x12);   /* 1T mode */
             }
             else
             {
-                CLR_BIT_MASK(AUXR,T1x12);
+                CLR_BIT_MASK(AUXR, T1x12);
             }
         } break;
         default: break;
@@ -249,9 +249,9 @@ void TIM_setPrescaler(PERIPH_TIM tim,TIM_prescaler pre)
  * \ingroup     TIM
  * \remarks     
 ******************************************************************************/
-void TIM_setValue(PERIPH_TIM tim,uint16_t val)
+void TIM_setValue(PERIPH_TIM tim, uint16_t val)
 {
-    switch(tim)
+    switch (tim)
     {
         case PERIPH_TIM_0:
         {
@@ -278,13 +278,13 @@ void TIM_setValue(PERIPH_TIM tim,uint16_t val)
  * \ingroup     TIM
  * \remarks     
 ******************************************************************************/
-void TIM_INT_cmd(PERIPH_TIM tim,Action a)
+void TIM_INT_cmd(PERIPH_TIM tim, Action a)
 {
-    switch(tim)
+    switch (tim)
     {
         case PERIPH_TIM_0: ET0 = a; break;
         case PERIPH_TIM_1: ET1 = a; break;
-        default:break;
+        default: break;
     }
 }
 
@@ -300,9 +300,9 @@ void TIM_INT_cmd(PERIPH_TIM tim,Action a)
  * \ingroup     TIM
  * \remarks     
 ******************************************************************************/
-void TIM_INT_setPriority(PERIPH_TIM tim,Action p)
+void TIM_INT_setPriority(PERIPH_TIM tim, Action p)
 {
-    switch(tim)
+    switch (tim)
     {
         case PERIPH_TIM_0: PT0 = p; break;
         case PERIPH_TIM_1: PT1 = p; break;

@@ -59,7 +59,7 @@ void main(void)
     sys_init();
     UART_sendString("Startup MCU...\r\n");   /* startup info */
 
-    while(true)
+    while (true)
     {
         /*feed watchdog per 500ms*/
         sleep(500);

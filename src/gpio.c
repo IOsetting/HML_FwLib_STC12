@@ -23,10 +23,10 @@
  * \ingroup     GPIO
  * \remarks     
 ******************************************************************************/
-void GPIO_config(PERIPH_GPIO gpio,GPIO_configTypeDef *gc)
+void GPIO_config(PERIPH_GPIO gpio, GPIO_configTypeDef *gc)
 {
-    GPIO_configMode(gpio,gc->pin,gc->mode);
-    GPIO_configPortValue(gpio,gc->value);
+    GPIO_configMode(gpio,gc->pin, gc->mode);
+    GPIO_configPortValue(gpio, gc->value);
 }
 
 /*****************************************************************************/
@@ -41,9 +41,9 @@ void GPIO_config(PERIPH_GPIO gpio,GPIO_configTypeDef *gc)
  * \ingroup     GPIO
  * \remarks     
 ******************************************************************************/
-void GPIO_configBitValue(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin,FunctionalState f)
+void GPIO_configBitValue(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin, FunctionalState f)
 {
-    if(f == RESET)
+    if (f == RESET)
     {
         GPIO_resetBitValue(gpio,pin);
     }
@@ -65,14 +65,14 @@ void GPIO_configBitValue(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin,FunctionalState f)
  * \ingroup     GPIO
  * \remarks     
 ******************************************************************************/
-void GPIO_configMode(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin,GPIO_mode mode)
+void GPIO_configMode(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin, GPIO_mode mode)
 {
-    switch(mode)
+    switch (mode)
     {
         /* high-impedance state mode */
         case GPIO_mode_HIS:
         {
-            switch(gpio)
+            switch (gpio)
             {
                 /* P0 */
                 case PERIPH_GPIO_0:
@@ -112,7 +112,7 @@ void GPIO_configMode(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin,GPIO_mode mode)
         /* open-drain state */
         case GPIO_mode_OD:
         {
-            switch(gpio)
+            switch (gpio)
             {
                 /* P0 */
                 case PERIPH_GPIO_0:
@@ -152,7 +152,7 @@ void GPIO_configMode(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin,GPIO_mode mode)
         /* pull-push output mode */
         case GPIO_mode_PP:
         {
-            switch(gpio)
+            switch (gpio)
             {
                 /* P0 */
                 case PERIPH_GPIO_0:
@@ -192,7 +192,7 @@ void GPIO_configMode(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin,GPIO_mode mode)
         /* quai-bidirectional mode */
         case GPIO_mode_QBD:
         {
-            switch(gpio)
+            switch (gpio)
             {
                 /* P0 */
                 case PERIPH_GPIO_0:
@@ -244,9 +244,9 @@ void GPIO_configMode(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin,GPIO_mode mode)
  * \ingroup     GPIO
  * \remarks     
 ******************************************************************************/
-void GPIO_configPortValue(PERIPH_GPIO gpio,byte val)
+void GPIO_configPortValue(PERIPH_GPIO gpio, byte val)
 {
-    switch(gpio)
+    switch (gpio)
     {
         case PERIPH_GPIO_0: P0 = val; break;
         case PERIPH_GPIO_1: P1 = val; break;
@@ -268,15 +268,15 @@ void GPIO_configPortValue(PERIPH_GPIO gpio,byte val)
  * \ingroup     GPIO
  * \remarks     
 ******************************************************************************/
-FunctionalState GPIO_getBitValue(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin)
+FunctionalState GPIO_getBitValue(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin)
 {
-    switch(gpio)
+    switch (gpio)
     {
-        case PERIPH_GPIO_0: return GET_BIT(P0,pin); break;
-        case PERIPH_GPIO_1: return GET_BIT(P1,pin); break;
-        case PERIPH_GPIO_2: return GET_BIT(P2,pin); break;
-        case PERIPH_GPIO_3: return GET_BIT(P3,pin); break;
-        case PERIPH_GPIO_4: return GET_BIT(P4,pin); break;
+        case PERIPH_GPIO_0: return GET_BIT(P0, pin); break;
+        case PERIPH_GPIO_1: return GET_BIT(P1, pin); break;
+        case PERIPH_GPIO_2: return GET_BIT(P2, pin); break;
+        case PERIPH_GPIO_3: return GET_BIT(P3, pin); break;
+        case PERIPH_GPIO_4: return GET_BIT(P4, pin); break;
         default: break;
     }
 
@@ -293,7 +293,7 @@ FunctionalState GPIO_getBitValue(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin)
  * \ingroup     GPIO
  * \remarks     
 ******************************************************************************/
-unsigned char GPIO_getPortValue(PERIPH_GPIO gpio)
+byte GPIO_getPortValue(PERIPH_GPIO gpio)
 {
     switch(gpio)
     {
@@ -317,15 +317,15 @@ unsigned char GPIO_getPortValue(PERIPH_GPIO gpio)
  * \ingroup     GPIO
  * \remarks     
 ******************************************************************************/
-void GPIO_resetBitValue(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin)
+void GPIO_resetBitValue(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin)
 {
-    switch(gpio)
+    switch (gpio)
     {
-        case PERIPH_GPIO_0: CLR_BIT_MASK(P0,pin); break;
-        case PERIPH_GPIO_1: CLR_BIT_MASK(P1,pin); break;
-        case PERIPH_GPIO_2: CLR_BIT_MASK(P2,pin); break;
-        case PERIPH_GPIO_3: CLR_BIT_MASK(P3,pin); break;
-        case PERIPH_GPIO_4: CLR_BIT_MASK(P4,pin); break;
+        case PERIPH_GPIO_0: CLR_BIT_MASK(P0, pin); break;
+        case PERIPH_GPIO_1: CLR_BIT_MASK(P1, pin); break;
+        case PERIPH_GPIO_2: CLR_BIT_MASK(P2, pin); break;
+        case PERIPH_GPIO_3: CLR_BIT_MASK(P3, pin); break;
+        case PERIPH_GPIO_4: CLR_BIT_MASK(P4, pin); break;
         default: break;
     }
 }
@@ -342,16 +342,16 @@ void GPIO_resetBitValue(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin)
  * \ingroup     GPIO
  * \remarks     
 ******************************************************************************/
-void GPIO_setBitValue(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin)
+void GPIO_setBitValue(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin)
 {
-    switch(gpio)
+    switch (gpio)
     {
-        case PERIPH_GPIO_0: SET_BIT_MASK(P0,pin); break;
-        case PERIPH_GPIO_1: SET_BIT_MASK(P1,pin); break;
-        case PERIPH_GPIO_2: SET_BIT_MASK(P2,pin); break;
-        case PERIPH_GPIO_3: SET_BIT_MASK(P3,pin); break;
-        case PERIPH_GPIO_4: SET_BIT_MASK(P4,pin); break;
-        default:break;
+        case PERIPH_GPIO_0: SET_BIT_MASK(P0, pin); break;
+        case PERIPH_GPIO_1: SET_BIT_MASK(P1, pin); break;
+        case PERIPH_GPIO_2: SET_BIT_MASK(P2, pin); break;
+        case PERIPH_GPIO_3: SET_BIT_MASK(P3, pin); break;
+        case PERIPH_GPIO_4: SET_BIT_MASK(P4, pin); break;
+        default: break;
     }
 }
 
@@ -367,16 +367,16 @@ void GPIO_setBitValue(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin)
  * \ingroup     GPIO
  * \remarks     
 ******************************************************************************/
-void GPIO_toggleBitValue(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin)
+void GPIO_toggleBitValue(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin)
 {
-    switch(gpio)
+    switch (gpio)
     {
-        case PERIPH_GPIO_0: NOT_BIT_MASK(P0,pin); break;
-        case PERIPH_GPIO_1: NOT_BIT_MASK(P1,pin); break;
-        case PERIPH_GPIO_2: NOT_BIT_MASK(P2,pin); break;
-        case PERIPH_GPIO_3: NOT_BIT_MASK(P3,pin); break;
-        case PERIPH_GPIO_4: NOT_BIT_MASK(P4,pin); break;
-        default:break;
+        case PERIPH_GPIO_0: NOT_BIT_MASK(P0, pin); break;
+        case PERIPH_GPIO_1: NOT_BIT_MASK(P1, pin); break;
+        case PERIPH_GPIO_2: NOT_BIT_MASK(P2, pin); break;
+        case PERIPH_GPIO_3: NOT_BIT_MASK(P3, pin); break;
+        case PERIPH_GPIO_4: NOT_BIT_MASK(P4, pin); break;
+        default: break;
     }
 }
 
@@ -393,7 +393,7 @@ void GPIO_toggleBitValue(PERIPH_GPIO gpio,PERIPH_GPIO_PIN pin)
 ******************************************************************************/
 void GPIO_P44_cmd(Action a)
 {
-    CONFB(P4SW,BIT_NUM_NA_P44,a);
+    CONFB(P4SW, BIT_NUM_NA_P44, a);
 }
 
 
@@ -409,7 +409,7 @@ void GPIO_P44_cmd(Action a)
 ******************************************************************************/
 void GPIO_P45_cmd(Action a)
 {
-    CONFB(P4SW,BIT_NUM_ALE_P45,a);
+    CONFB(P4SW, BIT_NUM_ALE_P45, a);
 }
 
 /*****************************************************************************/
@@ -427,12 +427,12 @@ void GPIO_P45_cmd(Action a)
 void GPIO_P46_cmd(Action a)
 {
     /**
-     *\attention: It seems to exist hardware bug about P46! Even if set special 
-     *            function bit of P46, it can't work as well. The function can't
-     *            work all the time...
-     *            If you know  what cause it, please send E-mail to us!
+     *\note It seems to exist hardware bug about P46! Even if set special 
+     *      function bit of P46, it can't work as well. The function can't
+     *      work all the time ...
+     *      If you know  what cause it, please send E-mail to us!
      */
-    CONFB(P4SW,BIT_NUM_NA_P46,a);
+    CONFB(P4SW, BIT_NUM_NA_P46, a);
 }
 
 #else

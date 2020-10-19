@@ -28,12 +28,12 @@
 void main(void)
 {    
     GPIO_P45_cmd(ENABLE);
-    GPIO_resetBitValue(PERIPH_GPIO_4,PERIPH_GPIO_PIN_5);
+    GPIO_resetBitValue(PERIPH_GPIO_4, PERIPH_GPIO_PIN_5);
 
     /* blink */
     while(true)
     {
         sleep(500);
-        GPIO_toggleBitValue(PERIPH_GPIO_4,PERIPH_GPIO_PIN_5);   /* P45 is connected to a LED for testing */
+        GPIO_toggleBitValue(PERIPH_GPIO_4, PERIPH_GPIO_PIN_5);  /* P45 is connected to a LED for testing */
     }
 }

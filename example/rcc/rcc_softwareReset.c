@@ -32,10 +32,10 @@ void sys_init(void)
 
     ec.mode     = EXTI_mode_fallEdge;
     ec.priority = DISABLE;
-    EXTI_config(PERIPH_EXTI_0,&ec);
-    EXTI_cmd(PERIPH_EXTI_0,ENABLE);
+    EXTI_config(PERIPH_EXTI_0, &ec);
+    EXTI_cmd(PERIPH_EXTI_0, ENABLE);
 
-    GPIO_configPortValue(PERIPH_GPIO_1,0xFF);
+    GPIO_configPortValue(PERIPH_GPIO_1, 0xFF);
     enableAllInterrupts();
 }
 
@@ -52,10 +52,10 @@ void sys_init(void)
 void main(void)
 {
     sys_init();
-    while(true)
+    while (true)
     {
         sleep(500);
-        GPIO_toggleBitValue(PERIPH_GPIO_1,PERIPH_GPIO_PIN_0);
+        GPIO_toggleBitValue(PERIPH_GPIO_1, PERIPH_GPIO_PIN_0);
     }
 }
 
@@ -74,13 +74,13 @@ void exti0_isr(void) __interrupt IE0_VECTOR
     disableAllInterrupts();
 
     /* indicate the MCU is going to reset */
-    GPIO_setBitValue(PERIPH_GPIO_1,PERIPH_GPIO_PIN_0 | PERIPH_GPIO_PIN_1 | PERIPH_GPIO_PIN_2);
+    GPIO_setBitValue(PERIPH_GPIO_1, PERIPH_GPIO_PIN_0 | PERIPH_GPIO_PIN_1 | PERIPH_GPIO_PIN_2);
     sleep(500);
-    GPIO_toggleBitValue(PERIPH_GPIO_1,PERIPH_GPIO_PIN_0);
+    GPIO_toggleBitValue(PERIPH_GPIO_1, PERIPH_GPIO_PIN_0);
     sleep(250);
-    GPIO_toggleBitValue(PERIPH_GPIO_1,PERIPH_GPIO_PIN_1);
+    GPIO_toggleBitValue(PERIPH_GPIO_1, PERIPH_GPIO_PIN_1);
     sleep(250);
-    GPIO_toggleBitValue(PERIPH_GPIO_1,PERIPH_GPIO_PIN_2);
+    GPIO_toggleBitValue(PERIPH_GPIO_1, PERIPH_GPIO_PIN_2);
     sleep(250);
 
     RCC_softwareReset();

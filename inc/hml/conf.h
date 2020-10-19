@@ -16,7 +16,7 @@
  *****************************************************************************/
 
 /**
- *\brief: configure clock frequency of MCU
+ *\brief configure clock frequency of MCU
  */
 #ifndef __CONF_FRE_CLKIN
     #warning no specified clock frequency, HML will fill it with 11.0592MHz
@@ -24,15 +24,15 @@
 #endif
 
 /**
- *\brief: configure module of MCU
+ *\brief configure module of MCU
  */
 #ifndef __CONF_MCU_MODEL
-    #warning no specified MCU model, HML will fill it with STC10F02XE
+    #warning no specified MCU model, HML will fill it with STC11F04E
     #define __CONF_MCU_MODEL MCU_MODEL_STC11F04E
 #endif
 
 /**
- *\brief: select HML module which take part in compilation
+ *\brief select HML module which take part in compilation
  */
 #define __CONF_COMPILE_EXTI  1
 #define __CONF_COMPILE_GPIO  1

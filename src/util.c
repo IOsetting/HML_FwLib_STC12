@@ -56,7 +56,7 @@ void enableAllInterrupts(void)
  *              (2)due to SDCC doesn't provide this function, we write a lite 
  *              version here
 ******************************************************************************/
-uint16_t pow(uint8_t x,uint8_t y)
+uint16_t pow(uint8_t x, uint8_t y)
 {
     uint8_t base = x;
 

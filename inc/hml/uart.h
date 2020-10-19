@@ -26,7 +26,7 @@ static __code char hexTable[16] = { '0','1','2','3','4','5','6','7','8','9','A',
  *                           enumeration type                                *
  *****************************************************************************/
 /**
- *\brief: mark baud rate generator of UART
+ * \brief mark baud rate generator of UART
  */
 typedef enum
 {
@@ -35,7 +35,7 @@ typedef enum
 } UART_baudrateGenerator;
 
 /**
- *\brief: mark work mode
+ * \brief mark work mode
  */
 typedef enum
 {
@@ -46,7 +46,7 @@ typedef enum
 } UART_mode;
 
 /**
- *\brief: mark function pin location
+ * \brief mark function pin location
  */
 typedef enum
 {
@@ -59,7 +59,7 @@ typedef enum
  *****************************************************************************/
 
 /**
- *\brief: mark configure structure
+ * \brief mark configure structure
  */
 typedef struct
 {
@@ -81,7 +81,7 @@ void UART_cmd_mode0_multiBaudrate(Action a);
 void UART_cmd_multiBaudrate(Action a);
 void UART_cmd_receive(Action a);
 void UART_config(UART_configTypeDef *uc);
-uint16_t UART_getBaudGeneratorInitValue(UART_baudrateGenerator gen,uint32_t baud);
+uint16_t UART_getBaudGeneratorInitValue(UART_baudrateGenerator gen, uint32_t baud);
 byte UART_getByte(void);
 FunctionalState UART_isReceived(void);
 FunctionalState UART_isTransmitted(void);
@@ -89,7 +89,7 @@ void UART_sendByte(byte dat);
 void UART_sendHex(uint8_t hex);
 void UART_sendString(char *str);
 void UART_setBaudGenerator(UART_baudrateGenerator gen);
-void UART_setMode(UART_mode m);
+void UART_setMode(UART_mode mode);
 void UART_setPin(UART_pinmap pm);
 void UART_INT_cmd(Action a);
 void UART_INT_setPriority(Action a);

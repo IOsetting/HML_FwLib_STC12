@@ -20,7 +20,7 @@
  *                                macro                                      *
  *****************************************************************************/
 /**
- *\brief: mark model
+ * \brief mark model
  * - suffix 'E': : integrated EEPROM
  * - suffix 'X': : integrated extended RAM
  * - suffix 'XE' : integrated EEPROM & extended RAM
@@ -66,7 +66,7 @@
 #define MCU_MODEL_IAP11L62X       0x25
 
 /**
- *\brief: check macro for MCU model
+ * \brief check macro for MCU model
  */
 #define IS_STC11_MCU_MODEL(model)           \
     (                                       \
@@ -110,7 +110,7 @@
     )
 
 /**
- *\brief: have macro for IAP function
+ * \brief have macro for IAP function
  */
 #define IS_IAP_MODEL(model)                 \
     (                                       \
@@ -147,7 +147,7 @@
     )
 
 /**
- *\brief: compile select
+ * \brief compile select
  */
 #if (__CONF_COMPILE_EXTI == 1)
     #define COMPILE_EXTI
@@ -186,8 +186,9 @@
 /*****************************************************************************
  *                           run-time check                                  *
  *****************************************************************************/
+
 /**
- *\brief: MCU clock configuration check
+ * \brief MCU clock configuration check
  */
 #if (defined __CONF_FRE_CLKIN)
     #define MCU_FRE_CLK __CONF_FRE_CLKIN
@@ -196,7 +197,7 @@
 #endif
 
 /**
- *\brief: MCU model check
+ * \brief MCU model check
  */
 #if (defined __CONF_MCU_MODEL)
     #if IS_STC11_MCU_MODEL(__CONF_MCU_MODEL)
@@ -214,14 +215,14 @@
 #endif
 
 /**
- *\brief: configure IAP function
+ * \brief configure IAP function
  */
 #if IS_IAP_MODEL(HML_MCU_MODEL)
     #define HAVE_IAP
 #endif
 
 /**
- *\brief: HML compile selection check
+ * \brief HML compile selection check
  */
 #ifndef HAVE_IAP
     #ifdef COMPILE_IAP
@@ -240,7 +241,7 @@
 #endif
 
 /**
- *\brief: SDCC version check
+ * \brief SDCC version check
  */
 #if (__SDCC_VERSION_MAJOR == 3)
     #if (__SDCC_VERSION_MINOR < 6)

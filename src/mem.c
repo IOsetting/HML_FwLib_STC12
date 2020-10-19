@@ -56,7 +56,7 @@ void MEM_BUS_setAddressSetupTimeLength(MEM_BUS_addressSetupTimeLength len)
 ******************************************************************************/
 void MEM_cmd_ale(Action a)
 {
-    CONFB(P4SW,BIT_NUM_ALE_P45,~a);
+    CONFB(P4SW, BIT_NUM_ALE_P45, ~a);
 }
 
 
@@ -74,7 +74,7 @@ void MEM_cmd_ale(Action a)
 ******************************************************************************/
 void MEM_cmd_internalExtendedRam(Action a)
 {
-    CONFB(AUXR,BIT_NUM_EXTRAM,~a);
+    CONFB(AUXR, BIT_NUM_EXTRAM, ~a);
 }
 
 #else

@@ -23,7 +23,7 @@
  *****************************************************************************/
 
 /**
- *\brief: mark wakeup pins for power-down mode
+ * \brief mark wakeup pins for power-down mode
  */
 typedef enum
 {
@@ -41,7 +41,7 @@ void PWR_LVD_clearFlag(void);
 void PWR_LVD_cmd(Action a);
 FunctionalState PWR_LVD_getFlag(void);
 void PWR_LVD_INT_cmd(Action a);
-void PWR_PD_IE_cmd(PWR_PD_IEPIN pin,Action a);
+void PWR_PD_IE_cmd(PWR_PD_IEPIN pin, Action a);
 void PWR_WKT_cmd(Action a);
 bool PWR_WKT_setWakeCount(uint16_t c);
 

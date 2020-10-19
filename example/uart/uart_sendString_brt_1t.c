@@ -57,10 +57,10 @@ void main(void)
 {
     sys_init();
 
-    while(true)
+    while (true)
     {
         /* send per 500ms */
         sleep(500);
-        UART_sendString("Hello,world!\r\n");
+        UART_sendString("Hello, world!\r\n");
     }
 }

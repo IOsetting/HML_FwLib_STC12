@@ -36,7 +36,7 @@ void app_getFactoryClockData(byte *dat)
     uint8_t i = 0;
 
     /* the data is stored in a specified area, address range of the ara is from 0xFC to 0xFF in internal RAM of STC10 MCU */
-    for(i = 0;i < 4;i++)
+    for (i = 0; i < 4; i++)
     {
         dat[i] = __PBYTE[ADDR_RAM_FACTORY_RC_CLK + i];
     }
@@ -80,7 +80,7 @@ void sys_init(void)
  * \ingroup     example
  * \remarks     
 ******************************************************************************/
-void util_byteToHexString(byte src,char *res)
+void util_byteToHexString(byte src, char *res)
 {
     uint8_t i = 2;
     byte tmp = 0;
@@ -93,7 +93,7 @@ void util_byteToHexString(byte src,char *res)
         res--;
         tmp = src % 0x10;
 
-        if(tmp < 10)
+        if (tmp < 10)
         {
             *res = '0' + tmp;
         }
@@ -123,16 +123,16 @@ void main(void)
 
     sys_init();
 
-    while(true)
+    while (true)
     {  
         app_getFactoryClockData(accessResult);   /* get data */
         UART_sendString("Access result:");
         
         /* show data */
-        for(i= 0;i < 4;i++)
+        for (i= 0; i < 4; i++)
         {
             UART_sendString(" 0x");
-            util_byteToHexString(accessResult[i],buffer);
+            util_byteToHexString(accessResult[i], buffer);
             UART_sendString(buffer);
         }
         UART_sendString("\r\n");

@@ -21,7 +21,7 @@
  *****************************************************************************/
 
 /**
- *\brief: mark division factor
+ * \brief mark division factor
  */
 typedef enum
 {
@@ -36,7 +36,7 @@ typedef enum
 } RCC_prescaler;
 
 /**
- *\brief: mark prescaler factor
+ * \brief mark prescaler factor
  */
 typedef enum
 {

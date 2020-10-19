@@ -31,15 +31,15 @@
 void sys_init(void)
 {
     /* indicate start to work via LED */
-    GPIO_configPortValue(PERIPH_GPIO_2,0xFF);
+    GPIO_configPortValue(PERIPH_GPIO_2, 0xFF);
     sleep(200);
-    GPIO_toggleBitValue(PERIPH_GPIO_2,PERIPH_GPIO_PIN_0);
+    GPIO_toggleBitValue(PERIPH_GPIO_2, PERIPH_GPIO_PIN_0);
     sleep(200);
-    GPIO_toggleBitValue(PERIPH_GPIO_2,PERIPH_GPIO_PIN_1);    
+    GPIO_toggleBitValue(PERIPH_GPIO_2, PERIPH_GPIO_PIN_1);    
     sleep(200);
-    GPIO_toggleBitValue(PERIPH_GPIO_2,PERIPH_GPIO_PIN_2);
+    GPIO_toggleBitValue(PERIPH_GPIO_2, PERIPH_GPIO_PIN_2);
     sleep(200);
-    GPIO_configPortValue(PERIPH_GPIO_2,0xFF);
+    GPIO_configPortValue(PERIPH_GPIO_2, 0xFF);
     sleep(200);
 
     PWR_WKT_setWakeCount(20000);
@@ -60,16 +60,16 @@ void main(void)
 {
     sys_init();
 
-    while(true)
+    while (true)
     {
         sleep(200);
-        GPIO_toggleBitValue(PERIPH_GPIO_2,PERIPH_GPIO_PIN_0);
+        GPIO_toggleBitValue(PERIPH_GPIO_2, PERIPH_GPIO_PIN_0);
         /* check state of KEY(connected to P33) */
-        if(GPIO_getBitValue(PERIPH_GPIO_3,PERIPH_GPIO_PIN_3) == RESET)
+        if (GPIO_getBitValue(PERIPH_GPIO_3,PERIPH_GPIO_PIN_3) == RESET)
         {
             /* avoid shake */
             sleep(5);
-            if(GPIO_getBitValue(PERIPH_GPIO_3,PERIPH_GPIO_PIN_3) == RESET)
+            if (GPIO_getBitValue(PERIPH_GPIO_3, PERIPH_GPIO_PIN_3) == RESET)
             {
                 PWR_powerDown();  /* enter into power-down mode */
             }

@@ -26,7 +26,7 @@
 ******************************************************************************/
 void IAP_cmd(Action a)
 {
-    CONFB(IAP_CONTR,BIT_NUM_IAPEN,a);
+    CONFB(IAP_CONTR, BIT_NUM_IAPEN, a);
 }
 
 /*****************************************************************************/
@@ -88,9 +88,9 @@ void IAP_idle(void)
 ******************************************************************************/
 bool IAP_isSuccess(void)
 {
-    if(GET_BIT(IAP_CONTR,CMD_FAIL))
+    if(GET_BIT(IAP_CONTR, CMD_FAIL))
     {
-        CLR_BIT_MASK(IAP_CONTR,CMD_FAIL);
+        CLR_BIT_MASK(IAP_CONTR, CMD_FAIL);
         return false;
     }
     else
@@ -182,10 +182,10 @@ void IAP_trig(void)
  * \ingroup     IAP
  * \remarks     
 ******************************************************************************/
-bool IAP_writeByte(uint16_t addr,byte dat)
+bool IAP_writeByte(uint16_t addr, byte dat)
 {
     bool status = false;
-    
+
     if(IAP_ADDR_END < addr)
     {
         return false;

@@ -24,7 +24,7 @@
 ******************************************************************************/
 void PWR_idle(void)
 {
-    SET_BIT_MASK(PCON,IDL);
+    SET_BIT_MASK(PCON, IDL);
 }
 
 /*****************************************************************************/
@@ -39,7 +39,7 @@ void PWR_idle(void)
 ******************************************************************************/
 void PWR_powerDown(void)
 {
-    SET_BIT_MASK(PCON,PD);
+    SET_BIT_MASK(PCON, PD);
 }
 
 /*****************************************************************************/
@@ -54,7 +54,7 @@ void PWR_powerDown(void)
 ******************************************************************************/
 void PWR_LVD_clearFlag(void)
 {
-    CLR_BIT_MASK(PCON,LVDF);
+    CLR_BIT_MASK(PCON, LVDF);
 }
 
 /*****************************************************************************/
@@ -69,7 +69,7 @@ void PWR_LVD_clearFlag(void)
 ******************************************************************************/
 void PWR_LVD_cmd(Action a)
 {
-     CONFB(P4SW,BIT_NUM_NA_P46,~a);
+     CONFB(P4SW, BIT_NUM_NA_P46, ~a);
 }
 
 /*****************************************************************************/
@@ -84,7 +84,7 @@ void PWR_LVD_cmd(Action a)
 ******************************************************************************/
 FunctionalState PWR_LVD_getFlag(void)
 {
-    return ((FunctionalState)GET_BIT(PCON,LVDF));
+    return ((FunctionalState)GET_BIT(PCON, LVDF));
 }
 
 /*****************************************************************************/
@@ -117,11 +117,11 @@ void PWR_LVD_INT_cmd(Action a)
 ******************************************************************************/
 void PWR_PD_IE_cmd(PWR_PD_IEPIN pin,Action a)
 {
-    switch(pin)
+    switch (pin)
     {
-        case PWR_PD_IEPIN_RXD: CONFB(WAKE_CLKO,BIT_NUM_RD_PIN_IE,a); break;
-        case PWR_PD_IEPIN_T0 : CONFB(WAKE_CLKO,BIT_NUM_T0_PIN_IE,a); break;
-        case PWR_PD_IEPIN_T1 : CONFB(WAKE_CLKO,BIT_NUM_T1_PIN_IE,a); break;
+        case PWR_PD_IEPIN_RXD: CONFB(WAKE_CLKO, BIT_NUM_RD_PIN_IE, a); break;
+        case PWR_PD_IEPIN_T0 : CONFB(WAKE_CLKO, BIT_NUM_T0_PIN_IE, a); break;
+        case PWR_PD_IEPIN_T1 : CONFB(WAKE_CLKO, BIT_NUM_T1_PIN_IE, a); break;
         default: break;
     }
 }
@@ -138,7 +138,7 @@ void PWR_PD_IE_cmd(PWR_PD_IEPIN pin,Action a)
 ******************************************************************************/
 void PWR_WKT_cmd(Action a)
 {
-    CONFB(WKTCH,BIT_NUM_WKTEN,a);
+    CONFB(WKTCH, BIT_NUM_WKTEN, a);
 }
 
 /*****************************************************************************/
@@ -155,7 +155,7 @@ void PWR_WKT_cmd(Action a)
 ******************************************************************************/
 bool PWR_WKT_setWakeCount(uint16_t c)
 {
-    if(c > 4096)
+    if (c > 4096)
     {
         WKTCL = (byte)(c & 0x00FF);
         WKTCH = (byte)((c & 0x0F00) >> 0x8);

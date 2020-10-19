@@ -26,7 +26,7 @@ uint8_t df = 0x1;       /* mark current divided factor */
 ******************************************************************************/
 void RCC_BRT_cmd(Action a)
 {
-    CONFB(AUXR,BIT_NUM_BRTR,a);
+    CONFB(AUXR, BIT_NUM_BRTR, a);
 }
 
 /*****************************************************************************/
@@ -43,7 +43,7 @@ void RCC_BRT_cmd(Action a)
 ******************************************************************************/
 void RCC_BRT_setClockOutput(Action a)
 {
-    CONFB(WAKE_CLKO,BIT_NUM_BRTCLKO,a);
+    CONFB(WAKE_CLKO, BIT_NUM_BRTCLKO, a);
 }
 
 /*****************************************************************************/
@@ -58,7 +58,7 @@ void RCC_BRT_setClockOutput(Action a)
 ******************************************************************************/
 void RCC_BRT_setPrescaler(RCC_BRT_prescaler pre)
 {
-    CONFB(AUXR,BIT_NUM_BRTx12,pre);
+    CONFB(AUXR, BIT_NUM_BRTx12, pre);
 }
 
 /*****************************************************************************/
@@ -89,7 +89,7 @@ void RCC_BRT_setValue(uint8_t val)
 void RCC_setClockDivisionFactor(RCC_prescaler d)
 {
     CLK_DIV = (byte)d;
-    df = pow(2,d);
+    df = pow(2, d);
 }
 
 /*****************************************************************************/
@@ -104,7 +104,7 @@ void RCC_setClockDivisionFactor(RCC_prescaler d)
 ******************************************************************************/
 void RCC_softwareReset(void)
 {
-    SET_BIT_MASK(IAP_CONTR,SWRST);
+    SET_BIT_MASK(IAP_CONTR, SWRST);
 }
 
 /*****************************************************************************/

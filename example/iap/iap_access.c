@@ -59,7 +59,7 @@ void sys_init(void)
  * \ingroup     example
  * \remarks     
 ******************************************************************************/
-void util_byteToHexString(byte src,char *res)
+void util_byteToHexString(byte src, char *res)
 {
     uint8_t i = 2;
     byte tmp = 0;
@@ -67,7 +67,7 @@ void util_byteToHexString(byte src,char *res)
     res = res + 2;
     *res = '\0';
     
-    while(i--)
+    while (i--)
     {
         res--;
         tmp = src % 0x10;
@@ -103,13 +103,13 @@ void main(void)
     sys_init();
     UART_sendString("MCU boot...\r\n\0");
 
-    while(true)
+    while (true)
     {
-        for(i = 0;i < 3;i++)
+        for (i = 0; i < 3; i++)
         {
             IAP_eraseByte(IAP_ADDR_TEST+i);      /* it's necessary step */
             /* write */
-            if(IAP_writeByte(IAP_ADDR_TEST+i,test_data[i]))
+            if(IAP_writeByte(IAP_ADDR_TEST+i, test_data[i]))
             {
                 UART_sendString("Succeeded to write test byte\r\n\0");
             }
@@ -118,7 +118,7 @@ void main(void)
                 UART_sendString("Fail to write test byte\r\n\0");
             }
             /* read and show access result */
-            util_byteToHexString(IAP_readByte(IAP_ADDR_TEST+i),accessResult);       
+            util_byteToHexString(IAP_readByte(IAP_ADDR_TEST + i), accessResult);
             UART_sendString("Access result: 0x");
             UART_sendString(accessResult);
             UART_sendString("\r\n\0");

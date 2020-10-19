@@ -73,7 +73,7 @@
  *****************************************************************************/
 
 /**
- *\brief: define IAP command
+ *\brief define IAP command
  */
 typedef enum
 {
@@ -94,6 +94,6 @@ byte IAP_readByte(uint16_t addr);
 void IAP_setAddress(uint16_t addr);
 void IAP_setCommand(IAP_command cmd);
 void IAP_trig(void);
-bool IAP_writeByte(uint16_t addr,byte dat);
+bool IAP_writeByte(uint16_t addr, byte dat);
 
 #endif
