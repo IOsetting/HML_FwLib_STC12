@@ -73,8 +73,8 @@ void GPIO_configMode(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin, GPIO_mode mode)
     /**
      * \note obtain mode bit
      */
-    m0 = (TESTB(mode, 0)>pin?(~pin)) & pin;
-    m1 = (TESTB(mode, 1)>pin?(~pin)) & pin;
+    m0 = (TESTB(mode, 0)?pin:(~pin)) & pin;
+    m1 = (TESTB(mode, 1)?pin:(~pin)) & pin;
 
     /**
      * \note obtain mode bit
