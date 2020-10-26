@@ -21,3 +21,4 @@
            (2)refactor hml/version.h
            (3)optimize macro for compile select
            (4)add function UART_getByte and UART_sendHex
+           (5)refactor function GPIO_configMode

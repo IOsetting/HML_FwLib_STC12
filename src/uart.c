@@ -125,7 +125,7 @@ void UART_config(UART_configTypeDef *uc)
         TIM_config(PERIPH_TIM_1, &tc);
         TIM_cmd(PERIPH_TIM_1, ENABLE);
         TIM_setValue(PERIPH_TIM_1, \
-                     UART_getBaudGeneratorInitValue(UART_baudrateGenerator_tim1,uc->baudrate));
+                     UART_getBaudGeneratorInitValue(UART_baudrateGenerator_tim1, uc->baudrate));
     }
 }
 
@@ -140,12 +140,12 @@ void UART_config(UART_configTypeDef *uc)
  * \ingroup     UART
  * \remarks     
 ******************************************************************************/
-uint16_t UART_getBaudGeneratorInitValue(UART_baudrateGenerator gen,uint32_t baud)
+uint16_t UART_getBaudGeneratorInitValue(UART_baudrateGenerator gen, uint32_t baud)
 {
     /* multi baud rate */
     uint8_t   flag_pre  = 0x0;
     uint8_t   flag_smod = 0x0;
-    uint16_t  res = 0x0000;
+    uint16_t  res       = 0x0000;
 
     /* check prescaler */
     if (gen == UART_baudrateGenerator_brt)
