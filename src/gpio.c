@@ -25,7 +25,7 @@
 ******************************************************************************/
 void GPIO_config(PERIPH_GPIO gpio, GPIO_configTypeDef *gc)
 {
-    GPIO_configMode(gpio,gc->pin, gc->mode);
+    GPIO_configMode(gpio, gc->pin, gc->mode);
     GPIO_configPortValue(gpio, gc->value);
 }
 
@@ -45,11 +45,11 @@ void GPIO_configBitValue(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin, FunctionalState 
 {
     if (f == RESET)
     {
-        GPIO_resetBitValue(gpio,pin);
+        GPIO_resetBitValue(gpio, pin);
     }
     else
     {
-        GPIO_setBitValue(gpio,pin);
+        GPIO_setBitValue(gpio, pin);
     }
 }
 
@@ -76,9 +76,6 @@ void GPIO_configMode(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin, GPIO_mode mode)
     m0 = (TESTB(mode, 0)?pin:(~pin)) & pin;
     m1 = (TESTB(mode, 1)?pin:(~pin)) & pin;
 
-    /**
-     * \note obtain mode bit
-     */
     switch (gpio)
     {
         /* P0 */
