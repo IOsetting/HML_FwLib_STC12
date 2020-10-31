@@ -70,7 +70,7 @@ void main(void)
  * \remarks     
 ******************************************************************************/
 void exti0_isr(void) __interrupt IE0_VECTOR
-{    
+{
     disableAllInterrupts();
 
     /* indicate the MCU is going to reset */

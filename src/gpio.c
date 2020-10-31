@@ -300,9 +300,7 @@ void GPIO_P45_cmd(Action a)
  * \param[in]   a: expected action
  * \return      none
  * \ingroup     GPIO
- * \remarks     It seems to exist hardware bug about P46! Even if set special 
- *              function bit of P46, it still can't work. If you know what cause
- *              it, please send E-mail to us!
+ * \remarks     
 ******************************************************************************/
 void GPIO_P46_cmd(Action a)
 {

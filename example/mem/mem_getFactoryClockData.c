@@ -88,7 +88,7 @@ void util_byteToHexString(byte src, char *res)
     res = res + 2;
     *res = '\0';
 
-    while(i--)
+    while (i--)
     {
         res--;
         tmp = src % 0x10;

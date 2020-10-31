@@ -35,7 +35,7 @@ void sys_init(void)
     tc.interruptPriority = DISABLE;
     tc.mode              = TIM_mode_1;
     tc.prescaler         = TIM_prescaler_12;
-    tc.value             = 65536-50000;
+    tc.value             = 65536 - 50000;
 
     TIM_config(PERIPH_TIM_0, &tc);
     enableAllInterrupts();
@@ -72,7 +72,7 @@ void tim0_isr(void) __interrupt TF0_VECTOR
 {
     static uint8_t i = 0;
 
-    TIM_setValue(PERIPH_TIM_0, 65536-50000); /* reload initial value */
+    TIM_setValue(PERIPH_TIM_0, 65536 - 50000); /* reload initial value */
     i++;
 
     /* 20*50ms = 1s */

@@ -72,7 +72,7 @@ void util_byteToHexString(byte src, char *res)
         res--;
         tmp = src % 0x10;
         
-        if(tmp < 10)
+        if (tmp < 10)
         {
             *res = '0' + tmp;
         }
@@ -107,9 +107,9 @@ void main(void)
     {
         for (i = 0; i < 3; i++)
         {
-            IAP_eraseByte(IAP_ADDR_TEST+i);      /* it's necessary step */
+            IAP_eraseByte(IAP_ADDR_TEST + i);      /* it's necessary step */
             /* write */
-            if(IAP_writeByte(IAP_ADDR_TEST+i, test_data[i]))
+            if (IAP_writeByte(IAP_ADDR_TEST + i, test_data[i]))
             {
                 UART_sendString("Succeeded to write test byte\r\n\0");
             }

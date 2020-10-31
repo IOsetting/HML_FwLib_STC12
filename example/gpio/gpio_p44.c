@@ -26,7 +26,7 @@
  * \remarks     
 ******************************************************************************/
 void main(void)
-{    
+{
     GPIO_P44_cmd(ENABLE);
     GPIO_resetBitValue(PERIPH_GPIO_4, PERIPH_GPIO_PIN_4);
 
