@@ -45,12 +45,12 @@
 /**
  * \brief string literal representation of the release date.
  */
-#define __HML_DATE_STRING__ "20200131"
+#define __HML_DATE_STRING__ "20201102"
 
 /**
  * \brief numerical representation of the release date.
  */
-#define __HML_DATE__ 20200131UL
+#define __HML_DATE__ 20201102UL
 
 /**
  * \brief library major version number.

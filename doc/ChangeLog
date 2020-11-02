@@ -9,9 +9,9 @@
  Date    : 2019-12-24
  Note    : The first version of HML_FwLib_STC11!
 
->Version :
+>Version : v0.0.1
  Alias   :
- Date    :
+ Date    : 2020-11-02
  Note    : (1)update Makefile to v0.2.6
              - support <library> target, user can get usage via <make help>
              - optimize <make version> function
@@ -22,3 +22,5 @@
            (3)optimize macro for compile select
            (4)add function UART_getByte and UART_sendHex
            (5)refactor function GPIO_configMode
+           (6)optimize code writings
+           (7)refactor sleep function
