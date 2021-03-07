@@ -80,7 +80,7 @@ typedef struct
 /*****************************************************************************
  *                          function declare                                 *
  *****************************************************************************/
-uint16_t TIM_calculateValue(uint16_t t,TIM_mode mode, TIM_prescaler pre);
+uint16_t TIM_calculateValue(uint16_t time, TIM_mode mode, TIM_prescaler pre);
 void TIM_cmd(PERIPH_TIM tim, Action a);
 void TIM_cmd_clockOutput(PERIPH_TIM tim, Action a);
 void TIM_config(PERIPH_TIM tim, TIM_configTypeDef *tc);

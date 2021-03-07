@@ -96,7 +96,7 @@ void UART_config(UART_configTypeDef *uc)
     if (uc->baudrateGenerator == UART_baudrateGenerator_brt)
     {
         RCC_BRT_cmd(ENABLE);
-        if(uc->baudGeneratorPrescalerState)
+        if (uc->baudGeneratorPrescalerState)
         {
             RCC_BRT_setPrescaler(RCC_BRT_prescaler_12);
         }
@@ -280,7 +280,7 @@ void UART_sendHex(uint8_t hex)
 ******************************************************************************/
 void UART_sendString(char *str)
 {
-    while(*str != '\0')
+    while (*str != '\0')
     {
         SBUF = *str;
         while(!TI);

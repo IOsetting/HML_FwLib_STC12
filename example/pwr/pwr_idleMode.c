@@ -62,7 +62,7 @@ void main(void)
         {
             /* avoid shake */
             sleep(5);
-            if(GPIO_getBitValue(PERIPH_GPIO_3, PERIPH_GPIO_PIN_3) == RESET)
+            if (GPIO_getBitValue(PERIPH_GPIO_3, PERIPH_GPIO_PIN_3) == RESET)
             {
                 PWR_idle();  /* enter into idle mode */
             }

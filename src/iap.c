@@ -43,7 +43,7 @@ bool IAP_eraseByte(uint16_t addr)
 {
     bool status = false;
 
-    if(IAP_ADDR_END < addr)
+    if (IAP_ADDR_END < addr)
     {
         return false;
     }
@@ -88,7 +88,7 @@ void IAP_idle(void)
 ******************************************************************************/
 bool IAP_isSuccess(void)
 {
-    if(GET_BIT(IAP_CONTR, CMD_FAIL))
+    if (GET_BIT(IAP_CONTR, CMD_FAIL))
     {
         CLR_BIT_MASK(IAP_CONTR, CMD_FAIL);
         return false;
@@ -186,7 +186,7 @@ bool IAP_writeByte(uint16_t addr, byte dat)
 {
     bool status = false;
 
-    if(IAP_ADDR_END < addr)
+    if (IAP_ADDR_END < addr)
     {
         return false;
     }
