@@ -32,14 +32,29 @@ void IAP_cmd(Action a)
 /*****************************************************************************/
 /** 
  * \author      Jiabin Hsu
- * \date        
+ * \date        2021/03/13
+ * \brief       set the wait time of cpu after isp module is triggered
+ * \param[in]   none
+ * \return      none
+ * \ingroup     IAP
+ * \remarks     
+******************************************************************************/
+void IAP_config(void)
+{
+    IAP_CONTR = (IAP_CONTR & 0xF8) | IAP_WAITTIME;
+}
+
+/*****************************************************************************/
+/** 
+ * \author      Jiabin Hsu
+ * \date        2021/03/13
  * \brief       erase all data of specified IAP area
  * \param[in]   addr: address of target area
  * \return      complete to erase(true) or failed to execute operation(false)
  * \ingroup     IAP
  * \remarks     
 ******************************************************************************/
-bool IAP_eraseByte(uint16_t addr)
+bool IAP_eraseSector(uint16_t addr)
 {
     bool status = false;
 
@@ -48,12 +63,9 @@ bool IAP_eraseByte(uint16_t addr)
         return false;
     }
 
-    IAP_cmd(ENABLE);
     IAP_setAddress(addr);
     IAP_setCommand(IAP_command_erase);
     IAP_trig();
-    sleep(1);
-    IAP_idle();
     status = IAP_isSuccess();
 
     return status;
@@ -62,7 +74,7 @@ bool IAP_eraseByte(uint16_t addr)
 /*****************************************************************************/
 /** 
  * \author      Jiabin Hsu
- * \date        
+ * \date        2021/03/13
  * \brief       make IAP module be in idle mode
  * \param[in]   
  * \return      none
@@ -71,9 +83,11 @@ bool IAP_eraseByte(uint16_t addr)
 ******************************************************************************/
 void IAP_idle(void)
 {
-    IAP_cmd(DISABLE);
-    IAP_setAddress(0x0000);
+    /* 0xFFFF point to non-eeprom area */
+    IAP_setAddress(0xFFFF);
     IAP_setCommand(IAP_command_idle);
+    IAP_DATA = 0xFF;
+    IAP_TRIG = 0x00;
 }
 
 /*****************************************************************************/
@@ -102,7 +116,7 @@ bool IAP_isSuccess(void)
 /*****************************************************************************/
 /** 
  * \author      Jiabin Hsu
- * \date        
+ * \date        2021/03/13
  * \brief       read value of specified area
  * \param[in]   addr: address of specified area
  * \return      none
@@ -113,13 +127,10 @@ byte IAP_readByte(uint16_t addr)
 {
     byte dat = 0x00;
 
-    IAP_cmd(ENABLE);
     IAP_setAddress(addr);
     IAP_setCommand(IAP_command_read);
     IAP_trig();
-    NOP();
     dat = IAP_DATA;
-    IAP_idle();
 
     return dat;
 }
@@ -158,7 +169,7 @@ void IAP_setCommand(IAP_command cmd)
 /*****************************************************************************/
 /** 
  * \author      Jiabin Hsu
- * \date        
+ * \date        2021/03/13
  * \brief       trigger instruction
  * \param[in]   
  * \return      none
@@ -169,12 +180,13 @@ void IAP_trig(void)
 {
     IAP_TRIG = 0x5A;
     IAP_TRIG = 0xA5;
+    NOP();  /* MCU will hold here until ISP operation */
 }
 
 /*****************************************************************************/
 /** 
  * \author      Jiabin Hsu
- * \date        
+ * \date        2021/03/13
  * \brief       write data to specified IAP area
  * \param[in]   addr: address of target IAP area
  * \param[in]   dat : one byte of data
@@ -191,13 +203,10 @@ bool IAP_writeByte(uint16_t addr, byte dat)
         return false;
     }
 
-    IAP_cmd(ENABLE);
     IAP_setAddress(addr);
     IAP_setCommand(IAP_command_write);
     IAP_DATA = dat;
     IAP_trig();
-    NOP();
-    IAP_idle();
     status = IAP_isSuccess();
 
     return status;

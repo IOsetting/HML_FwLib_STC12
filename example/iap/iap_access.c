@@ -46,6 +46,7 @@ void sys_init(void)
 
     UART_config(&uc);
     IAP_cmd(ENABLE);
+    IAP_config();
 }
 
 /*****************************************************************************/
@@ -107,7 +108,7 @@ void main(void)
     {
         for (i = 0; i < 3; i++)
         {
-            IAP_eraseByte(IAP_ADDR_TEST + i);      /* it's necessary step */
+            IAP_eraseSector(IAP_ADDR_TEST + i);      /* it's necessary step */
             /* write */
             if (IAP_writeByte(IAP_ADDR_TEST + i, test_data[i]))
             {

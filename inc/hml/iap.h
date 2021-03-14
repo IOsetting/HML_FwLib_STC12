@@ -68,6 +68,27 @@
     #define IAP_ADDR_END 0x0000
 #endif
 
+/**
+ * \brief the wait time of IAP command, which is related to clock frequency
+ */
+#if   (__CONF_FRE_CLKIN <=  1000000UL)
+    #define IAP_WAITTIME 0x07
+#elif (__CONF_FRE_CLKIN <=  2000000UL)
+    #define IAP_WAITTIME 0x06
+#elif (__CONF_FRE_CLKIN <=  3000000UL)
+    #define IAP_WAITTIME 0x05
+#elif (__CONF_FRE_CLKIN <=  6000000UL)
+    #define IAP_WAITTIME 0x04
+#elif (__CONF_FRE_CLKIN <= 12000000UL)
+    #define IAP_WAITTIME 0x03
+#elif (__CONF_FRE_CLKIN <= 20000000UL)
+    #define IAP_WAITTIME 0x02
+#elif (__CONF_FRE_CLKIN <= 24000000UL)
+    #define IAP_WAITTIME 0x01
+#else 
+    #define IAP_WAITTIME 0x00
+#endif
+
 /*****************************************************************************
  *                           enumeration type                                *
  *****************************************************************************/
@@ -87,7 +108,8 @@ typedef enum
  *                          function declare                                 *
  *****************************************************************************/
 void IAP_cmd(Action a);
-bool IAP_eraseByte(uint16_t addr);
+void IAP_config(void);
+bool IAP_eraseSector(uint16_t addr);
 void IAP_idle(void);
 bool IAP_isSuccess(void);
 byte IAP_readByte(uint16_t addr);
