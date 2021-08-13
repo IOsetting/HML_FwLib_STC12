@@ -1,15 +1,15 @@
 /*****************************************************************************/
 /** 
- * \file        stc11.h
+ * \file        stc12.h
  * \author      Weilun Fong | wlf@zhishan-iot.tk
- * \brief       STC11xx header file
+ * \brief       STC12xx header file
  * \note        
  * \version     v0.0
  * \ingroup     generic
 ******************************************************************************/
 
-#ifndef ___HML_STC11_H___
-#define ___HML_STC11_H___
+#ifndef ___HML_STC12_H___
+#define ___HML_STC12_H___
 
 #include <lint.h>
 #include <8051.h>

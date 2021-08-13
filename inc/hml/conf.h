@@ -28,7 +28,7 @@
  */
 #ifndef __CONF_MCU_MODEL
     #warning no specified MCU model, HML will fill it with STC11F04E
-    #define __CONF_MCU_MODEL MCU_MODEL_STC11F04E
+    #define __CONF_MCU_MODEL MCU_MODEL_STC12C5A08AD
 #endif
 
 /**

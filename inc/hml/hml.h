@@ -18,7 +18,7 @@
 #include "hml/macro.h"
 #include "hml/types.h"
 /*****************************************************************************/
-#include "hml/stc11.h"
+#include "hml/stc12.h"
 /*****************************************************************************/
 #include "hml/exti.h"
 #include "hml/gpio.h"
