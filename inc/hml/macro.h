@@ -28,85 +28,143 @@
  */
 
 #define MCU_MODEL_GENERIC         0x01
-#define MCU_MODEL_STC11F01        0x02
-#define MCU_MODEL_STC11L01        0x03
-#define MCU_MODEL_STC11F01E       0x04
-#define MCU_MODEL_STC11L01E       0x05
-#define MCU_MODEL_STC11F02        0x06
-#define MCU_MODEL_STC11L02        0x07
-#define MCU_MODEL_STC11F02E       0x08
-#define MCU_MODEL_STC11L02E       0x09
-#define MCU_MODEL_STC11F03E       0x0A
-#define MCU_MODEL_STC11L03E       0x0B
-#define MCU_MODEL_STC11F04        0x0C
-#define MCU_MODEL_STC11L04        0x0D
-#define MCU_MODEL_STC11F04E       0x0E
-#define MCU_MODEL_STC11L04E       0x0F
-#define MCU_MODEL_STC11F05E       0x10
-#define MCU_MODEL_STC11L05E       0x11
-#define MCU_MODEL_IAP11F06        0x12
-#define MCU_MODEL_IAP11L06        0x13
-#define MCU_MODEL_STC11F08XE      0x14
-#define MCU_MODEL_STC11L08XE      0x15
-#define MCU_MODEL_STC11F16XE      0x16
-#define MCU_MODEL_STC11L16XE      0x17
-#define MCU_MODEL_STC11F32XE      0x18
-#define MCU_MODEL_STC11L32XE      0x19
-#define MCU_MODEL_STC11F40XE      0x1A
-#define MCU_MODEL_STC11L40XE      0x1B
-#define MCU_MODEL_STC11F48XE      0x1C
-#define MCU_MODEL_STC11L48XE      0x1D
-#define MCU_MODEL_STC11F52XE      0x1E
-#define MCU_MODEL_STC11L52XE      0x1F
-#define MCU_MODEL_STC11F56XE      0x20
-#define MCU_MODEL_STC11L56XE      0x21
-#define MCU_MODEL_STC11F60XE      0x22
-#define MCU_MODEL_STC11L60XE      0x23
-#define MCU_MODEL_IAP11F62X       0x24
-#define MCU_MODEL_IAP11L62X       0x25
+
+#define MCU_MODEL_STC12C5A08AD    0x11
+#define MCU_MODEL_STC12C5A08S2    0x12
+#define MCU_MODEL_STC12C5A08PWM   0x13
+#define MCU_MODEL_STC12LE5A08AD   0x14
+#define MCU_MODEL_STC12LE5A08S2   0x15
+#define MCU_MODEL_STC12LE5A08PWM  0x16
+
+#define MCU_MODEL_STC12C5A16AD    0x21
+#define MCU_MODEL_STC12C5A16S2    0x22
+#define MCU_MODEL_STC12C5A16PWM   0x23
+#define MCU_MODEL_STC12LE5A16AD   0x24
+#define MCU_MODEL_STC12LE5A16S2   0x25
+#define MCU_MODEL_STC12LE5A16PWM  0x26
+
+#define MCU_MODEL_STC12C5A20AD    0x31
+#define MCU_MODEL_STC12C5A20S2    0x32
+#define MCU_MODEL_STC12C5A20PWM   0x33
+#define MCU_MODEL_STC12LE5A20AD   0x34
+#define MCU_MODEL_STC12LE5A20S2   0x35
+#define MCU_MODEL_STC12LE5A20PWM  0x36
+
+#define MCU_MODEL_STC12C5A32AD    0x41
+#define MCU_MODEL_STC12C5A32S2    0x42
+#define MCU_MODEL_STC12C5A32PWM   0x43
+#define MCU_MODEL_STC12LE5A32AD   0x44
+#define MCU_MODEL_STC12LE5A32S2   0x45
+#define MCU_MODEL_STC12LE5A32PWM  0x46
+
+#define MCU_MODEL_STC12C5A40AD    0x51
+#define MCU_MODEL_STC12C5A40S2    0x52
+#define MCU_MODEL_STC12C5A40PWM   0x53
+#define MCU_MODEL_STC12LE5A40AD   0x54
+#define MCU_MODEL_STC12LE5A40S2   0x55
+#define MCU_MODEL_STC12LE5A40PWM  0x56
+
+#define MCU_MODEL_STC12C5A48AD    0x61
+#define MCU_MODEL_STC12C5A48S2    0x62
+#define MCU_MODEL_STC12C5A48PWM   0x63
+#define MCU_MODEL_STC12LE5A48AD   0x64
+#define MCU_MODEL_STC12LE5A48S2   0x65
+#define MCU_MODEL_STC12LE5A48PWM  0x66
+
+#define MCU_MODEL_STC12C5A52AD    0x71
+#define MCU_MODEL_STC12C5A52S2    0x72
+#define MCU_MODEL_STC12C5A52PWM   0x73
+#define MCU_MODEL_STC12LE5A52AD   0x74
+#define MCU_MODEL_STC12LE5A52S2   0x75
+#define MCU_MODEL_STC12LE5A52PWM  0x76
+
+#define MCU_MODEL_STC12C5A56AD    0x81
+#define MCU_MODEL_STC12C5A56S2    0x82
+#define MCU_MODEL_STC12C5A56PWM   0x83
+#define MCU_MODEL_STC12LE5A56AD   0x84
+#define MCU_MODEL_STC12LE5A56S2   0x85
+#define MCU_MODEL_STC12LE5A56PWM  0x86
+
+#define MCU_MODEL_STC12C5A60AD    0x91
+#define MCU_MODEL_STC12C5A60S2    0x92
+#define MCU_MODEL_STC12C5A60PWM   0x93
+#define MCU_MODEL_STC12LE5A60AD   0x94
+#define MCU_MODEL_STC12LE5A60S2   0x95
+#define MCU_MODEL_STC12LE5A60PWM  0x96
+
+#define MCU_MODEL_IAP12C5A62AD    0xa1
+#define MCU_MODEL_IAP12C5A62S2    0xa2
+#define MCU_MODEL_IAP12C5A62PWM   0xa3
+#define MCU_MODEL_IAP12LE5A62AD   0xa4
+#define MCU_MODEL_IAP12LE5A62S2   0xa5
+#define MCU_MODEL_IAP12LE5A62PWM  0xa6
 
 /**
  * \brief check macro for MCU model
  */
 #define IS_STC11_MCU_MODEL(model)           \
     (                                       \
-        (model == MCU_MODEL_GENERIC)     || \
-        (model == MCU_MODEL_STC11F01)    || \
-        (model == MCU_MODEL_STC11L01)    || \
-        (model == MCU_MODEL_STC11F01E)   || \
-        (model == MCU_MODEL_STC11L01E)   || \
-        (model == MCU_MODEL_STC11F02)    || \
-        (model == MCU_MODEL_STC11L02)    || \
-        (model == MCU_MODEL_STC11F02E)   || \
-        (model == MCU_MODEL_STC11L02E)   || \
-        (model == MCU_MODEL_STC11F03E)   || \
-        (model == MCU_MODEL_STC11L03E)   || \
-        (model == MCU_MODEL_STC11F04)    || \
-        (model == MCU_MODEL_STC11L04)    || \
-        (model == MCU_MODEL_STC11F04E)   || \
-        (model == MCU_MODEL_STC11L04E)   || \
-        (model == MCU_MODEL_STC11F05E)   || \
-        (model == MCU_MODEL_STC11L05E)   || \
-        (model == MCU_MODEL_IAP11F06)    || \
-        (model == MCU_MODEL_IAP11L06)    || \
-        (model == MCU_MODEL_STC11F08XE)  || \
-        (model == MCU_MODEL_STC11L08XE)  || \
-        (model == MCU_MODEL_STC11F16XE)  || \
-        (model == MCU_MODEL_STC11L16XE)  || \
-        (model == MCU_MODEL_STC11F32XE)  || \
-        (model == MCU_MODEL_STC11L32XE)  || \
-        (model == MCU_MODEL_STC11F40XE)  || \
-        (model == MCU_MODEL_STC11L40XE)  || \
-        (model == MCU_MODEL_STC11F48XE)  || \
-        (model == MCU_MODEL_STC11L48XE)  || \
-        (model == MCU_MODEL_STC11F52XE)  || \
-        (model == MCU_MODEL_STC11L52XE)  || \
-        (model == MCU_MODEL_STC11F56XE)  || \
-        (model == MCU_MODEL_STC11L56XE)  || \
-        (model == MCU_MODEL_STC11F60XE)  || \
-        (model == MCU_MODEL_STC11L60XE)  || \
-        (model == MCU_MODEL_IAP11F62X)   || \
-        (model == MCU_MODEL_IAP11L62X)      \
+        (model == MCU_MODEL_GENERIC    )     || \
+        (model == MCU_MODEL_STC12C5A08AD   ) || \
+        (model == MCU_MODEL_STC12C5A08S2   ) || \
+        (model == MCU_MODEL_STC12C5A08PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A08AD  ) || \
+        (model == MCU_MODEL_STC12LE5A08S2  ) || \
+        (model == MCU_MODEL_STC12LE5A08PWM ) || \
+        (model == MCU_MODEL_STC12C5A16AD   ) || \
+        (model == MCU_MODEL_STC12C5A16S2   ) || \
+        (model == MCU_MODEL_STC12C5A16PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A16AD  ) || \
+        (model == MCU_MODEL_STC12LE5A16S2  ) || \
+        (model == MCU_MODEL_STC12LE5A16PWM ) || \
+        (model == MCU_MODEL_STC12C5A20AD   ) || \
+        (model == MCU_MODEL_STC12C5A20S2   ) || \
+        (model == MCU_MODEL_STC12C5A20PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A20AD  ) || \
+        (model == MCU_MODEL_STC12LE5A20S2  ) || \
+        (model == MCU_MODEL_STC12LE5A20PWM ) || \
+        (model == MCU_MODEL_STC12C5A32AD   ) || \
+        (model == MCU_MODEL_STC12C5A32S2   ) || \
+        (model == MCU_MODEL_STC12C5A32PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A32AD  ) || \
+        (model == MCU_MODEL_STC12LE5A32S2  ) || \
+        (model == MCU_MODEL_STC12LE5A32PWM ) || \
+        (model == MCU_MODEL_STC12C5A40AD   ) || \
+        (model == MCU_MODEL_STC12C5A40S2   ) || \
+        (model == MCU_MODEL_STC12C5A40PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A40AD  ) || \
+        (model == MCU_MODEL_STC12LE5A40S2  ) || \
+        (model == MCU_MODEL_STC12LE5A40PWM ) || \
+        (model == MCU_MODEL_STC12C5A48AD   ) || \
+        (model == MCU_MODEL_STC12C5A48S2   ) || \
+        (model == MCU_MODEL_STC12C5A48PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A48AD  ) || \
+        (model == MCU_MODEL_STC12LE5A48S2  ) || \
+        (model == MCU_MODEL_STC12LE5A48PWM ) || \
+        (model == MCU_MODEL_STC12C5A52AD   ) || \
+        (model == MCU_MODEL_STC12C5A52S2   ) || \
+        (model == MCU_MODEL_STC12C5A52PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A52AD  ) || \
+        (model == MCU_MODEL_STC12LE5A52S2  ) || \
+        (model == MCU_MODEL_STC12LE5A52PWM ) || \
+        (model == MCU_MODEL_STC12C5A56AD   ) || \
+        (model == MCU_MODEL_STC12C5A56S2   ) || \
+        (model == MCU_MODEL_STC12C5A56PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A56AD  ) || \
+        (model == MCU_MODEL_STC12LE5A56S2  ) || \
+        (model == MCU_MODEL_STC12LE5A56PWM ) || \
+        (model == MCU_MODEL_STC12C5A60AD   ) || \
+        (model == MCU_MODEL_STC12C5A60S2   ) || \
+        (model == MCU_MODEL_STC12C5A60PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A60AD  ) || \
+        (model == MCU_MODEL_STC12LE5A60S2  ) || \
+        (model == MCU_MODEL_STC12LE5A60PWM ) || \
+        (model == MCU_MODEL_IAP12C5A62AD   ) || \
+        (model == MCU_MODEL_IAP12C5A62S2   ) || \
+        (model == MCU_MODEL_IAP12C5A62PWM  ) || \
+        (model == MCU_MODEL_IAP12LE5A62AD  ) || \
+        (model == MCU_MODEL_IAP12LE5A62S2  ) || \
+        (model == MCU_MODEL_IAP12LE5A62PWM )    \
     )
 
 /**
@@ -114,36 +172,66 @@
  */
 #define IS_IAP_MODEL(model)                 \
     (                                       \
-        (model == MCU_MODEL_STC11F01E)   || \
-        (model == MCU_MODEL_STC11L01E)   || \
-        (model == MCU_MODEL_STC11F02E)   || \
-        (model == MCU_MODEL_STC11L02E)   || \
-        (model == MCU_MODEL_STC11F03E)   || \
-        (model == MCU_MODEL_STC11L03E)   || \
-        (model == MCU_MODEL_STC11F04E)   || \
-        (model == MCU_MODEL_STC11L04E)   || \
-        (model == MCU_MODEL_STC11F05E)   || \
-        (model == MCU_MODEL_STC11L05E)   || \
-        (model == MCU_MODEL_IAP11F06)    || \
-        (model == MCU_MODEL_IAP11L06)    || \
-        (model == MCU_MODEL_STC11F08XE)  || \
-        (model == MCU_MODEL_STC11L08XE)  || \
-        (model == MCU_MODEL_STC11F16XE)  || \
-        (model == MCU_MODEL_STC11L16XE)  || \
-        (model == MCU_MODEL_STC11F32XE)  || \
-        (model == MCU_MODEL_STC11L32XE)  || \
-        (model == MCU_MODEL_STC11F40XE)  || \
-        (model == MCU_MODEL_STC11L40XE)  || \
-        (model == MCU_MODEL_STC11F48XE)  || \
-        (model == MCU_MODEL_STC11L48XE)  || \
-        (model == MCU_MODEL_STC11F52XE)  || \
-        (model == MCU_MODEL_STC11L52XE)  || \
-        (model == MCU_MODEL_STC11F56XE)  || \
-        (model == MCU_MODEL_STC11L56XE)  || \
-        (model == MCU_MODEL_STC11F60XE)  || \
-        (model == MCU_MODEL_STC11L60XE)  || \
-        (model == MCU_MODEL_IAP11F62X)   || \
-        (model == MCU_MODEL_IAP11L62X)      \
+        (model == MCU_MODEL_STC12C5A08AD   ) || \
+        (model == MCU_MODEL_STC12C5A08S2   ) || \
+        (model == MCU_MODEL_STC12C5A08PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A08AD  ) || \
+        (model == MCU_MODEL_STC12LE5A08S2  ) || \
+        (model == MCU_MODEL_STC12LE5A08PWM ) || \
+        (model == MCU_MODEL_STC12C5A16AD   ) || \
+        (model == MCU_MODEL_STC12C5A16S2   ) || \
+        (model == MCU_MODEL_STC12C5A16PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A16AD  ) || \
+        (model == MCU_MODEL_STC12LE5A16S2  ) || \
+        (model == MCU_MODEL_STC12LE5A16PWM ) || \
+        (model == MCU_MODEL_STC12C5A20AD   ) || \
+        (model == MCU_MODEL_STC12C5A20S2   ) || \
+        (model == MCU_MODEL_STC12C5A20PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A20AD  ) || \
+        (model == MCU_MODEL_STC12LE5A20S2  ) || \
+        (model == MCU_MODEL_STC12LE5A20PWM ) || \
+        (model == MCU_MODEL_STC12C5A32AD   ) || \
+        (model == MCU_MODEL_STC12C5A32S2   ) || \
+        (model == MCU_MODEL_STC12C5A32PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A32AD  ) || \
+        (model == MCU_MODEL_STC12LE5A32S2  ) || \
+        (model == MCU_MODEL_STC12LE5A32PWM ) || \
+        (model == MCU_MODEL_STC12C5A40AD   ) || \
+        (model == MCU_MODEL_STC12C5A40S2   ) || \
+        (model == MCU_MODEL_STC12C5A40PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A40AD  ) || \
+        (model == MCU_MODEL_STC12LE5A40S2  ) || \
+        (model == MCU_MODEL_STC12LE5A40PWM ) || \
+        (model == MCU_MODEL_STC12C5A48AD   ) || \
+        (model == MCU_MODEL_STC12C5A48S2   ) || \
+        (model == MCU_MODEL_STC12C5A48PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A48AD  ) || \
+        (model == MCU_MODEL_STC12LE5A48S2  ) || \
+        (model == MCU_MODEL_STC12LE5A48PWM ) || \
+        (model == MCU_MODEL_STC12C5A52AD   ) || \
+        (model == MCU_MODEL_STC12C5A52S2   ) || \
+        (model == MCU_MODEL_STC12C5A52PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A52AD  ) || \
+        (model == MCU_MODEL_STC12LE5A52S2  ) || \
+        (model == MCU_MODEL_STC12LE5A52PWM ) || \
+        (model == MCU_MODEL_STC12C5A56AD   ) || \
+        (model == MCU_MODEL_STC12C5A56S2   ) || \
+        (model == MCU_MODEL_STC12C5A56PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A56AD  ) || \
+        (model == MCU_MODEL_STC12LE5A56S2  ) || \
+        (model == MCU_MODEL_STC12LE5A56PWM ) || \
+        (model == MCU_MODEL_STC12C5A60AD   ) || \
+        (model == MCU_MODEL_STC12C5A60S2   ) || \
+        (model == MCU_MODEL_STC12C5A60PWM  ) || \
+        (model == MCU_MODEL_STC12LE5A60AD  ) || \
+        (model == MCU_MODEL_STC12LE5A60S2  ) || \
+        (model == MCU_MODEL_STC12LE5A60PWM ) || \
+        (model == MCU_MODEL_IAP12C5A62AD   ) || \
+        (model == MCU_MODEL_IAP12C5A62S2   ) || \
+        (model == MCU_MODEL_IAP12C5A62PWM  ) || \
+        (model == MCU_MODEL_IAP12LE5A62AD  ) || \
+        (model == MCU_MODEL_IAP12LE5A62S2  ) || \
+        (model == MCU_MODEL_IAP12LE5A62PWM )    \
     )
 
 /**
@@ -202,8 +290,8 @@
 #if (defined __CONF_MCU_MODEL)
     #if IS_STC11_MCU_MODEL(__CONF_MCU_MODEL)
         #if (__CONF_MCU_MODEL == MCU_MODEL_GENERIC)
-            #warning the value of macro HML_MCU_MODEL will be filled with MCU_MODEL_STC11F04E
-            #define HML_MCU_MODEL MCU_MODEL_STC11F04E
+            #warning the value of macro HML_MCU_MODEL will be filled with MCU_MODEL_STC12C5A08AD
+            #define HML_MCU_MODEL MCU_MODEL_STC12C5A08AD
         #else
             #define HML_MCU_MODEL __CONF_MCU_MODEL
         #endif

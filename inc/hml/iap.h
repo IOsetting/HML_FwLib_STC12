@@ -23,46 +23,73 @@
  *****************************************************************************/
 #define IAP_ADDR_START 0x0000
 
-#if (HML_MCU_MODEL == MCU_MODEL_STC11F01E)       || \
-    (HML_MCU_MODEL == MCU_MODEL_STC11L01E)       || \
-    (HML_MCU_MODEL == MCU_MODEL_STC11F02E)       || \
-    (HML_MCU_MODEL == MCU_MODEL_STC11L02E)       || \
-    (HML_MCU_MODEL == MCU_MODEL_STC11F03E)       || \
-    (HML_MCU_MODEL == MCU_MODEL_STC11L03E)
-        #define IAP_ADDR_END 0x07FF
-#elif (HML_MCU_MODEL == MCU_MODEL_STC11F04E)     || \
-      (HML_MCU_MODEL == MCU_MODEL_STC11L04E)     || \
-      (HML_MCU_MODEL == MCU_MODEL_STC11F05E)     || \
-      (HML_MCU_MODEL == MCU_MODEL_STC11L05E)     || \
-      (HML_MCU_MODEL == MCU_MODEL_STC11F60XE)    || \
-      (HML_MCU_MODEL == MCU_MODEL_STC11L60XE)
+#if (model == MCU_MODEL_STC12C5A08AD   ) || \
+    (model == MCU_MODEL_STC12C5A08S2   ) || \
+    (model == MCU_MODEL_STC12C5A08PWM  ) || \
+    (model == MCU_MODEL_STC12LE5A08AD  ) || \
+    (model == MCU_MODEL_STC12LE5A08S2  ) || \
+    (model == MCU_MODEL_STC12LE5A08PWM ) || \
+    (model == MCU_MODEL_STC12C5A16AD   ) || \
+    (model == MCU_MODEL_STC12C5A16S2   ) || \
+    (model == MCU_MODEL_STC12C5A16PWM  ) || \
+    (model == MCU_MODEL_STC12LE5A16AD  ) || \
+    (model == MCU_MODEL_STC12LE5A16S2  ) || \
+    (model == MCU_MODEL_STC12LE5A16PWM ) || \
+    (model == MCU_MODEL_STC12C5A20AD   ) || \
+    (model == MCU_MODEL_STC12C5A20S2   ) || \
+    (model == MCU_MODEL_STC12C5A20PWM  ) || \
+    (model == MCU_MODEL_STC12LE5A20AD  ) || \
+    (model == MCU_MODEL_STC12LE5A20S2  ) || \
+    (model == MCU_MODEL_STC12LE5A20PWM )
+        #define IAP_ADDR_END 0x1FFF
+#elif (model == MCU_MODEL_STC12C5A32AD   ) || \
+    (model == MCU_MODEL_STC12C5A32S2   ) || \
+    (model == MCU_MODEL_STC12C5A32PWM  ) || \
+    (model == MCU_MODEL_STC12LE5A32AD  ) || \
+    (model == MCU_MODEL_STC12LE5A32S2  ) || \
+    (model == MCU_MODEL_STC12LE5A32PWM )
+        #define IAP_ADDR_END 0x6FFF
+#elif (model == MCU_MODEL_STC12C5A40AD   ) || \
+    (model == MCU_MODEL_STC12C5A40S2   ) || \
+    (model == MCU_MODEL_STC12C5A40PWM  ) || \
+    (model == MCU_MODEL_STC12LE5A40AD  ) || \
+    (model == MCU_MODEL_STC12LE5A40S2  ) || \
+    (model == MCU_MODEL_STC12LE5A40PWM )
+        #define IAP_ADDR_END 0x4FFF
+#elif (model == MCU_MODEL_STC12C5A48AD   ) || \
+    (model == MCU_MODEL_STC12C5A48S2   ) || \
+    (model == MCU_MODEL_STC12C5A48PWM  ) || \
+    (model == MCU_MODEL_STC12LE5A48AD  ) || \
+    (model == MCU_MODEL_STC12LE5A48S2  ) || \
+    (model == MCU_MODEL_STC12LE5A48PWM )
+        #define IAP_ADDR_END 0x2FFF
+#elif (model == MCU_MODEL_STC12C5A52AD   ) || \
+    (model == MCU_MODEL_STC12C5A52S2   ) || \
+    (model == MCU_MODEL_STC12C5A52PWM  ) || \
+    (model == MCU_MODEL_STC12LE5A52AD  ) || \
+    (model == MCU_MODEL_STC12LE5A52S2  ) || \
+    (model == MCU_MODEL_STC12LE5A52PWM )
+        #define IAP_ADDR_END 0x1FFF
+#elif (model == MCU_MODEL_STC12C5A56AD   ) || \
+    (model == MCU_MODEL_STC12C5A56S2   ) || \
+    (model == MCU_MODEL_STC12C5A56PWM  ) || \
+    (model == MCU_MODEL_STC12LE5A56AD  ) || \
+    (model == MCU_MODEL_STC12LE5A56S2  ) || \
+    (model == MCU_MODEL_STC12LE5A56PWM )
+        #define IAP_ADDR_END 0x0FFF
+#elif (model == MCU_MODEL_STC12C5A60AD   ) || \
+    (model == MCU_MODEL_STC12C5A60S2   ) || \
+    (model == MCU_MODEL_STC12C5A60PWM  ) || \
+    (model == MCU_MODEL_STC12LE5A60AD  ) || \
+    (model == MCU_MODEL_STC12LE5A60S2  ) || \
+    (model == MCU_MODEL_STC12LE5A60PWM )
         #define IAP_ADDR_END 0x03FF
-#elif (HML_MCU_MODEL == MCU_MODEL_IAP11F06)      || \
-      (HML_MCU_MODEL == MCU_MODEL_IAP11L06)
-        #define IAP_ADDR_END 0x17FF
-#elif (HML_MCU_MODEL == MCU_MODEL_STC11F08XE)    || \
-      (HML_MCU_MODEL == MCU_MODEL_STC11L08XE)
-        #define IAP_ADDR_END 0xD3FF
-#elif (HML_MCU_MODEL == MCU_MODEL_STC11F16XE)    || \
-      (HML_MCU_MODEL == MCU_MODEL_STC11L16XE)
-        #define IAP_ADDR_END 0xB3FF
-#elif (HML_MCU_MODEL == MCU_MODEL_STC11F32XE)    || \
-      (HML_MCU_MODEL == MCU_MODEL_STC11L32XE)
-        #define IAP_ADDR_END 0x73FF
-#elif (HML_MCU_MODEL == MCU_MODEL_STC11F40XE)    || \
-      (HML_MCU_MODEL == MCU_MODEL_STC11L40XE)
-        #define IAP_ADDR_END 0x53FF
-#elif (HML_MCU_MODEL == MCU_MODEL_STC11F48XE)    || \
-      (HML_MCU_MODEL == MCU_MODEL_STC11L48XE)
-        #define IAP_ADDR_END 0x33FF
-#elif (HML_MCU_MODEL == MCU_MODEL_STC11F52XE)    || \
-      (HML_MCU_MODEL == MCU_MODEL_STC11L52XE)
-        #define IAP_ADDR_END 0x23FF
-#elif (HML_MCU_MODEL == MCU_MODEL_STC11F56XE)    || \
-      (HML_MCU_MODEL == MCU_MODEL_STC11L56XE)
-        #define IAP_ADDR_END 0x13FF
-#elif (HML_MCU_MODEL == MCU_MODEL_IAP11F62X)     || \
-      (HML_MCU_MODEL == MCU_MODEL_IAP11L62X)
+#elif (model == MCU_MODEL_IAP12C5A62AD   ) || \
+    (model == MCU_MODEL_IAP12C5A62S2   ) || \
+    (model == MCU_MODEL_IAP12C5A62PWM  ) || \
+    (model == MCU_MODEL_IAP12LE5A62AD  ) || \
+    (model == MCU_MODEL_IAP12LE5A62S2  ) || \
+    (model == MCU_MODEL_IAP12LE5A62PWM )
         #define IAP_ADDR_END 0xF7FF
 #else
     #define IAP_ADDR_END 0x0000
