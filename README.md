@@ -1,8 +1,13 @@
-# HML_FwLib_STC11
-[![Jenkins](https://img.shields.io/jenkins/build?jobUrl=http%3A%2F%2Fjenkins.zhishan-iot.tk%3A12463%2Fjob%2FHML_FwLib_STC11)](http://jenkins.zhishan-iot.tk:12463/job/HML_FwLib_STC11)
-[![GitHub repo size](https://img.shields.io/github/repo-size/MCU-ZHISHAN-IoT/HML_FwLib_STC11)](https://github.com/MCU-ZHISHAN-IoT/HML_FwLib_STC11)
-[![GitHub](https://img.shields.io/github/license/MCU-ZHISHAN-IoT/HML_FwLib_STC11)](https://github.com/MCU-ZHISHAN-IoT/HML_FwLib_STC11/blob/master/LICENSE)
-[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/MCU-ZHISHAN-IoT/HML_FwLib_STC11?color=26a69a)](https://github.com/MCU-ZHISHAN-IoT/HML_FwLib_STC11/tags)
+# HML_FwLib_STC12
+
+[![GitHub repo size](https://img.shields.io/github/repo-size/IOsetting/HML_FwLib_STC12)](https://github.com/IOsetting/HML_FwLib_STC12)
+[![GitHub](https://img.shields.io/github/license/IOsetting/HML_FwLib_STC12)](https://github.com/IOsetting/HML_FwLib_STC12/blob/master/LICENSE)
+[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/IOsetting/HML_FwLib_STC12?color=26a69a)](https://github.com/IOsetting/HML_FwLib_STC12/tags)
+
+## What is HML_FwLib_STC12
+
+This is a lite firmware library for STC12C5A60S2 series MCU, forked from [HML_FwLib_STC11](https://github.com/MCU-ZHISHAN-IoT/HML_FwLib_STC11).
+
 ## What is HML_FwLib_STC11
 HML_FwLib_STC11 is a member component of HML firmware library, **providing a group of interface functions for users to operate on-chip resource of STC11 MCUs**, including GPIO, IAP, timer, UART, external interrupt, power management and watchdog. The STC11 MCU is a kind of Intel MCS-51 based MCU which released by [STC Micro](http://www.stcmcu.com/)(*宏晶*). Compared to STC10 series, STC11 provides dedicated wake-up timer for power down mode.
 
@@ -66,11 +71,4 @@ Certainly, you can just add *inc* and *src* directory into your project structur
 Welcome suggestions and contribution from you! You can fork it or contact us via *[mcu@zhishan-iot.tk](mailto:mcu@zhishan-iot.tk)*.
 
 ## License
-HML_FwLib_STC11 is licensed under the [WTFPL2](https://wtfpl2.com/).
-
-##  Team
-
-|member        | role              |e-mail                        |
-|--------------|-------------------|------------------------------|
-| Amy Chung    | Testing           |[zhongliguo@zhishan-iot.tk](mailto:zhongliguo@zhishan-iot.tk) |
-| Weilun Fong  | **Director**      |[wlf@zhishan-iot.tk](mailto:wlf@zhishan-iot.tk) |
+HML_FwLib_STC12 is licensed under the GPL-3.0 License.
