@@ -1,0 +1,8 @@
+{
+    "name": "HML_FwLib_STC12",
+    "version": "0.0.1",
+    "build": {
+        "srcDir": "src",
+        "includeDir": "inc"
+    }
+}
