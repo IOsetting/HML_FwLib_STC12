@@ -11,6 +11,7 @@
 #ifndef ___HML_STC11_H___
 #define ___HML_STC11_H___
 
+#include <lint.h>
 #include <8051.h>
 #include "bit.h"
 
