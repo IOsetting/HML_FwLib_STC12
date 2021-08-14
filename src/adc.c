@@ -49,6 +49,21 @@ void ADC_setPin(uint8_t pins)
 /** 
  * \author      IOsetting
  * \date        
+ * \brief       set channel to be converted
+ * \param[in]   ch: target channel
+ * \return      none
+ * \ingroup     ADC
+ * \remarks     
+******************************************************************************/
+void ADC_setChannel(ADC_channel ch)
+{
+    ADC_CONTR = (ADC_CONTR & 0xF8) | ch;
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
  * \brief       enable or disable interrupt of ADC
  * \param[in]   a: expected state
  * \return      none
@@ -105,6 +120,30 @@ void ADC_Power_cmd(Action a)
 void ADC_start(void)
 {
     SETB(ADC_CONTR, BIT_NUM_ADC_START);
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       start a single ADC conversion
+ * \param[in]   ch: target channel
+ * \return      none
+ * \ingroup     ADC
+ * \remarks     
+******************************************************************************/
+byte ADC_convert(ADC_channel ch)
+{
+    ADC_setChannel(ch);
+    ADC_start();
+    NOP();
+    NOP();
+    NOP();
+    NOP();
+    /* Wait complete flag */
+    while(!TESTB(ADC_CONTR, BIT_NUM_ADC_FLAG));
+    ADC_INT_clear();
+    return ADC_RES;
 }
 
 #else

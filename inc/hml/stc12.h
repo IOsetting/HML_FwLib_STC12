@@ -42,6 +42,7 @@ __sfr __at (0xB4) P4M0      ;
 __sfr __at (0xB5) IP2       ;
 __sfr __at (0xB6) IP2H      ;
 __sfr __at (0xB7) IPH       ;
+__sfr __at (0xB8) IP        ;
 __sfr __at (0xB9) SADEN     ;
 __sfr __at (0xBB) P4SW      ;
 __sfr __at (0xBC) ADC_CONTR ;
@@ -81,12 +82,18 @@ __sbit __at (0xAD) EADC     ;
 /* Enable Low Voltage Detection Interrupt */
 __sbit __at (0xAE) ELVD     ;
 
+/* IP */
 /* Interrupt Priority for PCA */
 __sbit __at (0xBF) PPCA     ;
 /* Interrupt Priority for Low Voltage Detection */
 __sbit __at (0xBE) PLVD     ;
 /* Interrupt Priority for ADC */
 __sbit __at (0xBD) PADC     ;
+__sbit __at (0xBC) PS       ;
+__sbit __at (0xBB) PT1      ;
+__sbit __at (0xBA) pX1      ;
+__sbit __at (0xB9) PT0      ;
+__sbit __at (0xB8) PX0      ;
 
 /* P4 */
 __sbit __at (0xC0) P4_0     ;
@@ -160,6 +167,16 @@ __sbit __at (0xD8) CCF0     ;
 #define BIT_NUM_SWRST       5
 #define BIT_NUM_SWBS        6
 #define BIT_NUM_IAPEN       7
+
+/* IPH bits */
+#define BIT_NUM_PX0H        0
+#define BIT_NUM_PT0H        1
+#define BIT_NUM_PX1H        2
+#define BIT_NUM_PT1H        3
+#define BIT_NUM_PSH         4
+#define BIT_NUM_PADCH       5
+#define BIT_NUM_PLVDH       6
+#define BIT_NUM_PPCAH       7
 
 /* P4SW bits */
 #define BIT_NUM_NA_P44      4

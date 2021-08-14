@@ -68,9 +68,11 @@ typedef struct
  *****************************************************************************/
 void ADC_config(ADC_configTypeDef *ac);
 void ADC_setPin(uint8_t pins);
+void ADC_setChannel(ADC_channel ch);
 void ADC_INT_cmd(Action a);
 void ADC_INT_clear(void);
 void ADC_Power_cmd(Action a);
 void ADC_start(void);
+byte ADC_convert(ADC_channel ch);
 
 #endif

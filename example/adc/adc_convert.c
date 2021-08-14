@@ -1,9 +1,9 @@
 /*****************************************************************************/
 /** 
- * \file        adc_toggleIo.c
+ * \file        adc_convert.c
  * \author      IOsetting | iosetting@outlook.com
  * \date        
- * \brief       Example code of A/D conversion in interrupt mode
+ * \brief       Example code of A/D conversion in polling mode
  * \note        An example of using HML_FwLib_STC12 to convert analog input
  * \version     v0.1
  * \ingroup     example
@@ -44,31 +44,13 @@ void initSys(void)
     ADC_configTypeDef ac;
     ac.channelPins              = PERIPH_GPIO_PIN_0|PERIPH_GPIO_PIN_1;
     ac.channel                  = ADC_Channel_0;
-    ac.interruptState           = ENABLE;
+    ac.interruptState           = DISABLE;
     ac.power                    = ENABLE;
-    ac.sampleTime               = ADC_SampleTime_360Cycles;
+    ac.sampleTime               = ADC_SampleTime_540Cycles;
 
     ADC_config(&ac);
-    ADC_start();
 
     enableAllInterrupts();
-}
-
-/*****************************************************************************/
-/** 
- * \author      IOsetting
- * \date        
- * \brief       interrupt service function for ADC
- * \param[in]   
- * \return      none
- * \ingroup     example
- * \remarks     
-******************************************************************************/
-void adc_isr() __interrupt ADC_VECTOR {
-    ADC_INT_clear();
-    UART_sendHex(ADC_RES);
-    UART_sendString("\r\n");
-    ADC_start();
 }
 
 /*****************************************************************************/
@@ -87,10 +69,9 @@ void main(void)
 
     while (true)
     {
-        sleep(200);
-        ADC_Power_cmd(DISABLE);
-        sleep(1000);
-        ADC_Power_cmd(ENABLE);
-        ADC_start();
+        byte result = ADC_convert(ADC_Channel_0);
+        UART_sendHex(result);
+        UART_sendString("\r\n");
+        sleep(300);
     }
 }
