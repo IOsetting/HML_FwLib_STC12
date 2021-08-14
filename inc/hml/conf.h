@@ -34,6 +34,7 @@
 /**
  *\brief select HML module which take part in compilation
  */
+#define __CONF_COMPILE_ADC   1
 #define __CONF_COMPILE_EXTI  1
 #define __CONF_COMPILE_GPIO  1
 #define __CONF_COMPILE_IAP   1

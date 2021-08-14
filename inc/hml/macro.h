@@ -237,6 +237,9 @@
 /**
  * \brief compile select
  */
+#if (__CONF_COMPILE_ADC == 1)
+    #define COMPILE_ADC
+#endif
 #if (__CONF_COMPILE_EXTI == 1)
     #define COMPILE_EXTI
 #endif

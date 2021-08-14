@@ -18,7 +18,7 @@
 /**
  * \brief string literal representation of the current library name
  */
-#define __HML_NAME_STRING__ "HML_FwLib_STC11"
+#define __HML_NAME_STRING__ "HML_FwLib_STC12"
 
 /**
  * \brief string literal representation of the current library version
@@ -29,7 +29,7 @@
  * \deprecated these macro will be abolished in next minor version
  */
 #define HML_VERSION_CODE "0.0.1"
-#define HML_VERSION_NAME "HML_FwLib_STC11"
+#define HML_VERSION_NAME "HML_FwLib_STC12"
 
 /**
  * \brief
