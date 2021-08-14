@@ -8,7 +8,8 @@
 
 This is a lite firmware library for STC12C5A60S2 series MCU, forked from [HML_FwLib_STC11](https://github.com/MCU-ZHISHAN-IoT/HML_FwLib_STC11).
 
-## What is HML_FwLib_STC11
+### What is HML_FwLib_STC11
+
 HML_FwLib_STC11 is a member component of HML firmware library, **providing a group of interface functions for users to operate on-chip resource of STC11 MCUs**, including GPIO, IAP, timer, UART, external interrupt, power management and watchdog. The STC11 MCU is a kind of Intel MCS-51 based MCU which released by [STC Micro](http://www.stcmcu.com/)(*宏晶*). Compared to STC10 series, STC11 provides dedicated wake-up timer for power down mode.
 
 We intend to provide a lite and easy-use firmware library that can help future developers to complete projects based on STC11 MCUs more easily and quickly. All source codes are written in C language and for [SDCC compiler](http://sdcc.sourceforge.net/), i.e., it can only be compiled by SDCC. This choice is motivated by the fact that SDCC is free and highly efficient, while there are very few examples of application about SDCC on the Internet. We hope that, as one of the early attempts to develop MCU projects using SDCC, this work will make SDCC become more popular among MCU developers.<br>
@@ -27,6 +28,7 @@ Here is a list of the all on-chip peripheral drivers and examples that need to b
 | Peripheral | Description | Status |
 | --- | --- | --- |
 | extended bus | Intel 8080 bus receiver/transmitter | supported |
+| ADC  | A/D conversion | supported |
 | EXTI | extern interrupt | supported |
 | GPIO | I/O peripheral | supported  |
 | IAP | in application programming | supported |
