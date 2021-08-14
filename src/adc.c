@@ -146,6 +146,40 @@ byte ADC_convert(ADC_channel ch)
     return ADC_RES;
 }
 
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       set interrupt priority
+ * \param[in]   p: target priority
+ * \return      none
+ * \ingroup     ADC
+ * \remarks     
+******************************************************************************/
+void ADC_INT_setPriority(ADC_intPriority pri)
+{
+    switch (pri)
+    {
+        case ADC_IntPriority_Lowest:
+            PADC = RESET;
+            CLRB(IPH, BIT_NUM_PADCH);
+            break;
+        case ADC_IntPriority_Low:
+            PADC = SET;
+            CLRB(IPH, BIT_NUM_PADCH);
+            break;
+        case ADC_IntPriority_High:
+            PADC = RESET;
+            SETB(IPH, BIT_NUM_PADCH);
+            break;
+        case ADC_IntPriority_Highest:
+            PADC = SET;
+            SETB(IPH, BIT_NUM_PADCH);
+            break;
+        default: break;
+    }
+}
+
 #else
     #warning Nothing to be done... User should remove .c file which is disabled by compile control macro from current directory.
 #endif

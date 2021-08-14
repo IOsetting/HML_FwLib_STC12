@@ -47,6 +47,17 @@ typedef enum
     ADC_Channel_7 = 0x07,
 } ADC_channel;
 
+/**
+ * \brief mark interrupt priority
+ */
+typedef enum
+{
+    ADC_IntPriority_Lowest  = 0x00,
+    ADC_IntPriority_Low     = 0x01,
+    ADC_IntPriority_High    = 0x02,
+    ADC_IntPriority_Highest = 0x03,
+} ADC_intPriority;
+
 /*****************************************************************************
  *                           structure define                                *
  *****************************************************************************/
@@ -71,6 +82,7 @@ void ADC_setPin(uint8_t pins);
 void ADC_setChannel(ADC_channel ch);
 void ADC_INT_cmd(Action a);
 void ADC_INT_clear(void);
+void ADC_INT_setPriority(ADC_intPriority pri);
 void ADC_Power_cmd(Action a);
 void ADC_start(void);
 byte ADC_convert(ADC_channel ch);
