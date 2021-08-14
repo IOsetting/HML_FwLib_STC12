@@ -25,18 +25,28 @@ __sfr __at (0x94) P0M0      ;
 __sfr __at (0x95) P2M1      ;
 __sfr __at (0x96) P2M0      ;
 __sfr __at (0x97) CLK_DIV   ;
+__sfr __at (0x9A) S2CON     ;
+__sfr __at (0x9B) S2BUF     ;
 __sfr __at (0x9C) BRT       ;
+__sfr __at (0x9D) P1ASF     ;
 __sfr __at (0xA1) BUS_SPEED ;
 __sfr __at (0xA2) AUXR1     ;
 __sfr __at (0xA9) SADDDR    ;
 __sfr __at (0xAB) WKTCH     ;
 __sfr __at (0xAA) WKTCL     ;
+__sfr __at (0xAF) IE2       ;
 __sfr __at (0xB1) P3M1      ;
 __sfr __at (0xB2) P3M0      ;
 __sfr __at (0xB3) P4M1      ;
 __sfr __at (0xB4) P4M0      ;
+__sfr __at (0xB5) IP2       ;
+__sfr __at (0xB6) IP2H      ;
+__sfr __at (0xB7) IPH       ;
 __sfr __at (0xB9) SADEN     ;
 __sfr __at (0xBB) P4SW      ;
+__sfr __at (0xBC) ADC_CONTR ;
+__sfr __at (0xBD) ADC_RES   ;
+__sfr __at (0xBE) ADC_RESL  ;
 __sfr __at (0xC0) P4        ;
 __sfr __at (0xC1) WDT_CONTR ;
 __sfr __at (0xC2) IAP_DATA  ;
@@ -45,10 +55,38 @@ __sfr __at (0xC4) IAP_ADDRL ;
 __sfr __at (0xC5) IAP_CMD   ;
 __sfr __at (0xC6) IAP_TRIG  ;
 __sfr __at (0xC7) IAP_CONTR ;
+__sfr __at (0xC8) P5        ;
+__sfr __at (0xC9) P5M1      ;
+__sfr __at (0xCA) P5M0      ;
+__sfr __at (0xCD) SPSTAT    ;
+__sfr __at (0xCE) SPCTL     ;
+__sfr __at (0xCF) SPDAT     ;
+__sfr __at (0xD8) CCON      ;
+__sfr __at (0xD9) CMOD      ;
+__sfr __at (0xDA) CCAPM0    ;
+__sfr __at (0xDB) CCAPM1    ;
+__sfr __at (0xE9) CL        ;
+__sfr __at (0xEA) CCAP0L    ;
+__sfr __at (0xEB) CCAP1L    ;
+__sfr __at (0xF2) PCA_PWM0  ;
+__sfr __at (0xF3) PCA_PWM1  ;
+__sfr __at (0xF9) CH        ;
+__sfr __at (0xFA) CCAP0H    ;
+__sfr __at (0xFB) CCAP1H    ;
 
 /*  BIT Register  */
 /* IE */
+/* Enable ADC Interrupt */
+__sbit __at (0xAD) EADC     ;
+/* Enable Low Voltage Detection Interrupt */
 __sbit __at (0xAE) ELVD     ;
+
+/* Interrupt Priority for PCA */
+__sbit __at (0xBF) PPCA     ;
+/* Interrupt Priority for Low Voltage Detection */
+__sbit __at (0xBE) PLVD     ;
+/* Interrupt Priority for ADC */
+__sbit __at (0xBD) PADC     ;
 
 /* P4 */
 __sbit __at (0xC0) P4_0     ;
@@ -59,6 +97,19 @@ __sbit __at (0xC4) P4_4     ;
 __sbit __at (0xC5) P4_5     ;
 __sbit __at (0xC6) P4_6     ;
 __sbit __at (0xC7) P4_7     ;
+
+/* P5 */
+__sbit __at (0xC8) P5_0     ;
+__sbit __at (0xC9) P5_1     ;
+__sbit __at (0xCA) P5_2     ;
+__sbit __at (0xCB) P5_3     ;
+
+/* PCA Control Register */
+/* Bit Mapping: CF CR - - - - CCF1 CCF0 */
+__sbit __at (0xDF) CF       ;
+__sbit __at (0xDE) CR       ;
+__sbit __at (0xD9) CCF1     ;
+__sbit __at (0xD8) CCF0     ;
 
 /* BIT number for bits that are not directly accessible */
 /* AUXR bits */
