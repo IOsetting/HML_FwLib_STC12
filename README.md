@@ -8,7 +8,7 @@
 
 This is a lite firmware library for STC12C5A60S2 series MCU, forked from [HML_FwLib_STC11](https://github.com/MCU-ZHISHAN-IoT/HML_FwLib_STC11).
 
-HML_FwLib_STC12 is a member of HML firmware libraries, providing interface functions for on-chip resource of STC MCUs, including ADC, GPIO, IAP, TIM, UART, external interrupt, power management and watchdog. The STC12C5A60S2 series is a variant of Intel 8051 and a descendant of STC89,STC90,STC11, which offers additional hardware peripherals. More details can be found at http://www.stcmicro.com/stc/stc12c5a32s2.html.
+HML_FwLib_STC12 is a member of HML firmware libraries, providing interface functions for on-chip resource of STC MCUs, including ADC, GPIO, IAP, PCA, TIM, UART, external interrupt, power management and watchdog. The STC12C5A60S2 series is a variant of Intel 8051 and a descendant of STC89,STC90,STC11, which offers additional hardware peripherals. More details can be found at http://www.stcmicro.com/stc/stc12c5a32s2.html.
 
 We intend to provide a lite firmware library that makes coding easier (also more readable code). All source codes are written in C language and for [SDCC compiler](http://sdcc.sourceforge.net/), i.e., it can only be compiled by SDCC. This choice is motivated by the fact that SDCC is free and highly efficient, while there are very few examples of application about SDCC on the Internet. We hope that, as one of the early attempts to develop MCU projects using SDCC, this work will make SDCC become more popular among MCU developers.<br>
 
@@ -32,6 +32,7 @@ Here is a list of the all on-chip peripheral drivers and examples that need to b
 | EXTI | extern interrupt | supported |
 | GPIO | I/O peripheral | supported  |
 | IAP | in application programming | supported |
+| PCA | 16-bit capture/compare and 8-bit PWM | supported |
 | PWR | power management | supported |
 | RCC | reset & clock control | supported |
 | TIM | timer | supported |
