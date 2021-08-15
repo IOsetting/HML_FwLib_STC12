@@ -252,6 +252,9 @@
 #if (__CONF_COMPILE_MEM == 1)
     #define COMPILE_MEM
 #endif
+#if (__CONF_COMPILE_PCA == 1)
+    #define COMPILE_PCA
+#endif
 #if (__CONF_COMPILE_PWR == 1)
     #define COMPILE_PWR
 #endif

@@ -25,6 +25,7 @@
 #include "hml/gpio.h"
 #include "hml/iap.h"
 #include "hml/mem.h"
+#include "hml/pca.h"
 #include "hml/pwr.h"
 #include "hml/rcc.h"
 #include "hml/tim.h"

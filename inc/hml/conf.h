@@ -39,6 +39,7 @@
 #define __CONF_COMPILE_GPIO  1
 #define __CONF_COMPILE_IAP   1
 #define __CONF_COMPILE_MEM   1
+#define __CONF_COMPILE_PCA   1
 #define __CONF_COMPILE_PWR   1
 #define __CONF_COMPILE_RCC   1
 #define __CONF_COMPILE_TIM   1

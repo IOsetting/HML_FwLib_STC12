@@ -176,6 +176,13 @@ __sbit __at (0xD8) CCF0     ;
 #define BIT_NUM_CLKS1       1
 #define BIT_NUM_CLKS2       2
 
+/* CMOD bits */
+#define BIT_NUM_CMOD_ECF    0
+#define BIT_NUM_CMOD_CPS0   1
+#define BIT_NUM_CMOD_CPS1   2
+#define BIT_NUM_CMOD_CPS2   3
+#define BIT_NUM_CMOD_CIDL   7
+
 /* IAP_CMD bits */
 #define BIT_NUM_MS0         0
 #define BIT_NUM_MS1         1
