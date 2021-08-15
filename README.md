@@ -41,7 +41,7 @@ Here is a list of the all on-chip peripheral drivers and examples that need to b
 ## Prerequisite
 + [GNU Make](http://www.gnu.org/software/make/manual/make.html)(recommend)
 + [SDCC compiler](http://sdcc.sourceforge.net/)
-+ *\[for Windows\]* Unix shell tools([msys](http://www.mingw.org/wiki/MSYS), [Cygwin](http://www.cygwin.com/), [GNUwin32](http://gnuwin32.sourceforge.net/)) needed by makefile for HML_FwLib_STC11
++ *\[for Windows\]* Unix shell tools([msys](http://www.mingw.org/wiki/MSYS), [Cygwin](http://www.cygwin.com/), [GNUwin32](http://gnuwin32.sourceforge.net/)) needed by makefile for HML_FwLib_STC12
 
 ## Development
 
@@ -49,16 +49,16 @@ Here is a list of the all on-chip peripheral drivers and examples that need to b
 
 ```bash
 HML_FwLib_STC12
-├─doc          #store related documents about HML_FwLib_STC11
-├─example      #provide some example files with *.c format to help users learn about HML_FwLib_STC11
-├─inc          #include all header files(*.h) of HML_FwLib_STC11
+├─doc          #store related documents about HML_FwLib_STC12
+├─example      #provide some example files with *.c format to help users learn about HML_FwLib_STC12
+├─inc          #include all header files(*.h) of HML_FwLib_STC12
 ├─obj          #store all output files, including *.hex,*.ihx,*.lk,*.rel and others during compilation
-├─src          #store all source files(*.c) of HML_FwLib_STC11
+├─src          #store all source files(*.c) of HML_FwLib_STC12
 ├─usr          #store makefile and a source file which includes main function
 ├─library.json #library definition for PlatformIO integration
-├─LICENSE      #license of HML_FwLib_STC11
+├─LICENSE      #license of HML_FwLib_STC12
 ├─README.md    #this file
-└─VERSION      #version code of HML_FwLib_STC11
+└─VERSION      #version code of HML_FwLib_STC12
 ```
 
 ### configuration
@@ -66,7 +66,7 @@ HML_FwLib_STC12
 There are several parameters need to be configured by user manually.
 
 #### \_\_CONF\_COMPILE\_xxx (for conditional compilation)
-In order to ensure the projects based on HML_FwLib_STC11 can be downloaded into the limited on-chip flash space of STC11 MCUs, the developers can modify the macro definition named `__CONF_COMPILE_xxx` in *conf.h* to specify which piece of codewill take part in compilation, then it will reduce size of final .hex file. If user only use GPIO module, then user just need to enable `__CONF_COMPILE_GPIO` macro in *conf.h*. Some macros for conditional compilation rely on others. For example, before you define the macro definition `__CONF_COMPILE_RCC`, the macro `__CONF_COMPILE_UTIL` should be defined, otherwise the compilation would be failed.
+In order to ensure the projects based on HML_FwLib_STC12 can be downloaded into the limited on-chip flash space of STC12 MCUs, the developers can modify the macro definition named `__CONF_COMPILE_xxx` in *conf.h* to specify which piece of codewill take part in compilation, then it will reduce size of final .hex file. If user only use GPIO module, then user just need to enable `__CONF_COMPILE_GPIO` macro in *conf.h*. Some macros for conditional compilation rely on others. For example, before you define the macro definition `__CONF_COMPILE_RCC`, the macro `__CONF_COMPILE_UTIL` should be defined, otherwise the compilation would be failed.
 ####  \_\_CONF\_FRE\_CLKIN
 The macro mark frequency of clock source, including extern crystal oscillator or internal RC oscillating circuit, and it's defined in *conf.h*.
 #### \_\_CONF\_MCU\_MODEL
