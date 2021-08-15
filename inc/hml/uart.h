@@ -39,20 +39,22 @@ typedef enum
  */
 typedef enum
 {
-    UART_mode_0 = 0x0,  /* 8-bit shift register */
-    UART_mode_1 = 0x1,  /* 8-bit UART,variable baud rate */
+    UART_mode_0 = 0x0,  /* 8-bit shift register.
+                         * UART_M0x6 = 0, baud rate = SYSclk/12, 
+                         * UART_M0x6 = 1, baud rate = SYSclk/2 */
+    UART_mode_1 = 0x1,  /* 8-bit UART,variable baud rate = (2^SMOD)/32*(TIM1 or BRT) */
     UART_mode_2 = 0x2,  /* 9-bit UART,baud rate = (2^SMOD)/64*_SYS_CLK_ */
-    UART_mode_3 = 0x3   /* 9-bit UART,variable baud rate */
+    UART_mode_3 = 0x3   /* 9-bit UART,variable baud rate = (2^SMOD)/32*(TIM1 or BRT) */
 } UART_mode;
 
 /**
- * \brief mark function pin location
+ * \brief mark function UART2 pin location
  */
 typedef enum
 {
-    UART_pinmap_0 = 0x0,     /* P30(Rx)/P31(Tx) */
-    UART_pinmap_1 = 0x1      /* P16(Rx)/P17(Tx) */
-} UART_pinmap;
+    UART_pinmap_P1 = 0x0,     /* P12(Rx)/P13(Tx) */
+    UART_pinmap_P4 = 0x1      /* P42(Rx)/P43(Tx) */
+} UART2_pinmap;
 
 /*****************************************************************************
  *                           structure define                                *
@@ -70,7 +72,7 @@ typedef struct
     Action         interruptPriority;
     UART_mode      mode;
     Action         multiBaudrate;
-    UART_pinmap    pinmap;
+    UART2_pinmap   pinmap;
     Action         receiveState;
 } UART_configTypeDef;
 
@@ -90,8 +92,16 @@ void UART_sendHex(uint8_t hex);
 void UART_sendString(char *str);
 void UART_setBaudGenerator(UART_baudrateGenerator gen);
 void UART_setMode(UART_mode mode);
-void UART_setPin(UART_pinmap pm);
 void UART_INT_cmd(Action a);
-void UART_INT_setPriority(Action a);
+void UART_INT_setPriority(IntPriority pri);
+
+void UART2_sendByte(byte dat);
+void UART2_sendHex(uint8_t hex);
+void UART2_sendString(char *str);
+void UART2_INT_cmd(Action a);
+void UART2_INT_setPriority(IntPriority pri);
+void UART2_setMode(UART_mode mode);
+void UART2_setPin(UART2_pinmap pm);
+
 
 #endif

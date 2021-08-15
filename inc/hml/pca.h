@@ -1,15 +1,15 @@
 /*****************************************************************************/
 /** 
- * \file        adc.h
+ * \file        pca.h
  * \author      IOsetting | iosetting@outlook.com
- * \brief       operations for ADC
+ * \brief       operations for PCA/PWM
  * \note        
  * \version     v0.1
- * \ingroup     ADC
+ * \ingroup     PCA
 ******************************************************************************/
 
-#ifndef ___HML_ADC_H___
-#define ___HML_ADC_H___
+#ifndef ___HML_PCA_H___
+#define ___HML_PCA_H___
 
 /*****************************************************************************
  *                             header file                                   *
@@ -21,31 +21,19 @@
  *****************************************************************************/
 
 /**
- * \brief mark sample time
+ * \brief mark PCA counter pulse source
  */
 typedef enum
 {
-    ADC_SampleTime_540Cycles = 0x00, /* 540 cycles */
-    ADC_SampleTime_360Cycles = 0x20,
-    ADC_SampleTime_180Cycles = 0x40,
-    ADC_SampleTime_90Cycles  = 0x60
-} ADC_sampleTime;
-
-/**
- * \brief mark channel
- */
-typedef enum
-{
-    ADC_Channel_0 = 0x00, /* P1.0 (default) as the A/D channel input */
-    ADC_Channel_1 = 0x01, /* P1.1 as the A/D channel input */
-    ADC_Channel_2 = 0x02,
-    ADC_Channel_3 = 0x03,
-    ADC_Channel_4 = 0x04,
-    ADC_Channel_5 = 0x05,
-    ADC_Channel_6 = 0x06,
-    ADC_Channel_7 = 0x07,
-} ADC_channel;
-
+    PCA_CounterPulseSource_SysClkDivBy12 = 0x00, /* System clock/12, SYSclk/12 */
+    PCA_CounterPulseSource_SysClkDivBy2  = 0x01, /* System clock/2, SYSclk/2 */
+    PCA_CounterPulseSource_Tim0          = 0x02, /* Timer 0 overflow */
+    PCA_CounterPulseSource_External      = 0x03, /* External clock from ECI/P1.2 (or P4.1) pin (max speed = SYSclk/2) */
+    PCA_CounterPulseSource_SysClk        = 0x04, /* System clock, SYSclk */
+    PCA_CounterPulseSource_SysClkDivBy4  = 0x05, /* System clock/4, SYSclk/4 */
+    PCA_CounterPulseSource_SysClkDivBy6  = 0x06, /* System clock/4, SYSclk/6 */
+    PCA_CounterPulseSource_SysClkDivBy8  = 0x07, /* System clock/4, SYSclk/8 */
+} PCA_counterPulseSource;
 
 /*****************************************************************************
  *                           structure define                                *
@@ -57,23 +45,13 @@ typedef enum
 typedef struct
 {
     uint8_t        channelPins;
-    ADC_channel    channel;
     Action         interruptState;
     Action         power;
-    ADC_sampleTime sampleTime;
-} ADC_configTypeDef;
+} PCA_configTypeDef;
 
 /*****************************************************************************
  *                          function declare                                 *
  *****************************************************************************/
-void ADC_config(ADC_configTypeDef *ac);
-void ADC_setPin(uint8_t pins);
-void ADC_setChannel(ADC_channel ch);
-void ADC_INT_cmd(Action a);
-void ADC_INT_clear(void);
-void ADC_INT_setPriority(IntPriority pri);
-void ADC_Power_cmd(Action a);
-void ADC_start(void);
-byte ADC_convert(ADC_channel ch);
+
 
 #endif

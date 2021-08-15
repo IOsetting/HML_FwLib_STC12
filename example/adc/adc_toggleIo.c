@@ -36,7 +36,7 @@ void initSys(void)
     uc.interruptPriority           = DISABLE;
     uc.mode                        = UART_mode_1;
     uc.multiBaudrate               = DISABLE;
-    uc.pinmap                      = UART_pinmap_0;
+    uc.pinmap                      = UART_pinmap_P1;
     uc.receiveState                = ENABLE;
 
     UART_config(&uc);

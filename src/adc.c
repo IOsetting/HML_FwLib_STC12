@@ -156,23 +156,23 @@ byte ADC_convert(ADC_channel ch)
  * \ingroup     ADC
  * \remarks     
 ******************************************************************************/
-void ADC_INT_setPriority(ADC_intPriority pri)
+void ADC_INT_setPriority(IntPriority pri)
 {
     switch (pri)
     {
-        case ADC_IntPriority_Lowest:
+        case IntPriority_Lowest:
             PADC = RESET;
             CLRB(IPH, BIT_NUM_PADCH);
             break;
-        case ADC_IntPriority_Low:
+        case IntPriority_Low:
             PADC = SET;
             CLRB(IPH, BIT_NUM_PADCH);
             break;
-        case ADC_IntPriority_High:
+        case IntPriority_High:
             PADC = RESET;
             SETB(IPH, BIT_NUM_PADCH);
             break;
-        case ADC_IntPriority_Highest:
+        case IntPriority_Highest:
             PADC = SET;
             SETB(IPH, BIT_NUM_PADCH);
             break;

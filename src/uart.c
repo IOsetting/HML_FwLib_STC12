@@ -80,7 +80,8 @@ void UART_config(UART_configTypeDef *uc)
     UART_cmd_receive(uc->receiveState);
     UART_setBaudGenerator(uc->baudrateGenerator);
     UART_setMode(uc->mode);
-    UART_setPin(uc->pinmap);
+    /* UART1 pin is unchangable in STC12 */
+    //UART2_setPin(uc->pinmap);
     UART_INT_cmd(uc->interruptState);
     UART_INT_setPriority(uc->interruptPriority);
 
@@ -337,21 +338,6 @@ void UART_setMode(UART_mode mode)
 /** 
  * \author      Weilun Fong
  * \date        
- * \brief       set input & output pin of UART module
- * \param[in]   pm: target pin map
- * \return      none
- * \ingroup     UART
- * \remarks     
-******************************************************************************/
-void UART_setPin(UART_pinmap pm)
-{
-    CONFB(AUXR1, BIT_NUM_UART_P1, pm);
-}
-
-/*****************************************************************************/
-/** 
- * \author      Weilun Fong
- * \date        
  * \brief       enable or disable interrupt of UART
  * \param[in]   a: expected state
  * \return      none
@@ -362,20 +348,184 @@ void UART_INT_cmd(Action a)
 {
     ES = a;
 }
+
 /*****************************************************************************/
 /** 
- * \author      Weilun Fong
+ * \author      IOsetting
  * \date        
  * \brief       configure interrupt priority class of UART
- * \param[in]   a: expected interrupt priority, the value must be SET(high priority)
- *              or RESET
+ * \param[in]   a: expected interrupt priority
  * \return      none
  * \ingroup     UART
  * \remarks     
 ******************************************************************************/
-void UART_INT_setPriority(Action a)
+void UART_INT_setPriority(IntPriority pri)
 {
-    PS = a;
+    switch (pri)
+    {
+        case IntPriority_Lowest:
+            PS = RESET;
+            CLRB(IPH, BIT_NUM_PSH);
+            break;
+        case IntPriority_Low:
+            PS = SET;
+            CLRB(IPH, BIT_NUM_PSH);
+            break;
+        case IntPriority_High:
+            PS = RESET;
+            SETB(IPH, BIT_NUM_PSH);
+            break;
+        case IntPriority_Highest:
+            PS = SET;
+            SETB(IPH, BIT_NUM_PSH);
+            break;
+        default: break;
+    }
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       enable or disable interrupt of UART2
+ * \param[in]   a: expected state
+ * \return      none
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+void UART2_INT_cmd(Action a)
+{
+    CONFB(IE2, BIT_NUM_IE2_ES2, a);
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       configure interrupt priority class of UART2
+ * \param[in]   a: expected interrupt priority
+ * \return      none
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+void UART2_INT_setPriority(IntPriority pri)
+{
+    switch (pri)
+    {
+        case IntPriority_Lowest:
+            CLRB(IP2, BIT_NUM_IP2_PS2);
+            CLRB(IP2H, BIT_NUM_IP2H_PS2H);
+            break;
+        case IntPriority_Low:
+            SETB(IP2, BIT_NUM_IP2_PS2);
+            CLRB(IP2H, BIT_NUM_IP2H_PS2H);
+            break;
+        case IntPriority_High:
+            CLRB(IP2, BIT_NUM_IP2_PS2);
+            SETB(IP2H, BIT_NUM_IP2H_PS2H);
+            break;
+        case IntPriority_Highest:
+            SETB(IP2, BIT_NUM_IP2_PS2);
+            SETB(IP2H, BIT_NUM_IP2H_PS2H);
+            break;
+        default: break;
+    }
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       send one byte of data via UART2
+ * \param[in]   dat: expected data
+ * \return      none
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+void UART2_sendByte(byte dat)
+{
+    S2BUF = dat;
+    while(!TESTB(S2CON, BIT_NUM_S2TI));
+    CLRB(S2CON, BIT_NUM_S2TI);
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       output a hex number with character format via UART2
+ * \param[in]   hex: expected hex number(range: 0x0 ~ 0xF)
+ * \return      none
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+void UART2_sendHex(uint8_t hex)
+{
+    UART2_sendByte(hexTable[hex >> 0x4]);
+    UART2_sendByte(hexTable[hex & 0xF]);
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       send a ASCII string via UART2
+ * \param[in]   str: the point of expected string
+ * \return      none
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+void UART2_sendString(char *str)
+{
+    while (*str != '\0')
+    {
+        S2BUF = *str;
+        while(!TESTB(S2CON, BIT_NUM_S2TI));
+        CLRB(S2CON, BIT_NUM_S2TI);
+        str++;
+    }
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       set work mode of UART2
+ * \param[in]   mode: expected work mode
+ * \return      none
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+void UART2_setMode(UART_mode mode)
+{
+    /**
+     * \note
+     *  - UART_mode_0 (8-bit shift register)
+     *    The baud rate is _SYS_CLK_/12
+     *  - UART_mode_1 (8-bit UART,variable baud rate)
+     *    The baud rate is (2^S2MOD)/32*[Overflow rate of BRT]
+     *
+     *  How to calculate overflow rate of baud rate generator?
+     *  >BRTx12 = 0: the rate is _SYS_CLK_/12/(256-BRT)
+     *  >BRTx12 = 1: the rate is _SYS_CLK_/(256-BRT)
+     */
+
+    S2CON = (S2CON & 0x3F) | ((uint8_t)mode << 0x6);
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       set input & output pin of UART2
+ * \param[in]   pm: target pin map
+ * \return      none
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+void UART2_setPin(UART2_pinmap pm)
+{
+    CONFB(AUXR1, BIT_NUM_S2_P4, pm);
 }
 
 #else
