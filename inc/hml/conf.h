@@ -42,6 +42,7 @@
 #define __CONF_COMPILE_PCA   1
 #define __CONF_COMPILE_PWR   1
 #define __CONF_COMPILE_RCC   1
+#define __CONF_COMPILE_SPI   1
 #define __CONF_COMPILE_TIM   1
 #define __CONF_COMPILE_UART  1
 #define __CONF_COMPILE_UTIL  1

@@ -39,7 +39,7 @@ void ADC_config(ADC_configTypeDef *ac)
  * \return      none
  * \ingroup     ADC
  * \remarks     
-*******************************************UART***********************************/
+******************************************************************************/
 void ADC_setPin(uint8_t pins)
 {
     P1ASF = pins;
@@ -69,7 +69,7 @@ void ADC_setChannel(ADC_channel ch)
  * \return      none
  * \ingroup     ADC
  * \remarks     
-*******************************************UART***********************************/
+******************************************************************************/
 void ADC_INT_cmd(Action a)
 {
     EADC = a;
@@ -86,7 +86,7 @@ void ADC_INT_cmd(Action a)
  * \return      none
  * \ingroup     ADC
  * \remarks     
-*******************************************UART***********************************/
+******************************************************************************/
 void ADC_INT_clear(void)
 {
     CLRB(ADC_CONTR, BIT_NUM_ADC_FLAG);

@@ -28,6 +28,7 @@
 #include "hml/pca.h"
 #include "hml/pwr.h"
 #include "hml/rcc.h"
+#include "hml/spi.h"
 #include "hml/tim.h"
 #include "hml/uart.h"
 #include "hml/util.h"

@@ -243,6 +243,20 @@ __sbit __at (0xD8) CCF0     ;
 #define BIT_NUM_S2SM1       6
 #define BIT_NUM_S2SM0       7
 
+/* SPCTL bits */
+#define BIT_NUM_SPR0        0
+#define BIT_NUM_SPR1        1
+#define BIT_NUM_CPHA        2
+#define BIT_NUM_CPOL        3
+#define BIT_NUM_MSTR        4
+#define BIT_NUM_DORD        5
+#define BIT_NUM_SPEN        6
+#define BIT_NUM_SSIG        7
+
+/* SPSTAT bits */
+#define BIT_NUM_WCOL        6
+#define BIT_NUM_SPIF        7
+
 /* TCON bits */
 #define BIT_NUM_T0_M0       0
 #define BIT_NUM_T0_M1       1

@@ -264,6 +264,9 @@
 #if (__CONF_COMPILE_RCC == 1)
     #define COMPILE_RCC
 #endif
+#if (__CONF_COMPILE_SPI == 1)
+    #define COMPILE_SPI
+#endif
 #if (__CONF_COMPILE_TIM == 1)
     #define COMPILE_TIM
 #endif
