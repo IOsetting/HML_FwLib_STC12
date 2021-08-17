@@ -35,6 +35,7 @@ Here is a list of the all on-chip peripheral drivers and examples that need to b
 | PCA | 16-bit capture/compare and 8-bit PWM | supported |
 | PWR | power management | supported |
 | RCC | reset & clock control | supported |
+| SPI | full-duplex, high-speed serial peripheral interface | supported |
 | TIM | timer | supported |
 | UART | universal asynchronous receiver/transmitter | supported |
 | WDT | watchdog | supported |
@@ -105,14 +106,12 @@ Building and uploading will be managed by PlatformIO, so additional flags are ne
 * `upload_speed` and `upload_flags`, optional, it will improve the ISP speed
 
 For example
-```
+```bash
 [env:stc12c5a56s2]
 platform = intel_mcs51
 board = stc12c5a56s2
 build_flags =
     -D__CONF_FRE_CLKIN=11059200
-    ;-D__CONF_FRE_CLKIN=22118400
-    ;-D__CONF_FRE_CLKIN=12000000
     -D__CONF_MCU_MODEL=MCU_MODEL_STC12C5A56S2
 upload_speed = 115200
 upload_flags =
