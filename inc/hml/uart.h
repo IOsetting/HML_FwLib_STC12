@@ -101,7 +101,7 @@ void UART2_sendString(char *str);
 void UART2_INT_cmd(Action a);
 void UART2_INT_setPriority(IntPriority pri);
 void UART2_setMode(UART_mode mode);
-void UART2_setPin(UART2_pinmap pm);
+void UART2_setPinmap(UART2_pinmap pinmap);
 
 
 #endif

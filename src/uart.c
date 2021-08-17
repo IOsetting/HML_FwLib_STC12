@@ -81,7 +81,7 @@ void UART_config(UART_configTypeDef *uc)
     UART_setBaudGenerator(uc->baudrateGenerator);
     UART_setMode(uc->mode);
     /* UART1 pin is unchangable in STC12 */
-    //UART2_setPin(uc->pinmap);
+    //UART2_setPinmap(uc->pinmap);
     UART_INT_cmd(uc->interruptState);
     UART_INT_setPriority(uc->interruptPriority);
 
@@ -518,14 +518,14 @@ void UART2_setMode(UART_mode mode)
  * \author      IOsetting
  * \date        
  * \brief       set input & output pin of UART2
- * \param[in]   pm: target pin map
+ * \param[in]   pinmap: target pin map
  * \return      none
  * \ingroup     UART
  * \remarks     
 ******************************************************************************/
-void UART2_setPin(UART2_pinmap pm)
+void UART2_setPinmap(UART2_pinmap pinmap)
 {
-    CONFB(AUXR1, BIT_NUM_S2_P4, pm);
+    CONFB(AUXR1, BIT_NUM_S2_P4, pinmap);
 }
 
 #else

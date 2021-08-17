@@ -30,7 +30,7 @@ void SPI_config(SPI_configTypeDef *sc)
     SPI_setFirstBit(sc->firstBit);
     SPI_NSS_cmd(sc->nss);
     SPI_setMode(sc->mode);
-    SPI_setPin(sc->pinmap);
+    SPI_setPinmap(sc->pinmap);
 }
 
 /*****************************************************************************/
@@ -133,7 +133,7 @@ void SPI_setMode(SPI_Mode mode)
  * \ingroup     SPI
  * \remarks     
 ******************************************************************************/
-void SPI_setPin(SPI_pinmap pinmap)
+void SPI_setPinmap(SPI_pinmap pinmap)
 {
     CONFB(AUXR1, BIT_NUM_SPI_P4, pinmap);
 }
@@ -215,6 +215,24 @@ void SPI_INT_setPriority(IntPriority pri)
 void SPI_NSS_cmd(SPI_NSS nss)
 {
     CONFB(SPCTL, BIT_NUM_SSIG, nss);
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       exchange one byte in SPI communication
+ * \param[in]   b: byte to be sent
+ * \return      byte received
+ * \ingroup     SPI
+ * \remarks     
+******************************************************************************/
+byte SPI_RW(byte b)
+{
+    SPI_INT_clear(SPI_INT_SPIF | SPI_INT_WCOL);
+	SPDAT = b;
+    while (TESTNOTB(SPSTAT, BIT_NUM_SPIF));
+	return SPDAT;
 }
 
 

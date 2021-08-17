@@ -80,7 +80,7 @@ void PCA_config(PERIPH_PCA pca, PCA_configTypeDef *pc)
     PCA_setMode(pca, pc->mode);
     PCA_setCompareValue(pca, pc->compareValue);
     PCA_setPWMOutput(pca, pc->pwmOutputMode);
-    PCA_setPin(pc->pinmap);
+    PCA_setPinmap(pc->pinmap);
     PCA_resetCounter();
     PCA_start(pc->start);
 }
@@ -174,7 +174,7 @@ void PCA_setPWMOutput(PERIPH_PCA pca, PCA_pwm_output mode)
  * \ingroup     PCA
  * \remarks     
 ******************************************************************************/
-void PCA_setPin(PCA_pinmap pinmap)
+void PCA_setPinmap(PCA_pinmap pinmap)
 {
     CONFB(AUXR1, BIT_NUM_PCA_P4, pinmap);
 }

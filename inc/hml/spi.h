@@ -78,7 +78,7 @@ typedef enum
 } SPI_pinmap;
 
 /**
- * \brief mark SPI data order
+ * \brief mark SPI interrupts
  */
 typedef enum
 {
@@ -123,8 +123,9 @@ void SPI_setBaudRatePrescaler(SPI_BaudRatePrescaler clockRate);
 void SPI_setCPHA(SPI_CPHA cpha);
 void SPI_setCPOL(SPI_CPOL cpol);
 void SPI_setMode(SPI_Mode mode);
-void SPI_setPin(SPI_pinmap pinmap);
+void SPI_setPinmap(SPI_pinmap pinmap);
 void SPI_cmd(Action a);
+byte SPI_RW(byte b);
 void SPI_INT_cmd(Action a);
 void SPI_INT_clear(uint8_t intBits);
 void SPI_INT_setPriority(IntPriority pri);

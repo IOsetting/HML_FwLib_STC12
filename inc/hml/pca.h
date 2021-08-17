@@ -110,7 +110,7 @@ void PCA_resetCounter(void);
 void PCA_setMode(PERIPH_PCA pca, PCA_mode mode);
 void PCA_setPWMOutput(PERIPH_PCA pca, PCA_pwm_output mode);
 void PCA_setCompareValue(PERIPH_PCA pca, uint8_t val);
-void PCA_setPin(PCA_pinmap pinmap);
+void PCA_setPinmap(PCA_pinmap pinmap);
 void PCA_start(Action a);
 
 

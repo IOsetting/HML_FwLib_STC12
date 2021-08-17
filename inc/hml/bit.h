@@ -50,8 +50,10 @@
 #define NOTB(reg,x)             (reg xor_eq (1U << (x % BITS_PER_BYTE)))
 /* Set the bit of reg at x */
 #define SETB(reg,x)             (reg or_eq  (1U << (x % BITS_PER_BYTE)))
-/* Check the bit of val at x */
+/* Check if the bit of val at x is set */
 #define TESTB(val,x)            (not(not(val bitand (1U << (x % BITS_PER_BYTE)))))
+/* Check if the bit of val at x is reset */
+#define TESTNOTB(val,x)         (not(val bitand (1U << (x % BITS_PER_BYTE))))
 /* set val to reg at x, keep other bits unchanged */
 #define CONFB(reg,x,val)        (reg = (reg bitand (_complement(1U << (x % BITS_PER_BYTE)))) bitor (val << x))
 
