@@ -35,6 +35,15 @@ typedef enum
 } UART_baudrateGenerator;
 
 /**
+ * \brief mark mode0 baud rate
+ */
+typedef enum
+{
+    UART_Mode0BaudRatePrescaler_12   = 0x00,      /* SYSclk/12   */
+    UART_Mode0BaudRatePrescaler_2    = 0x01,      /* SYSclk/2  */
+} UART_Mode0BaudRatePrescaler;
+
+/**
  * \brief mark work mode
  */
 typedef enum
@@ -52,8 +61,8 @@ typedef enum
  */
 typedef enum
 {
-    UART_pinmap_P1 = 0x0,     /* P12(Rx)/P13(Tx) */
-    UART_pinmap_P4 = 0x1      /* P42(Rx)/P43(Tx) */
+    UART2_pinmap_P1 = 0x0,     /* P12(Rx)/P13(Tx) */
+    UART2_pinmap_P4 = 0x1      /* P42(Rx)/P43(Tx) */
 } UART2_pinmap;
 
 /*****************************************************************************
@@ -61,29 +70,46 @@ typedef enum
  *****************************************************************************/
 
 /**
- * \brief mark configure structure
+ * \brief mark configure structure of UART
  */
 typedef struct
 {
     uint32_t       baudrate;
     UART_baudrateGenerator baudrateGenerator;
-    Action         baudGeneratorPrescalerState;
+    RCC_BRT_prescaler brtPrescaler;
+    TIM_prescaler  timPrescaler;
     Action         interruptState;
     Action         interruptPriority;
     UART_mode      mode;
-    Action         multiBaudrate;
-    UART2_pinmap   pinmap;
+    UART_Mode0BaudRatePrescaler mode0Prescaler;
+    Action         doubleBaudrate;
     Action         receiveState;
 } UART_configTypeDef;
+
+/**
+ * \brief mark configure structure of UART2, UART2 always use BRT as its baud-rate
+ * generator.
+ */
+typedef struct
+{
+    uint32_t       baudrate;
+    RCC_BRT_prescaler brtPrescaler;
+    Action         interruptState;
+    Action         interruptPriority;
+    UART_mode      mode;
+    Action         doubleBaudrate;
+    UART2_pinmap   pinmap;
+    Action         receiveState;
+} UART2_configTypeDef;
+
 
 /*****************************************************************************
  *                          function declare                                 *
  *****************************************************************************/
-void UART_cmd_mode0_multiBaudrate(Action a);
-void UART_cmd_multiBaudrate(Action a);
-void UART_cmd_receive(Action a);
+void UART_setMode0BaudRatePrescaler(UART_Mode0BaudRatePrescaler prescaler);
+void UART_setDoubleBaudrate(Action a);
+void UART_setReceive(Action a);
 void UART_config(UART_configTypeDef *uc);
-uint16_t UART_getBaudGeneratorInitValue(UART_baudrateGenerator gen, uint32_t baud);
 byte UART_getByte(void);
 FunctionalState UART_isReceived(void);
 FunctionalState UART_isTransmitted(void);
@@ -95,13 +121,18 @@ void UART_setMode(UART_mode mode);
 void UART_INT_cmd(Action a);
 void UART_INT_setPriority(IntPriority pri);
 
+void UART2_config(UART2_configTypeDef *uc);
+void UART2_setReceive(Action a);
+void UART2_setDoubleBaudrate(Action a);
+byte UART2_getByte(void);
+FunctionalState UART2_isReceived(void);
+FunctionalState UART2_isTransmitted(void);
 void UART2_sendByte(byte dat);
 void UART2_sendHex(uint8_t hex);
 void UART2_sendString(char *str);
-void UART2_INT_cmd(Action a);
-void UART2_INT_setPriority(IntPriority pri);
 void UART2_setMode(UART_mode mode);
 void UART2_setPinmap(UART2_pinmap pinmap);
-
+void UART2_INT_cmd(Action a);
+void UART2_INT_setPriority(IntPriority pri);
 
 #endif

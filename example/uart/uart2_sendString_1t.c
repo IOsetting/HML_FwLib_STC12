@@ -1,14 +1,13 @@
 /*****************************************************************************/
 /** 
- * \file        uart_sendString_tim_1t.c
- * \author      Weilun Fong | wlf@zhishan-iot.tk
+ * \file        uart2_sendString_1t.c
+ * \author      IOsetting | iosetting@outlook.com
  * \date        
- * \brief       a example which shows how to send a string via UART
+ * \brief       a example which shows how to send a string via UART2
  * \note        
- * \version     v0.0
+ * \version     v0.1
  * \ingroup     example
- * \remarks     test-board: ZS5110; test-MCU: STC11F16XE; use TIM1 as baudrate
- *              generator
+ * \remarks     test-board: Minimum System; test-MCU: STC12C5AF56S2
 ******************************************************************************/
 
 /*****************************************************************************
@@ -18,7 +17,7 @@
 
 /*****************************************************************************/
 /** 
- * \author      Weilun Fong
+ * \author      IOsetting
  * \date        
  * \brief       initial MCU
  * \param[in]   
@@ -28,23 +27,21 @@
 ******************************************************************************/
 void sys_init(void)
 {
-    UART_configTypeDef uc;
-
+    UART2_configTypeDef uc;
     uc.baudrate                    = 115200;                         /* baud rate is 115200bps */
-    uc.baudrateGenerator           = UART_baudrateGenerator_tim1;    /* select timer-1 as baud rate generator */
-    uc.timPrescaler                = TIM_prescaler_1;                /* 1T mode */
+    uc.brtPrescaler                = RCC_BRT_prescaler_1;            /* 1T mode */
     uc.interruptState              = ENABLE;
     uc.interruptPriority           = DISABLE;
     uc.mode                        = UART_mode_1;
     uc.doubleBaudrate              = DISABLE;
     uc.receiveState                = ENABLE;
-
-    UART_config(&uc);
+    uc.pinmap                      = UART2_pinmap_P1;
+    UART2_config(&uc);
 }
 
 /*****************************************************************************/
 /** 
- * \author      Weilun Fong
+ * \author      IOsetting
  * \date        
  * \brief       main function
  * \param[in]   
@@ -60,6 +57,6 @@ void main(void)
     {
         /* send per 500ms */
         sleep(500);
-        UART_sendString("Hello, world!\r\n");
+        UART2_sendString("Hello, world!\r\n");
     }
 }

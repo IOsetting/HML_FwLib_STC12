@@ -245,7 +245,7 @@ void TIM_setPrescaler(PERIPH_TIM tim, TIM_prescaler pre)
  * \date        
  * \brief       set initial value register of target timer
  * \param[in]   tim: target timer
- * \param[in]   val: expected value
+ * \param[in]   val: expected value with [TH:TL]
  * \return      none
  * \ingroup     TIM
  * \remarks     

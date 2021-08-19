@@ -106,9 +106,9 @@ void main()
     Init7219();
 
     P1_3 = 1;
-	byte pos = 0, size = sizeof(numbers), i, j;
-	while(1)
-	{
+    byte pos = 0, size = sizeof(numbers), i, j;
+    while(1)
+    {
         for (i = 0; i < 8; i++)
         {
             j = (pos + i) % size;
@@ -116,5 +116,5 @@ void main()
         }
         pos = (pos + 1) % size;
         sleep(100);
-	}
+    }
 }

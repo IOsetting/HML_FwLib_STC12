@@ -86,7 +86,7 @@ uint16_t pow(uint8_t x, uint8_t y)
  * \remarks     private function, don' use it
  *              5:DJNZ cycles, 18:adjust for extra cycles
 ******************************************************************************/
-uint16_t _sleep_getInitValue(void)
+static uint16_t _sleep_getInitValue(void)
 {
     return (uint16_t)(MCU_FRE_CLK/(float)1000/5) - 18;
 }
@@ -102,7 +102,7 @@ uint16_t _sleep_getInitValue(void)
  * \remarks     private function. 
  *              total loops = (ar7 * 256) + ar6, each DJNZ takes 5 CPU cycles
 ******************************************************************************/
-void _sleep_1ms(void)
+static void _sleep_1ms(void)
 {
     __asm
         push ar6                    ;low

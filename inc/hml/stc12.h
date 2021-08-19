@@ -230,8 +230,8 @@ __sbit __at (0xD8) CCF0     ;
 #define BIT_NUM_GF1         3
 #define BIT_NUM_POF         4
 #define BIT_NUM_LVDF        5
-#define BIT_NUM_SMOD        6
-#define BIT_NUM_SMOD0       7
+#define BIT_NUM_PCON_SMOD0  6
+#define BIT_NUM_PCON_SMOD   7
 
 /* S2CON bits */
 #define BIT_NUM_S2RI        0
@@ -335,7 +335,11 @@ __sbit __at (0xD8) CCF0     ;
 /* PCON bits */
 #define POF                 BIT_MASK(BIT_NUM_POF)
 #define LVDF                BIT_MASK(BIT_NUM_LVDF)
-#define SMOD0               BIT_MASK(BIT_NUM_SMOD0)
+#define PCON_SMOD0          BIT_MASK(BIT_NUM_PCON_SMOD0)
+
+/* S2CON bits */
+#define S2RI                BIT_MASK(BIT_NUM_S2RI)
+#define S2TI                BIT_MASK(BIT_NUM_S2TI)
 
 /* WAKE_CLKO bits */
 #define T0CLKO              BIT_MASK(BIT_NUM_T0CLKO)

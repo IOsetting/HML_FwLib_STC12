@@ -16,35 +16,35 @@
 /** 
  * \author      Weilun Fong
  * \date        
- * \brief       set speed of UART module under mode 0
- * \param[in]   a: expected action
+ * \brief       set the baud-rate of UART in mode 0 to SYSclk/12 or SYSclk/2
+ * \param[in]   a: expected prescaler
  * \return      none
  * \ingroup     UART
  * \remarks     
 ******************************************************************************/
-void UART_cmd_mode0_multiBaudrate(Action a)
+void UART_setMode0BaudRatePrescaler(UART_Mode0BaudRatePrescaler prescaler)
 {
     /**
      * \note
-     *  DISABLE: the baud rate is equal to classical 8051 MCU (twelve divided-frequency)
-     *  ENABLE : the baud rate is two divided-frequency
+     *  0x00: the baud rate is equal to classical 8051 MCU (twelve divided-frequency)
+     *  0x01 : the baud rate is two divided-frequency
      */
-    CONFB(AUXR, BIT_NUM_UART_M0x6, a);
+    CONFB(AUXR, BIT_NUM_UART_M0x6, prescaler);
 }
 
 /*****************************************************************************/
 /** 
  * \author      Weilun Fong
  * \date        
- * \brief       enable or disable multi-baudrate mode
+ * \brief       enable or disable double-baudrate mode
  * \param[in]   a: expected state
  * \return      none
  * \ingroup     UART
  * \remarks     
 ******************************************************************************/
-void UART_cmd_multiBaudrate(Action a)
+void UART_setDoubleBaudrate(Action a)
 {
-    CONFB(PCON, BIT_NUM_SMOD0, a);
+    CONFB(PCON, BIT_NUM_PCON_SMOD, a);
 }
 
 /*****************************************************************************/
@@ -57,9 +57,65 @@ void UART_cmd_multiBaudrate(Action a)
  * \ingroup     UART
  * \remarks     
 ******************************************************************************/
-void UART_cmd_receive(Action a)
+void UART_setReceive(Action a)
 {
     REN = a;
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       get 16-bit initial value of BRT baud rate generator
+ * \param[in]   baud: expected baud rate
+ * \return      result(0x00 means overflow)
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+static uint16_t UART_getBrtInitValue(uint32_t baud, RCC_BRT_prescaler brtPrescaler, Action doubleBaudrate)
+{
+    uint16_t res = 0x0000;
+    uint32_t max = RCC_getSystemClockFrequency();
+    if (brtPrescaler == RCC_BRT_prescaler_12)
+    {
+        max = max / 12;
+    }
+    if (doubleBaudrate == ENABLE) 
+    {
+        max = max * 2;
+    }
+    if (baud <= max/32)
+    {
+        res = (uint16_t)(256 - max/baud/32);
+    }
+    return res;
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       get 16-bit initial value of TIM1 baud rate generator
+ * \param[in]   baud: expected baud rate
+ * \return      result(0x00 means overflow)
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+static uint16_t UART_getTim1InitValue(uint32_t baud, TIM_prescaler  timPrescaler, Action doubleBaudrate)
+{
+    uint16_t res = 0x0000;
+    uint32_t max = RCC_getSystemClockFrequency() / timPrescaler;
+    if (doubleBaudrate == ENABLE) 
+    {
+        max = max * 2;
+    }
+    if (baud <= max/32)
+    {
+        res = (uint16_t)(256 - max/baud/32);
+    }
+    res = res & 0x00FF;
+    res = (res << 0x8) | res;
+    return res;
 }
 
 /*****************************************************************************/
@@ -74,120 +130,43 @@ void UART_cmd_receive(Action a)
 ******************************************************************************/
 void UART_config(UART_configTypeDef *uc)
 {
-    TIM_configTypeDef tc;
-    unsigned int tmp = 0x0000;
-
-    UART_cmd_receive(uc->receiveState);
+    UART_setReceive(uc->receiveState);
     UART_setBaudGenerator(uc->baudrateGenerator);
     UART_setMode(uc->mode);
-    /* UART1 pin is unchangable in STC12 */
+    /* UART1 pin is fixed in STC12 */
     //UART2_setPinmap(uc->pinmap);
     UART_INT_cmd(uc->interruptState);
     UART_INT_setPriority(uc->interruptPriority);
 
     if (uc->mode == UART_mode_0)
     {
-        UART_cmd_mode0_multiBaudrate(uc->multiBaudrate);
+        UART_setMode0BaudRatePrescaler(uc->mode0Prescaler);
     }
     else
     {
-        UART_cmd_multiBaudrate(uc->multiBaudrate);
+        UART_setDoubleBaudrate(uc->doubleBaudrate);
     }
 
     if (uc->baudrateGenerator == UART_baudrateGenerator_brt)
     {
         RCC_BRT_cmd(ENABLE);
-        if (uc->baudGeneratorPrescalerState)
-        {
-            RCC_BRT_setPrescaler(RCC_BRT_prescaler_12);
-        }
-        else
-        {
-            RCC_BRT_setPrescaler(RCC_BRT_prescaler_1);
-        }
-        RCC_BRT_setValue(UART_getBaudGeneratorInitValue(UART_baudrateGenerator_brt, uc->baudrate));
+        RCC_BRT_setPrescaler(uc->brtPrescaler);
+        RCC_BRT_setValue(UART_getBrtInitValue(uc->baudrate, uc->brtPrescaler, uc->doubleBaudrate));
     }
     else
     {
+        TIM_configTypeDef tc;
         tc.function          = TIM_function_tim;
         tc.interruptState    = DISABLE;
         tc.interruptPriority = DISABLE;
         tc.mode              = TIM_mode_2;
-        /* configure prescaler */
-        if (uc->baudGeneratorPrescalerState)
-        {
-            tc.prescaler = TIM_prescaler_12;
-        }
-        else
-        {
-            tc.prescaler = TIM_prescaler_1;
-        }
+        tc.prescaler         = uc->timPrescaler;
         tc.value             = 0x00;   /* because of logic order, the value need to be reloaded one more time */
         TIM_config(PERIPH_TIM_1, &tc);
         TIM_cmd(PERIPH_TIM_1, ENABLE);
         TIM_setValue(PERIPH_TIM_1, \
-                     UART_getBaudGeneratorInitValue(UART_baudrateGenerator_tim1, uc->baudrate));
+                     UART_getTim1InitValue(uc->baudrate, uc->timPrescaler, uc->doubleBaudrate));
     }
-}
-
-/*****************************************************************************/
-/** 
- * \author      Weilun Fong
- * \date        
- * \brief       get 16-bit initial value depend on baud rate generator
- * \param[in]   gen: target baud rate generator
- * \param[in]   baud: expected baud rate
- * \return      result(0x00 means overflow)
- * \ingroup     UART
- * \remarks     
-******************************************************************************/
-uint16_t UART_getBaudGeneratorInitValue(UART_baudrateGenerator gen, uint32_t baud)
-{
-    /* multi baud rate */
-    uint8_t   flag_pre  = 0x0;
-    uint8_t   flag_smod = 0x0;
-    uint16_t  res       = 0x0000;
-
-    /* check prescaler */
-    if (gen == UART_baudrateGenerator_brt)
-    {
-        flag_pre = GET_BIT(AUXR, BRTx12);
-    }
-    else
-    {
-        flag_pre = GET_BIT(AUXR, T1x12);
-    }
-
-    /* check multi-rate control bit */
-    if (PCON & 0x80)
-    {
-        flag_smod = 0x1;
-    }
-
-    /* calculate */
-    if (flag_pre)
-    {
-        /* check overflow */
-        if (baud < RCC_getSystemClockFrequency()/16*pow(2, flag_smod))
-        {
-            res = (unsigned char)(256 - RCC_getSystemClockFrequency()/baud/32);
-        }
-    }
-    else
-    {
-        if (baud < RCC_getSystemClockFrequency()/12/16*pow(2, flag_smod))
-        {
-            res = (unsigned char)(256 - RCC_getSystemClockFrequency()/baud/12/32*pow(2, flag_smod));
-        }
-    }
-
-    if (gen != UART_baudrateGenerator_brt)
-    {
-        res = res & 0x00FF;
-        res = (res << 0x8) | res;
-    }
-
-    return res;
 }
 
 /*****************************************************************************/
@@ -387,6 +366,44 @@ void UART_INT_setPriority(IntPriority pri)
 /** 
  * \author      IOsetting
  * \date        
+ * \brief       configure UART2 module
+ * \param[in]   uc: the pointer of configure structure
+ * \return      none
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+void UART2_config(UART2_configTypeDef *uc)
+{
+    UART2_setReceive(uc->receiveState);
+    UART2_setMode(uc->mode);
+    UART2_setPinmap(uc->pinmap);
+    UART2_INT_cmd(uc->interruptState);
+    UART2_INT_setPriority(uc->interruptPriority);
+    UART2_setDoubleBaudrate(uc->doubleBaudrate);
+    RCC_BRT_cmd(ENABLE);
+    RCC_BRT_setPrescaler(uc->brtPrescaler);
+    RCC_BRT_setValue(UART_getBrtInitValue(uc->baudrate, uc->brtPrescaler, uc->doubleBaudrate));
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       enable or disable receive function of UART2
+ * \param[in]   a: expected state
+ * \return      none
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+void UART2_setReceive(Action a)
+{
+    CONFB(S2CON, BIT_NUM_S2REN, a);
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
  * \brief       enable or disable interrupt of UART2
  * \param[in]   a: expected state
  * \return      none
@@ -430,6 +447,66 @@ void UART2_INT_setPriority(IntPriority pri)
             break;
         default: break;
     }
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       enable or disable double-baudrate mode of UART2
+ * \param[in]   a: expected state
+ * \return      none
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+void UART2_setDoubleBaudrate(Action a)
+{
+    CONFB(AUXR, BIT_NUM_S2SMOD, a);
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       get result of UART2 receiver
+ * \param[in]   
+ * \return      none
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+byte UART2_getByte(void)
+{
+    return S2BUF;
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       get state of UART2 receiver
+ * \param[in]   
+ * \return      SET(data have been received) or RESET
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+FunctionalState UART2_isReceived(void)
+{
+    return (FunctionalState)GET_BIT(S2CON, S2RI);
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       get state of UART2 transmitter
+ * \param[in]   
+ * \return      SET(data have been transmitted) or RESET
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+FunctionalState UART2_isTransmitted(void)
+{
+    return (FunctionalState)GET_BIT(S2CON, S2TI);
 }
 
 /*****************************************************************************/
