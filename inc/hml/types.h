@@ -83,4 +83,15 @@ typedef enum
     SET   = !RESET
 } FunctionalState;
 
+/**
+ * \brief mark generic interrupt priority
+ */
+typedef enum
+{
+    IntPriority_Lowest  = 0x00,
+    IntPriority_Low     = 0x01,
+    IntPriority_High    = 0x02,
+    IntPriority_Highest = 0x03,
+} IntPriority;
+
 #endif

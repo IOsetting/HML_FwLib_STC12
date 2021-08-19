@@ -82,7 +82,7 @@ typedef struct
  *****************************************************************************/
 uint16_t TIM_calculateValue(uint16_t time, TIM_mode mode, TIM_prescaler pre);
 void TIM_cmd(PERIPH_TIM tim, Action a);
-void TIM_cmd_clockOutput(PERIPH_TIM tim, Action a);
+void TIM_setClockOutput(PERIPH_TIM tim, Action a);
 void TIM_config(PERIPH_TIM tim, TIM_configTypeDef *tc);
 uint16_t TIM_getValue(PERIPH_TIM tim);
 bool TIM_isOverflow(PERIPH_TIM tim);
@@ -91,6 +91,6 @@ void TIM_setMode(PERIPH_TIM tim, TIM_mode mode);
 void TIM_setPrescaler(PERIPH_TIM tim, TIM_prescaler pre);
 void TIM_setValue(PERIPH_TIM tim, uint16_t val);
 void TIM_INT_cmd(PERIPH_TIM tim, Action a);
-void TIM_INT_setPriority(PERIPH_TIM tim, Action p);
+void TIM_INT_setPriority(PERIPH_TIM tim, IntPriority priority);
 
 #endif

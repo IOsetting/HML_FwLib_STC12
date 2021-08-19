@@ -3,7 +3,7 @@
  * \file        mem.c
  * \author      Weillun Fong | wlf@zhishan-iot.tk
  * \brief       operations for memory zone of MCU
- * \note        allow you to directly access the different memory areas of STC11
+ * \note        allow you to directly access the different memory areas of STC12
  *              series MCU
  * \version     v0.0
  * \ingroup     MEM
@@ -47,32 +47,35 @@ void MEM_BUS_setAddressSetupTimeLength(MEM_BUS_addressSetupTimeLength len)
 /** 
  * \author      Weilun Fong
  * \date        
- * \brief       enable or disable pin ALE for Intel 8080 Bus
+ * \brief       enable or disable pin P4.5 working as ALE signal for Intel 8080 Bus
  * \param[in]   a: expected state
  * \return      none
  * \ingroup     MEM
- * \remarks     (1) disable ALE: as GPIO P45
- *              (2) enable ALE : ALE is active only during a MOVX or MOVC instruction
+ * \remarks     DISABLE: P45 as GPIO
+ *              ENABLE:  P45 as ALE, active only in MOVX or MOVC instruction
 ******************************************************************************/
-void MEM_cmd_ale(Action a)
+void MEM_setP45ALE(Action a)
 {
     CONFB(P4SW, BIT_NUM_ALE_P45, ~a);
 }
-
 
 /*****************************************************************************/
 /** 
  * \author      Weilun Fong
  * \date        
- * \brief       enable or disable pin ALE for Intel 8080 Bus
+ * \brief       enable or disable the 1k-byte additional onchip RAM
  * \param[in]   a: expected state
  * \return      none
  * \ingroup     MEM
- * \remarks     there is 64K-byte(0x0000~0xFFFF) addressing space available for 
- *              STC11 series MCU to access external data RAM and it's independent
- *              in logic.
+ * \remarks     STC12 can address a range of 64K-byte(0x0000~0xFFFF) and there are 
+ *              1k-byte additional data RAM on STC12. EXTRAM is to control the 
+ *              access of this additional RAM 
+ *              -- When set, disable the additional RAM.  
+ *              -- When clear (EXTRAM=0), this additional RAM is in address 
+ *               [0x0000, 0x03FF], can be accessed by “MOVX @Ri” and “MOVX @DPTR”,
+ *               and address over 0x03FF is for external RAM.
 ******************************************************************************/
-void MEM_cmd_internalExtendedRam(Action a)
+void MEM_setOnchipExtendedRam(Action a)
 {
     CONFB(AUXR, BIT_NUM_EXTRAM, ~a);
 }

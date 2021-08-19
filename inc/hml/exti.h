@@ -59,6 +59,6 @@ typedef struct
 void EXTI_cmd(PERIPH_EXTI exti, Action a);
 void EXTI_config(PERIPH_EXTI exti, EXTI_configTypeDef *ec);
 void EXTI_setMode(PERIPH_EXTI exti, EXTI_mode mode);
-void EXTI_setPriority(PERIPH_EXTI exti, Action a);
+void EXTI_setPriority(PERIPH_EXTI exti, IntPriority priority);
 
 #endif

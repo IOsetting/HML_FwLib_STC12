@@ -3,7 +3,7 @@
  * \file        mem.h
  * \author      Weillun Fong | wlf@zhishan-iot.tk
  * \brief       operations for memory zone of MCU
- * \note        allow you to directly access the different memory areas of STC11
+ * \note        allow you to directly access the different memory areas of STC12
  *              series MCU
  * \version     v0.0
  * \ingroup     MEM
@@ -73,7 +73,7 @@ typedef enum
  *****************************************************************************/
 void MEM_BUS_setAccessCycleLength(MEM_BUS_accessCycleLength len);
 void MEM_BUS_setAddressSetupTimeLength(MEM_BUS_addressSetupTimeLength len);
-void MEM_cmd_ale(Action a);
-void MEM_cmd_internalExtendedRam(Action a);
+void MEM_setP45ALE(Action a);
+void MEM_setOnchipExtendedRam(Action a);
 
 #endif

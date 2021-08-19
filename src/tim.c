@@ -82,7 +82,7 @@ void TIM_cmd(PERIPH_TIM tim, Action a)
  * \ingroup     TIM
  * \remarks     
 ******************************************************************************/
-void TIM_cmd_clockOutput(PERIPH_TIM tim, Action a)
+void TIM_setClockOutput(PERIPH_TIM tim, Action a)
 {
     switch (tim)
     {
@@ -291,22 +291,63 @@ void TIM_INT_cmd(PERIPH_TIM tim, Action a)
 
 /*****************************************************************************/
 /** 
- * \author      Weilun Fong
+ * \author      IOsetting
  * \date        
  * \brief       set interrupt priority of target timer
  * \param[in]   tim: target timer
- * \param[in]   p  : expected interrupt priority(ENABLE: high priority; DISABLE:
- *              low priority)
+ * \param[in]   priority: expected interrupt priority
  * \return      none
  * \ingroup     TIM
  * \remarks     
 ******************************************************************************/
-void TIM_INT_setPriority(PERIPH_TIM tim, Action p)
+void TIM_INT_setPriority(PERIPH_TIM tim, IntPriority priority)
 {
     switch (tim)
     {
-        case PERIPH_TIM_0: PT0 = p; break;
-        case PERIPH_TIM_1: PT1 = p; break;
+        case PERIPH_TIM_0:
+            switch (priority)
+            {
+                case IntPriority_Lowest:
+                    PT0 = RESET;
+                    CLRB(IPH, BIT_NUM_PT0H);
+                    break;
+                case IntPriority_Low:
+                    PT0 = SET;
+                    CLRB(IPH, BIT_NUM_PT0H);
+                    break;
+                case IntPriority_High:
+                    PT0 = RESET;
+                    SETB(IPH, BIT_NUM_PT0H);
+                    break;
+                case IntPriority_Highest:
+                    PT0 = SET;
+                    SETB(IPH, BIT_NUM_PT0H);
+                    break;
+                default: break;
+            }
+            break;
+        case PERIPH_TIM_1: 
+            switch (priority)
+            {
+                case IntPriority_Lowest:
+                    PT1 = RESET;
+                    CLRB(IPH, BIT_NUM_PT1H);
+                    break;
+                case IntPriority_Low:
+                    PT1 = SET;
+                    CLRB(IPH, BIT_NUM_PT1H);
+                    break;
+                case IntPriority_High:
+                    PT1 = RESET;
+                    SETB(IPH, BIT_NUM_PT1H);
+                    break;
+                case IntPriority_Highest:
+                    PT1 = SET;
+                    SETB(IPH, BIT_NUM_PT1H);
+                    break;
+                default: break;
+            }
+            break;
         default: break;
     }
 }

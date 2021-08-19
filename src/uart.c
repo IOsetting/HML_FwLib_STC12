@@ -133,8 +133,6 @@ void UART_config(UART_configTypeDef *uc)
     UART_setReceive(uc->receiveState);
     UART_setBaudGenerator(uc->baudrateGenerator);
     UART_setMode(uc->mode);
-    /* UART1 pin is fixed in STC12 */
-    //UART2_setPinmap(uc->pinmap);
     UART_INT_cmd(uc->interruptState);
     UART_INT_setPriority(uc->interruptPriority);
 

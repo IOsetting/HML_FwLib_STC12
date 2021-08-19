@@ -75,22 +75,65 @@ void EXTI_setMode(PERIPH_EXTI exti, EXTI_mode mode)
 
 /*****************************************************************************/
 /** 
- * \author      Weilun Fong
+ * \author      IOsetting
  * \date        
- * \brief       configure priority class of target EXTI module
+ * \brief       configure priority of target EXTI module
  * \param[in]   exti: target EXTI module
- * \param[in]   a   : enable(high priority) or disable(low priority)
+ * \param[in]   priority: target priority
  * \return      none
  * \ingroup     EXTI
  * \remarks     
 ******************************************************************************/
-void EXTI_setPriority(PERIPH_EXTI exti, Action a)
+void EXTI_setPriority(PERIPH_EXTI exti, IntPriority priority)
 {
     switch (exti)
     {
-        case PERIPH_EXTI_0: PX0 = a; break;
-        case PERIPH_EXTI_1: PX1 = a; break;
-        default: break;
+        case PERIPH_EXTI_0: 
+            switch (priority)
+            {
+                case IntPriority_Lowest:
+                    PX0 = RESET;
+                    CLRB(IPH, BIT_NUM_PX0H);
+                    break;
+                case IntPriority_Low:
+                    PX0 = SET;
+                    CLRB(IPH, BIT_NUM_PX0H);
+                    break;
+                case IntPriority_High:
+                    PX0 = RESET;
+                    SETB(IPH, BIT_NUM_PX0H);
+                    break;
+                case IntPriority_Highest:
+                    PX0 = SET;
+                    SETB(IPH, BIT_NUM_PX0H);
+                    break;
+                default: break;
+            }
+            break;
+        case PERIPH_EXTI_1: 
+            switch (priority)
+            {
+                case IntPriority_Lowest:
+                    PX1 = RESET;
+                    CLRB(IPH, BIT_NUM_PX1H);
+                    break;
+                case IntPriority_Low:
+                    PX1 = SET;
+                    CLRB(IPH, BIT_NUM_PX1H);
+                    break;
+                case IntPriority_High:
+                    PX1 = RESET;
+                    SETB(IPH, BIT_NUM_PX1H);
+                    break;
+                case IntPriority_Highest:
+                    PX1 = SET;
+                    SETB(IPH, BIT_NUM_PX1H);
+                    break;
+                default: break;
+            }
+            break;
+        default: 
+            break;
     }
 }
 

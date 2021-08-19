@@ -70,7 +70,11 @@ typedef enum
  *****************************************************************************/
 
 /**
- * \brief mark configure structure of UART
+ * \brief mark configure structure of UART.
+ *        brtPrescaler is required when baudrateGenerator is BRT,
+ *        timPrescaler is required when baudrateGenerator is TIM1,
+ *        mode0Prescaler is required for UART_mode 0,
+ *        doubleBaudrate is required for UART_mode 1,2,3
  */
 typedef struct
 {
