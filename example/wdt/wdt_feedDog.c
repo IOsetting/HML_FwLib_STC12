@@ -31,12 +31,11 @@ void sys_init(void)
 
     uc.baudrate                    = 9600;                           /* baud rate is 9600bps */
     uc.baudrateGenerator           = UART_baudrateGenerator_tim1;    /* select timer-1 as baud rate generator */
-    uc.baudGeneratorPrescalerState = ENABLE;
+    uc.timPrescaler                = TIM_prescaler_1;                /* 12T mode */
     uc.interruptState              = ENABLE;
     uc.interruptPriority           = DISABLE;
     uc.mode                        = UART_mode_1;
-    uc.multiBaudrate               = DISABLE;
-    uc.pinmap                      = UART_pinmap_0;
+    uc.doubleBaudrate              = DISABLE;
     uc.receiveState                = ENABLE;
 
     UART_config(&uc);
