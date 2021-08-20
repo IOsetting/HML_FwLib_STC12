@@ -123,9 +123,9 @@ bool IAP_isSuccess(void)
  * \ingroup     IAP
  * \remarks     
 ******************************************************************************/
-byte IAP_readByte(uint16_t addr)
+uint8_t IAP_readByte(uint16_t addr)
 {
-    byte dat = 0x00;
+    uint8_t dat = 0x00;
 
     IAP_setAddress(addr);
     IAP_setCommand(IAP_command_read);
@@ -194,7 +194,7 @@ void IAP_trig(void)
  * \ingroup     IAP
  * \remarks     
 ******************************************************************************/
-bool IAP_writeByte(uint16_t addr, byte dat)
+bool IAP_writeByte(uint16_t addr, uint8_t dat)
 {
     bool status = false;
 

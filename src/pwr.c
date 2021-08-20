@@ -157,8 +157,8 @@ bool PWR_WKT_setWakeCount(uint16_t c)
 {
     if (c > 4096)
     {
-        WKTCL = (byte)(c & 0x00FF);
-        WKTCH = (byte)((c & 0x0F00) >> 0x8);
+        WKTCL = (uint8_t)(c & 0x00FF);
+        WKTCH = (uint8_t)((c & 0x0F00) >> 0x8);
 
         return true;
     }

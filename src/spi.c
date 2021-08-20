@@ -227,7 +227,7 @@ void SPI_NSS_cmd(SPI_NSS nss)
  * \ingroup     SPI
  * \remarks     
 ******************************************************************************/
-byte SPI_RW(byte b)
+uint8_t SPI_RW(uint8_t b)
 {
     SPI_INT_clear(SPI_INT_SPIF | SPI_INT_WCOL);
 	SPDAT = b;

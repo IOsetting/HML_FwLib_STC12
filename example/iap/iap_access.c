@@ -59,10 +59,10 @@ void sys_init(void)
  * \ingroup     example
  * \remarks     
 ******************************************************************************/
-void util_byteToHexString(byte src, char *res)
+void util_byteToHexString(uint8_t src, char *res)
 {
     uint8_t i = 2;
-    byte tmp = 0;
+    uint8_t tmp = 0;
 
     res = res + 2;
     *res = '\0';

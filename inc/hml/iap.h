@@ -139,10 +139,10 @@ void IAP_config(void);
 bool IAP_eraseSector(uint16_t addr);
 void IAP_idle(void);
 bool IAP_isSuccess(void);
-byte IAP_readByte(uint16_t addr);
+uint8_t IAP_readByte(uint16_t addr);
 void IAP_setAddress(uint16_t addr);
 void IAP_setCommand(IAP_command cmd);
 void IAP_trig(void);
-bool IAP_writeByte(uint16_t addr, byte dat);
+bool IAP_writeByte(uint16_t addr, uint8_t dat);
 
 #endif

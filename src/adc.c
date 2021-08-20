@@ -132,7 +132,7 @@ void ADC_start(void)
  * \ingroup     ADC
  * \remarks     
 ******************************************************************************/
-byte ADC_convert(ADC_channel ch)
+uint8_t ADC_convert(ADC_channel ch)
 {
     ADC_setChannel(ch);
     ADC_start();

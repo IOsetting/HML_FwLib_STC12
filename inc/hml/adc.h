@@ -74,6 +74,6 @@ void ADC_INT_clear(void);
 void ADC_INT_setPriority(IntPriority pri);
 void ADC_Power_cmd(Action a);
 void ADC_start(void);
-byte ADC_convert(ADC_channel ch);
+uint8_t ADC_convert(ADC_channel ch);
 
 #endif

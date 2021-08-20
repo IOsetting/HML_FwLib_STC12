@@ -68,7 +68,7 @@ void main(void)
 
     while (true)
     {
-        byte result = ADC_convert(ADC_Channel_0);
+        uint8_t result = ADC_convert(ADC_Channel_0);
         UART_sendHex(result);
         UART_sendString("\r\n");
         sleep(300);

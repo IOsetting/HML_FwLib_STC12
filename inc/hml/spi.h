@@ -125,7 +125,7 @@ void SPI_setCPOL(SPI_CPOL cpol);
 void SPI_setMode(SPI_Mode mode);
 void SPI_setPinmap(SPI_pinmap pinmap);
 void SPI_cmd(Action a);
-byte SPI_RW(byte b);
+uint8_t SPI_RW(uint8_t b);
 void SPI_INT_cmd(Action a);
 void SPI_INT_clear(uint8_t intBits);
 void SPI_INT_setPriority(IntPriority pri);

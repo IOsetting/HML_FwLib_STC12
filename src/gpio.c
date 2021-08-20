@@ -67,8 +67,8 @@ void GPIO_configBitValue(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin, FunctionalState 
 ******************************************************************************/
 void GPIO_configMode(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin, GPIO_mode mode)
 {
-    byte m0 = 0x00;     /* store mode bits */
-    byte m1 = 0x00;
+    uint8_t m0 = 0x00;     /* store mode bits */
+    uint8_t m1 = 0x00;
 
     /**
      * \note obtain mode bit
@@ -124,7 +124,7 @@ void GPIO_configMode(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin, GPIO_mode mode)
  * \ingroup     GPIO
  * \remarks     
 ******************************************************************************/
-void GPIO_configPortValue(PERIPH_GPIO gpio, byte val)
+void GPIO_configPortValue(PERIPH_GPIO gpio, uint8_t val)
 {
     switch (gpio)
     {
@@ -173,7 +173,7 @@ FunctionalState GPIO_getBitValue(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin)
  * \ingroup     GPIO
  * \remarks     
 ******************************************************************************/
-byte GPIO_getPortValue(PERIPH_GPIO gpio)
+uint8_t GPIO_getPortValue(PERIPH_GPIO gpio)
 {
     switch(gpio)
     {

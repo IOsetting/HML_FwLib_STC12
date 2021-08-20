@@ -256,13 +256,13 @@ void TIM_setValue(PERIPH_TIM tim, uint16_t val)
     {
         case PERIPH_TIM_0:
         {
-            TH0 = (byte)((val >> 0x8) & 0x00FF);
-            TL0 = (byte)(val & 0x00FF);
+            TH0 = (uint8_t)((val >> 0x8) & 0x00FF);
+            TL0 = (uint8_t)(val & 0x00FF);
         } break;
         case PERIPH_TIM_1:
         {
-            TH1 = (byte)((val >> 0x8) & 0x00FF);
-            TL1 = (byte)(val & 0x00FF);
+            TH1 = (uint8_t)((val >> 0x8) & 0x00FF);
+            TL1 = (uint8_t)(val & 0x00FF);
         } break;
         default: break;
     }

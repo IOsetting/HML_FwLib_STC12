@@ -177,7 +177,7 @@ void UART_config(UART_configTypeDef *uc)
  * \ingroup     UART
  * \remarks     
 ******************************************************************************/
-byte UART_getByte(void)
+uint8_t UART_getByte(void)
 {
     return SBUF;
 }
@@ -223,7 +223,7 @@ FunctionalState UART_isTransmitted(void)
  * \ingroup     UART
  * \remarks     
 ******************************************************************************/
-void UART_sendByte(byte dat)
+void UART_sendByte(uint8_t dat)
 {
     SBUF = dat;
     while(!TI);
@@ -472,7 +472,7 @@ void UART2_setDoubleBaudrate(Action a)
  * \ingroup     UART
  * \remarks     
 ******************************************************************************/
-byte UART2_getByte(void)
+uint8_t UART2_getByte(void)
 {
     return S2BUF;
 }
@@ -517,7 +517,7 @@ FunctionalState UART2_isTransmitted(void)
  * \ingroup     UART
  * \remarks     
 ******************************************************************************/
-void UART2_sendByte(byte dat)
+void UART2_sendByte(uint8_t dat)
 {
     S2BUF = dat;
     while(!TESTB(S2CON, BIT_NUM_S2TI));
