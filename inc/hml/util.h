@@ -44,7 +44,6 @@ typedef enum
 /*****************************************************************************
  *                          function declare                                 *
  *****************************************************************************/
-uint16_t pow(uint8_t x, uint8_t y);
 void sleep(uint16_t t);
 void UTIL_setInterrupts(Action a);
 void UTIL_setClockDivisionFactor(RCC_prescaler d);

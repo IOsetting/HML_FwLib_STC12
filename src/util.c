@@ -34,39 +34,6 @@ void UTIL_setInterrupts(Action a)
 /** 
  * \author      Weilun Fong
  * \date        
- * \brief       self-define pow function
- * \param[in]   x: base
- * \param[in]   y: power exponent
- * \return      calculate result
- * \ingroup     UTIL
- * \remarks     (1)calculate result of x^y, data type of return value is 
- *              unsigned int because of limited zone of 8051 MCU
- *              (2)due to SDCC doesn't provide this function, we write a lite 
- *              version here
-******************************************************************************/
-uint16_t pow(uint8_t x, uint8_t y)
-{
-    uint8_t base = x;
-
-    if (y == 0)
-    {
-        return 1;
-    }
-    else
-    {
-        while (--y)
-        {
-            x = x*base;
-        }
-    }
-
-    return x;
-}
-
-/*****************************************************************************/
-/** 
- * \author      Weilun Fong
- * \date        
  * \brief       set division factor of system clock
  * \param[in]   d: division factor
  * \return      none
@@ -76,7 +43,7 @@ uint16_t pow(uint8_t x, uint8_t y)
 void UTIL_setClockDivisionFactor(RCC_prescaler d)
 {
     CLK_DIV = (uint8_t)d;
-    df = pow(2, d);
+    df = 0x01 << (uint8_t)d;
 }
 
 /*****************************************************************************/
