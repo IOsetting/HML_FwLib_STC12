@@ -24,15 +24,20 @@
  * \param[in]   
  * \return      none
  * \ingroup     example
- * \remarks     
+ * \remarks     The possible baudrate options are decided by your oscillator 
+ *              frequency, prescaler and double-rate.
+ *              For a 11.0592 MHz OSC, the highest baudrate is 691200, when you
+ *              set prescaler=1 and enable double-rate.
+ *              
 ******************************************************************************/
 void sys_init(void)
 {
     UART_configTypeDef uc;
     uc.mode                        = UART_mode_1;
     uc.doubleBaudrate              = DISABLE;
+    uc.baudrateGenerator           = UART_baudrateGenerator_brt;
     UART_config(&uc);
-    UART_setBaudrateGeneratorBRT(115200, RCC_BRT_prescaler_1, DISABLE);
+    RCC_BRT_config(115200, RCC_BRT_prescaler_1, uc.doubleBaudrate);
     UART_INT_cmd(ENABLE);
     UART_INT_setPriority(IntPriority_Low);
     UART_setReceive(ENABLE);

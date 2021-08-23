@@ -55,17 +55,14 @@ void app_getFactoryClockData(uint8_t *dat)
 void sys_init(void)
 {
     UART_configTypeDef uc;
-
-    uc.baudrate                    = 9600;                           /* baud rate is 9600bps */
-    uc.baudrateGenerator           = UART_baudrateGenerator_brt;     /* select BRT as baud rate generator */
-    uc.brtPrescaler                = RCC_BRT_prescaler_12;           /* 12T mode */
-    uc.interruptState              = ENABLE;
-    uc.interruptPriority           = DISABLE;
     uc.mode                        = UART_mode_1;
     uc.doubleBaudrate              = DISABLE;
-    uc.receiveState                = ENABLE;
-
+    uc.baudrateGenerator           = UART_baudrateGenerator_brt;
     UART_config(&uc);
+    RCC_BRT_config(9600, RCC_BRT_prescaler_12, uc.doubleBaudrate);
+    UART_INT_cmd(ENABLE);
+    UART_INT_setPriority(IntPriority_Low);
+    UART_setReceive(ENABLE);
 }
 
 /*****************************************************************************/

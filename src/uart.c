@@ -53,7 +53,7 @@ void UART_config(UART_configTypeDef *uc)
      *  >BRTx12 = 1: the rate is _SYS_CLK_/(256-BRT)
      */
     SCON = (SCON & 0x3F) | ((uint8_t)uc->mode << 0x6);
-
+    CONFB(AUXR, BIT_NUM_S1BRS, uc->baudrateGenerator);
     if (uc->mode == UART_mode_0)
     {
         /**
@@ -67,42 +67,6 @@ void UART_config(UART_configTypeDef *uc)
     {
         CONFB(PCON, BIT_NUM_PCON_SMOD, uc->doubleBaudrate);
     }
-}
-
-/*****************************************************************************/
-/** 
- * \author      IOsetting
- * \date        
- * \brief       configurate BRT for baudrate generator
- * \param[in]   baudrate
- * \param[in]   brtPrescaler
- * \param[in]   doubleBaudrate
- * \return      none
- * \ingroup     UART
- * \remarks     
-******************************************************************************/
-void UART_setBaudrateGeneratorBRT(uint32_t baudrate, RCC_BRT_prescaler brtPrescaler, Action doubleBaudrate)
-{
-    CONFB(AUXR, BIT_NUM_S1BRS, 0x01);
-    RCC_BRT_config(baudrate, brtPrescaler, doubleBaudrate);
-}
-
-/*****************************************************************************/
-/** 
- * \author      IOsetting
- * \date        
- * \brief       configurate TIM1 for baudrate generator
- * \param[in]   baudrate
- * \param[in]   timPrescaler
- * \param[in]   doubleBaudrate
- * \return      none
- * \ingroup     UART
- * \remarks     
-******************************************************************************/
-void UART_setBaudrateGeneratorTIM1(uint32_t baudrate, TIM_prescaler  timPrescaler, Action doubleBaudrate)
-{
-    CONFB(AUXR, BIT_NUM_S1BRS, 0x00);
-    TIM_TIM1_config(baudrate, timPrescaler, doubleBaudrate);
 }
 
 /*****************************************************************************/

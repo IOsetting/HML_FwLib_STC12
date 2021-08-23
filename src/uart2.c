@@ -3,8 +3,8 @@
  * \file        uart2.c
  * \author      IOsetting | iosetting@outlook.com
  * \brief       operations for UART2
- * \note        
- * \version     v0.0
+ * \note        UART2 ports are P1.2(RX)/P1.3(TX), or P4.2(RX)/P4.3(TX)
+ * \version     v0.1
  * \ingroup     UART
 ******************************************************************************/
 

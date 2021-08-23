@@ -35,13 +35,13 @@ void sys_init(void)
     UART_configTypeDef uc;
     uc.mode                        = UART_mode_1;
     uc.doubleBaudrate              = DISABLE;
+    uc.baudrateGenerator           = UART_baudrateGenerator_brt;
     UART_config(&uc);
-    UART_setBaudrateGeneratorBRT(9600, RCC_BRT_prescaler_1, DISABLE);
+    RCC_BRT_config(9600, RCC_BRT_prescaler_1, uc.doubleBaudrate);
     UART_INT_cmd(ENABLE);
     UART_INT_setPriority(IntPriority_Low);
     UART_setReceive(ENABLE);
 
-    UART_config(&uc);
     IAP_cmd(ENABLE);
     IAP_config();
 }

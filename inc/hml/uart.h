@@ -27,6 +27,15 @@ static __code char hexTable[16] = { '0','1','2','3','4','5','6','7','8','9','A',
  *****************************************************************************/
 
 /**
+ * \brief mark baud rate generator of UART
+ */
+typedef enum
+{
+    UART_baudrateGenerator_brt  = 0x1,    /* independent baud rate generator */
+    UART_baudrateGenerator_tim1 = 0x0     /* timer 1 */
+} UART_baudrateGenerator;
+
+/**
  * \brief mark mode0 baud rate
  */
 typedef enum
@@ -54,8 +63,6 @@ typedef enum
 
 /**
  * \brief mark configure structure of UART.
- *        brtPrescaler is required when baudrateGenerator is BRT,
- *        timPrescaler is required when baudrateGenerator is TIM1,
  *        mode0Prescaler is required for UART_mode 0,
  *        doubleBaudrate is required for UART_mode 1,2,3
  */
@@ -64,14 +71,13 @@ typedef struct
     UART_mode      mode;
     UART_Mode0BaudRatePrescaler mode0Prescaler;
     Action         doubleBaudrate;
+    UART_baudrateGenerator baudrateGenerator;
 } UART_configTypeDef;
 
 
 /*****************************************************************************
  *                          function declare                                 *
  *****************************************************************************/
-void UART_setBaudrateGeneratorBRT(uint32_t baudrate, RCC_BRT_prescaler brtPrescaler, Action doubleBaudrate);
-void UART_setBaudrateGeneratorTIM1(uint32_t baudrate, TIM_prescaler  timPrescaler, Action doubleBaudrate);
 void UART_setReceive(Action a);
 void UART_config(UART_configTypeDef *uc);
 uint8_t UART_getByte(void);
