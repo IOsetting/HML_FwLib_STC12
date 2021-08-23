@@ -34,7 +34,7 @@ void sys_init(void)
     ec.priority = DISABLE;
     EXTI_config(PERIPH_EXTI_1, &ec);
     EXTI_cmd(PERIPH_EXTI_1, ENABLE);
-    enableAllInterrupts();
+    UTIL_setInterrupts(ENABLE);
 
     GPIO_setBitValue(PERIPH_GPIO_2, PERIPH_GPIO_PIN_0);
 }

@@ -14,9 +14,7 @@
 /*****************************************************************************
  *                             header file                                   *
  *****************************************************************************/
-#include "hml/stc12.h"
-#include "hml/macro.h"
-#include "hml/types.h"
+#include "hml/util.h"
 
 /*****************************************************************************
  *                           enumeration type                                *
@@ -92,5 +90,7 @@ void TIM_setPrescaler(PERIPH_TIM tim, TIM_prescaler pre);
 void TIM_setValue(PERIPH_TIM tim, uint16_t val);
 void TIM_INT_cmd(PERIPH_TIM tim, Action a);
 void TIM_INT_setPriority(PERIPH_TIM tim, IntPriority priority);
+uint16_t TIM_calcInitValue(uint32_t baud, TIM_prescaler  timPrescaler, Action doubleBaudrate);
+void TIM_TIM1_config(uint32_t baudrate, TIM_prescaler  timPrescaler, Action doubleBaudrate);
 
 #endif

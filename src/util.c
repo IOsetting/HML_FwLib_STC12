@@ -12,34 +12,22 @@
 
 #ifdef COMPILE_UTIL
 
-/*****************************************************************************/
-/** 
- * \author      Weilun Fong
- * \date        
- * \brief       disable master switch of MCU interrupt
- * \param[in]   
- * \return      none
- * \ingroup     UTIL
- * \remarks     
-******************************************************************************/
-void disableAllInterrupts(void)
-{
-    EA = RESET;
-}
+uint8_t df = 0x1;       /* mark current divided factor */
+
 
 /*****************************************************************************/
 /** 
  * \author      Weilun Fong
  * \date        
- * \brief       enable master switch of MCU interrupt
- * \param[in]   
+ * \brief       globaly enable or disable MCU interrupts
+ * \param[in]   a: expected stat
  * \return      none
  * \ingroup     UTIL
  * \remarks     
 ******************************************************************************/
-void enableAllInterrupts(void)
+void UTIL_setInterrupts(Action a)
 {
-    EA = SET;
+    EA = a;
 }
 
 /*****************************************************************************/
@@ -73,6 +61,37 @@ uint16_t pow(uint8_t x, uint8_t y)
     }
 
     return x;
+}
+
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       set division factor of system clock
+ * \param[in]   d: division factor
+ * \return      none
+ * \ingroup     UTIL
+ * \remarks     
+******************************************************************************/
+void UTIL_setClockDivisionFactor(RCC_prescaler d)
+{
+    CLK_DIV = (uint8_t)d;
+    df = pow(2, d);
+}
+
+/*****************************************************************************/
+/** 
+ * \author      Weilun Fong
+ * \date        
+ * \brief       get current system clock frequency
+ * \param[in]   
+ * \return      current system clock frequency
+ * \ingroup     UTIL
+ * \remarks     
+******************************************************************************/
+uint32_t UTIL_getSystemClockFrequency(void)
+{
+    return (MCU_FRE_CLK/df);
 }
 
 /*****************************************************************************/
@@ -181,6 +200,23 @@ void sleep(uint16_t t)
      * \note disable SDCC warning
      */
     t = 0;
+}
+
+void UTIL_enablePrintf(void)
+{
+    // configure serial for 9600 baud, 8 data bits, 1 stop bit.
+    TMOD = 0x21;
+    SCON = 0x40;
+    TH1 = 0xFD;   // TH1 = 256 - 11.0592 * 1000 * 1000 / 12 / 32 / 9600;
+    TCON |= 0x40; // start TIM1
+    SCON |= 0x02;
+}
+
+int putchar (int c) {
+    while (!TI);    /* assumes UART is initialized */ 
+    TI = 0;
+    SBUF = c;
+    return (c);
 }
 
 #else

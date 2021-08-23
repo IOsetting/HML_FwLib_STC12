@@ -12,7 +12,6 @@
 
 #ifdef COMPILE_RCC
 
-uint8_t df = 0x1;       /* mark current divided factor */
 
 /*****************************************************************************/
 /** 
@@ -78,18 +77,51 @@ void RCC_BRT_setValue(uint8_t val)
 
 /*****************************************************************************/
 /** 
- * \author      Weilun Fong
+ * \author      IOsetting
  * \date        
- * \brief       set division factor of system clock
- * \param[in]   d: division factor
+ * \brief       get 16-bit initial value of BRT baud rate generator
+ * \param[in]   baud: expected baud rate
+ * \return      result(0x00 means overflow)
+ * \ingroup     UART
+ * \remarks     
+******************************************************************************/
+uint16_t RCC_BRT_calcInitValue(uint32_t baud, RCC_BRT_prescaler brtPrescaler, Action doubleBaudrate)
+{
+    uint16_t res = 0x0000;
+    uint32_t max = UTIL_getSystemClockFrequency();
+    if (brtPrescaler == RCC_BRT_prescaler_12)
+    {
+        max = max / 12;
+    }
+    if (doubleBaudrate == ENABLE) 
+    {
+        max = max * 2;
+    }
+    if (baud <= max/32)
+    {
+        res = (uint16_t)(256 - max/baud/32);
+    }
+    return res;
+}
+
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       initialize BRT baud rate generator with speicified baudrate
+ * \param[in]   baudrate: expected baud rate
+ * \param[in]   brtPrescaler: BRT prescaler
+ * \param[in]   doubleBaudrate: double baudrate or not
  * \return      none
  * \ingroup     RCC
  * \remarks     
 ******************************************************************************/
-void RCC_setClockDivisionFactor(RCC_prescaler d)
+void RCC_BRT_config(uint32_t baudrate, RCC_BRT_prescaler brtPrescaler, Action doubleBaudrate)
 {
-    CLK_DIV = (uint8_t)d;
-    df = pow(2, d);
+    uint16_t initValue = RCC_BRT_calcInitValue(baudrate, brtPrescaler, doubleBaudrate);
+    RCC_BRT_cmd(ENABLE);
+    RCC_BRT_setPrescaler(brtPrescaler);
+    RCC_BRT_setValue(initValue);
 }
 
 /*****************************************************************************/
@@ -105,21 +137,6 @@ void RCC_setClockDivisionFactor(RCC_prescaler d)
 void RCC_softwareReset(void)
 {
     SET_BIT_MASK(IAP_CONTR, SWRST);
-}
-
-/*****************************************************************************/
-/** 
- * \author      Weilun Fong
- * \date        
- * \brief       get current system clock frequency
- * \param[in]   
- * \return      current system clock frequency
- * \ingroup     RCC
- * \remarks     
-******************************************************************************/
-uint32_t RCC_getSystemClockFrequency(void)
-{
-    return (MCU_FRE_CLK/df);
 }
 
 #else

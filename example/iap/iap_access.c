@@ -33,15 +33,13 @@
 void sys_init(void)
 {
     UART_configTypeDef uc;
-
-    uc.baudrate                    = 9600;                           /* baud rate is 9600bps */
-    uc.baudrateGenerator           = UART_baudrateGenerator_brt;     /* select BRT as baud rate generator */
-    uc.brtPrescaler                = RCC_BRT_prescaler_1;            /* 1T mode */
-    uc.interruptState              = ENABLE;
-    uc.interruptPriority           = DISABLE;
     uc.mode                        = UART_mode_1;
     uc.doubleBaudrate              = DISABLE;
-    uc.receiveState                = ENABLE;
+    UART_config(&uc);
+    UART_setBaudrateGeneratorBRT(9600, RCC_BRT_prescaler_1, DISABLE);
+    UART_INT_cmd(ENABLE);
+    UART_INT_setPriority(IntPriority_Low);
+    UART_setReceive(ENABLE);
 
     UART_config(&uc);
     IAP_cmd(ENABLE);

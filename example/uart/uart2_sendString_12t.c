@@ -27,16 +27,15 @@
 ******************************************************************************/
 void sys_init(void)
 {
-    UART2_configTypeDef uc;
-    uc.baudrate                    = 9600;                           /* baud rate is 9600bps */
-    uc.brtPrescaler                = RCC_BRT_prescaler_12;           /* 12T mode */
-    uc.interruptState              = ENABLE;
-    uc.interruptPriority           = DISABLE;
+    UART_configTypeDef uc;
     uc.mode                        = UART_mode_1;
     uc.doubleBaudrate              = DISABLE;
-    uc.receiveState                = ENABLE;
-    uc.pinmap                      = UART2_pinmap_P1;
     UART2_config(&uc);
+    RCC_BRT_config(9600, RCC_BRT_prescaler_12, DISABLE);
+    UART2_INT_cmd(ENABLE);
+    UART2_INT_setPriority(IntPriority_Low);
+    UART2_setReceive(ENABLE);
+    UART2_setPinmap(UART2_pinmap_P1);
 }
 
 /*****************************************************************************/

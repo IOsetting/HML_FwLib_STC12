@@ -31,6 +31,7 @@
 #include "hml/spi.h"
 #include "hml/tim.h"
 #include "hml/uart.h"
+#include "hml/uart2.h"
 #include "hml/util.h"
 #include "hml/version.h"
 #include "hml/wdt.h"

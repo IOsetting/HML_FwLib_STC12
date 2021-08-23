@@ -65,7 +65,7 @@ typedef enum
 typedef enum
 {
     SPI_NSS_Hard = 0x0,     /* SS pin decides whether the device is a master or slave */
-    SPI_NSS_Soft = 0x0,     /* Ignore SS pin. MSTR decides master mode */
+    SPI_NSS_Soft = 0x1,     /* Ignore SS pin. MSTR decides master mode */
 } SPI_NSS;
 
 /**

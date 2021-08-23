@@ -48,7 +48,7 @@ void sys_init(void)
     sleep(200);
     GPIO_configPortValue(PERIPH_GPIO_1, 0xFF);
     sleep(200);
-    enableAllInterrupts();
+    UTIL_setInterrupts(ENABLE);
 }
 
 /*****************************************************************************/

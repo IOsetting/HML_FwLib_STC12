@@ -38,7 +38,7 @@ void sys_init(void)
     tc.value             = 65536 - 50000;
 
     TIM_config(PERIPH_TIM_0, &tc);
-    enableAllInterrupts();
+    UTIL_setInterrupts(ENABLE);
     TIM_cmd(PERIPH_TIM_0, ENABLE);
 }
 

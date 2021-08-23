@@ -28,15 +28,13 @@
 void initSys(void)
 {
     UART_configTypeDef uc;
-
-    uc.baudrate                    = 115200;                        /* baud rate is 115200bps */
-    uc.baudrateGenerator           = UART_baudrateGenerator_brt;    /* select BRT as baud rate generator */
-    uc.brtPrescaler                = RCC_BRT_prescaler_1;           /* 1T mode */
-    uc.interruptState              = DISABLE;
-    uc.interruptPriority           = DISABLE;
     uc.mode                        = UART_mode_1;
     uc.doubleBaudrate              = DISABLE;
-    uc.receiveState                = ENABLE;
+    UART_config(&uc);
+    UART_setBaudrateGeneratorBRT(115200, RCC_BRT_prescaler_1, DISABLE);
+    UART_INT_cmd(DISABLE);
+    UART_INT_setPriority(IntPriority_Low);
+    UART_setReceive(ENABLE);
 
     UART_config(&uc);
 
@@ -50,7 +48,7 @@ void initSys(void)
     ADC_config(&ac);
     ADC_start();
 
-    enableAllInterrupts();
+    UTIL_setInterrupts(ENABLE);
 }
 
 /*****************************************************************************/

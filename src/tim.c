@@ -352,6 +352,48 @@ void TIM_INT_setPriority(PERIPH_TIM tim, IntPriority priority)
     }
 }
 
+/*****************************************************************************/
+/** 
+ * \author      IOsetting
+ * \date        
+ * \brief       get 16-bit initial value of TIM1 baud rate generator
+ * \param[in]   baud: expected baud rate
+ * \return      result(0x00 means overflow)
+ * \ingroup     TIM
+ * \remarks     
+******************************************************************************/
+uint16_t TIM_calcInitValue(uint32_t baud, TIM_prescaler  timPrescaler, Action doubleBaudrate)
+{
+    uint16_t res = 0x0000;
+    uint32_t max = UTIL_getSystemClockFrequency() / timPrescaler;
+    if (doubleBaudrate == ENABLE) 
+    {
+        max = max * 2;
+    }
+    if (baud <= max/32)
+    {
+        res = (uint16_t)(256 - max/baud/32);
+    }
+    res = res & 0x00FF;
+    res = (res << 0x8) | res;
+    return res;
+}
+
+void TIM_TIM1_config(uint32_t baudrate, TIM_prescaler  timPrescaler, Action doubleBaudrate)
+{
+    uint16_t initValue = TIM_calcInitValue(baudrate, timPrescaler, doubleBaudrate);
+    TIM_configTypeDef tc;
+    tc.function          = TIM_function_tim;
+    tc.interruptState    = DISABLE;
+    tc.interruptPriority = DISABLE;
+    tc.mode              = TIM_mode_2;
+    tc.prescaler         = timPrescaler;
+    tc.value             = 0x00;   /* because of logic order, the value need to be reloaded one more time */
+    TIM_config(PERIPH_TIM_1, &tc);
+    TIM_cmd(PERIPH_TIM_1, ENABLE);
+    TIM_setValue(PERIPH_TIM_1, initValue); // UART_getTim1InitValue(uc->baudrate, uc->timPrescaler, uc->doubleBaudrate)
+}
+
 #else
     #warning Nothing to be done... User should remove .c file which is disabled by compile control macro from current directory.
 #endif
