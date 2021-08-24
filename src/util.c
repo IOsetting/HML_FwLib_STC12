@@ -12,7 +12,7 @@
 
 #ifdef COMPILE_UTIL
 
-uint8_t df = 0x1;       /* mark current divided factor */
+static uint8_t df = 0x1;       /* mark current divided factor */
 
 
 /*****************************************************************************/
@@ -169,6 +169,16 @@ void sleep(uint16_t t)
     t = 0;
 }
 
+/*****************************************************************************/
+/**
+ * \author      IOsetting
+ * \date        2021/08/24
+ * \brief       A shortcut of enabling printf on UART with 9600 baudrate
+ * \param[in]   none
+ * \return      none
+ * \ingroup     UTIL
+ * \remarks     
+******************************************************************************/
 void UTIL_enablePrintf(void)
 {
     // configure serial for 9600 baud, 8 data bits, 1 stop bit.
@@ -179,6 +189,16 @@ void UTIL_enablePrintf(void)
     SCON |= 0x02;
 }
 
+/*****************************************************************************/
+/**
+ * \author      IOsetting
+ * \date        2021/08/24
+ * \brief       This is required by stdio printf methods
+ * \param[in]   c: char for output
+ * \return      the same char from input
+ * \ingroup     UTIL
+ * \remarks     
+******************************************************************************/
 int putchar (int c) {
     while (!TI);    /* assumes UART is initialized */ 
     TI = 0;
