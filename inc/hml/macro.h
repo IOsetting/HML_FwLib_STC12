@@ -43,13 +43,6 @@
 #define MCU_MODEL_STC12LE5A16S2   0x25
 #define MCU_MODEL_STC12LE5A16PWM  0x26
 
-#define MCU_MODEL_STC12C5A20AD    0x31
-#define MCU_MODEL_STC12C5A20S2    0x32
-#define MCU_MODEL_STC12C5A20PWM   0x33
-#define MCU_MODEL_STC12LE5A20AD   0x34
-#define MCU_MODEL_STC12LE5A20S2   0x35
-#define MCU_MODEL_STC12LE5A20PWM  0x36
-
 #define MCU_MODEL_STC12C5A32AD    0x41
 #define MCU_MODEL_STC12C5A32S2    0x42
 #define MCU_MODEL_STC12C5A32PWM   0x43
@@ -117,12 +110,6 @@
         (model == MCU_MODEL_STC12LE5A16AD  ) || \
         (model == MCU_MODEL_STC12LE5A16S2  ) || \
         (model == MCU_MODEL_STC12LE5A16PWM ) || \
-        (model == MCU_MODEL_STC12C5A20AD   ) || \
-        (model == MCU_MODEL_STC12C5A20S2   ) || \
-        (model == MCU_MODEL_STC12C5A20PWM  ) || \
-        (model == MCU_MODEL_STC12LE5A20AD  ) || \
-        (model == MCU_MODEL_STC12LE5A20S2  ) || \
-        (model == MCU_MODEL_STC12LE5A20PWM ) || \
         (model == MCU_MODEL_STC12C5A32AD   ) || \
         (model == MCU_MODEL_STC12C5A32S2   ) || \
         (model == MCU_MODEL_STC12C5A32PWM  ) || \
@@ -184,12 +171,6 @@
         (model == MCU_MODEL_STC12LE5A16AD  ) || \
         (model == MCU_MODEL_STC12LE5A16S2  ) || \
         (model == MCU_MODEL_STC12LE5A16PWM ) || \
-        (model == MCU_MODEL_STC12C5A20AD   ) || \
-        (model == MCU_MODEL_STC12C5A20S2   ) || \
-        (model == MCU_MODEL_STC12C5A20PWM  ) || \
-        (model == MCU_MODEL_STC12LE5A20AD  ) || \
-        (model == MCU_MODEL_STC12LE5A20S2  ) || \
-        (model == MCU_MODEL_STC12LE5A20PWM ) || \
         (model == MCU_MODEL_STC12C5A32AD   ) || \
         (model == MCU_MODEL_STC12C5A32S2   ) || \
         (model == MCU_MODEL_STC12C5A32PWM  ) || \

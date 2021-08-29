@@ -42,112 +42,166 @@ endif
 ifneq ($(MCU),)
     mcu_model := $(shell $(ECHO) $(MCU) | $(TR) '[a-z]' '[A-Z]')
     MCU_MACRO := MCU_MODEL_$(mcu_model)
-    ifeq ($(mcu_model), STC11F01)
-        CODE_SIZE ?= 1024
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), STC11L01)
-        CODE_SIZE ?= 1024
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), STC11F01E)
-        CODE_SIZE ?= 1024
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), STC11L01E)
-        CODE_SIZE ?= 1024
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), STC11F02)
-        CODE_SIZE ?= 2048
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), STC11L02)
-        CODE_SIZE ?= 2048
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), STC11F02E)
-        CODE_SIZE ?= 2048
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), STC11L02E)
-        CODE_SIZE ?= 2048
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), STC11F03E)
-        CODE_SIZE ?= 3072
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), STC11L03E)
-        CODE_SIZE ?= 3072
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), STC11F04)
-        CODE_SIZE ?= 4096
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), STC11L04)
-        CODE_SIZE ?= 4096
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), STC11F04E)
-        CODE_SIZE ?= 4096
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), STC11L04E)
-        CODE_SIZE ?= 4096
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), STC11F05E)
-        CODE_SIZE ?= 5120
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), STC11L05E)
-        CODE_SIZE ?= 5120
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), IAP11F06)
-        CODE_SIZE ?= 6144
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), IAP11L06)
-        CODE_SIZE ?= 6144
-        XRAM_SIZE ?= 0
-    else ifeq ($(mcu_model), STC11F08XE)
+    ifeq ($(mcu_model), STC12C5A08AD)
         CODE_SIZE ?= 8192
         XRAM_SIZE ?= 1024
-    else ifeq ($(mcu_model), STC11L08XE)
+    else ifeq ($(mcu_model), STC12C5A08S2)
         CODE_SIZE ?= 8192
         XRAM_SIZE ?= 1024
-    else ifeq ($(mcu_model), STC11F16XE)
+    else ifeq ($(mcu_model), STC12C5A08PWM)
+        CODE_SIZE ?= 8192
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A08AD)
+        CODE_SIZE ?= 8192
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A08S2)
+        CODE_SIZE ?= 8192
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A08PWM)
+        CODE_SIZE ?= 8192
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12C5A16AD)
         CODE_SIZE ?= 16384
         XRAM_SIZE ?= 1024
-    else ifeq ($(mcu_model), STC11L16XE)
+    else ifeq ($(mcu_model), STC12C5A16S2)
         CODE_SIZE ?= 16384
         XRAM_SIZE ?= 1024
-    else ifeq ($(mcu_model), STC11F32XE)
+    else ifeq ($(mcu_model), STC12C5A16PWM)
+        CODE_SIZE ?= 16384
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A16AD)
+        CODE_SIZE ?= 16384
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A16S2)
+        CODE_SIZE ?= 16384
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A16PWM)
+        CODE_SIZE ?= 16384
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12C5A32AD)
         CODE_SIZE ?= 32768
         XRAM_SIZE ?= 1024
-    else ifeq ($(mcu_model), STC11L32XE)
+    else ifeq ($(mcu_model), STC12C5A32S2)
         CODE_SIZE ?= 32768
         XRAM_SIZE ?= 1024
-    else ifeq ($(mcu_model), STC11F40XE)
+    else ifeq ($(mcu_model), STC12C5A32PWM)
+        CODE_SIZE ?= 32768
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A32AD)
+        CODE_SIZE ?= 32768
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A32S2)
+        CODE_SIZE ?= 32768
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A32PWM)
+        CODE_SIZE ?= 32768
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12C5A40AD)
         CODE_SIZE ?= 40960
         XRAM_SIZE ?= 1024
-    else ifeq ($(mcu_model), STC11L40XE)
+    else ifeq ($(mcu_model), STC12C5A40S2)
         CODE_SIZE ?= 40960
         XRAM_SIZE ?= 1024
-    else ifeq ($(mcu_model), STC11F48XE)
+    else ifeq ($(mcu_model), STC12C5A40PWM)
+        CODE_SIZE ?= 40960
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A40AD)
+        CODE_SIZE ?= 40960
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A40S2)
+        CODE_SIZE ?= 40960
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A40PWM)
+        CODE_SIZE ?= 40960
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12C5A48AD)
         CODE_SIZE ?= 49152
         XRAM_SIZE ?= 1024
-    else ifeq ($(mcu_model), STC11L48XE)
+    else ifeq ($(mcu_model), STC12C5A48S2)
         CODE_SIZE ?= 49152
         XRAM_SIZE ?= 1024
-    else ifeq ($(mcu_model), STC11F52XE)
+    else ifeq ($(mcu_model), STC12C5A48PWM)
+        CODE_SIZE ?= 49152
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A48AD)
+        CODE_SIZE ?= 49152
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A48S2)
+        CODE_SIZE ?= 49152
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A48PWM)
+        CODE_SIZE ?= 49152
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12C5A52AD)
         CODE_SIZE ?= 53248
         XRAM_SIZE ?= 1024
     else ifeq ($(mcu_model), STC12C5A52S2)
         CODE_SIZE ?= 53248
         XRAM_SIZE ?= 1024
-    else ifeq ($(mcu_model), STC11F56XE)
+    else ifeq ($(mcu_model), STC12C5A52PWM)
+        CODE_SIZE ?= 53248
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A52AD)
+        CODE_SIZE ?= 53248
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A52S2)
+        CODE_SIZE ?= 53248
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A52PWM)
+        CODE_SIZE ?= 53248
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12C5A56AD)
         CODE_SIZE ?= 57344
         XRAM_SIZE ?= 1024
     else ifeq ($(mcu_model), STC12C5A56S2)
         CODE_SIZE ?= 57344
         XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12C5A56PWM)
+        CODE_SIZE ?= 57344
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A56AD)
+        CODE_SIZE ?= 57344
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A56S2)
+        CODE_SIZE ?= 57344
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A56PWM)
+        CODE_SIZE ?= 57344
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12C5A60AD)
+        CODE_SIZE ?= 61440
+        XRAM_SIZE ?= 1024
     else ifeq ($(mcu_model), STC12C5A60S2)
         CODE_SIZE ?= 61440
         XRAM_SIZE ?= 1024
-    else ifeq ($(mcu_model), STC11L60XE)
+    else ifeq ($(mcu_model), STC12C5A60PWM)
         CODE_SIZE ?= 61440
         XRAM_SIZE ?= 1024
-    else ifeq ($(mcu_model), STC11F62X)
+    else ifeq ($(mcu_model), STC12LE5A60AD)
+        CODE_SIZE ?= 61440
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A60S2)
+        CODE_SIZE ?= 61440
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), STC12LE5A60PWM)
+        CODE_SIZE ?= 61440
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), IAP12C5A62AD)
         CODE_SIZE ?= 63488
         XRAM_SIZE ?= 1024
-    else ifeq ($(mcu_model), STC11L62X)
+    else ifeq ($(mcu_model), IAP12C5A62S2)
+        CODE_SIZE ?= 63488
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), IAP12C5A62PWM)
+        CODE_SIZE ?= 63488
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), IAP12LE5A62AD)
+        CODE_SIZE ?= 63488
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), IAP12LE5A62S2)
+        CODE_SIZE ?= 63488
+        XRAM_SIZE ?= 1024
+    else ifeq ($(mcu_model), IAP12LE5A62PWM)
         CODE_SIZE ?= 63488
         XRAM_SIZE ?= 1024
     else

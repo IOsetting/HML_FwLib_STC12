@@ -34,13 +34,7 @@
     (model == MCU_MODEL_STC12C5A16PWM  ) || \
     (model == MCU_MODEL_STC12LE5A16AD  ) || \
     (model == MCU_MODEL_STC12LE5A16S2  ) || \
-    (model == MCU_MODEL_STC12LE5A16PWM ) || \
-    (model == MCU_MODEL_STC12C5A20AD   ) || \
-    (model == MCU_MODEL_STC12C5A20S2   ) || \
-    (model == MCU_MODEL_STC12C5A20PWM  ) || \
-    (model == MCU_MODEL_STC12LE5A20AD  ) || \
-    (model == MCU_MODEL_STC12LE5A20S2  ) || \
-    (model == MCU_MODEL_STC12LE5A20PWM )
+    (model == MCU_MODEL_STC12LE5A16PWM )
         #define IAP_ADDR_END 0x1FFF
 #elif (model == MCU_MODEL_STC12C5A32AD   ) || \
     (model == MCU_MODEL_STC12C5A32S2   ) || \
