@@ -12,6 +12,7 @@
 
 #ifdef COMPILE_UTIL
 
+const uint16_t t_of_1_ms = (uint16_t)(MCU_FRE_CLK/(float)1000/5) - 18;
 static uint8_t df = 0x1;       /* mark current divided factor */
 
 
@@ -72,9 +73,9 @@ uint32_t UTIL_getSystemClockFrequency(void)
  * \remarks     private function, don' use it
  *              5:DJNZ cycles, 18:adjust for extra cycles
 ******************************************************************************/
-static uint16_t _sleep_getInitValue(void)
+static uint16_t _cycles_1ms(void)
 {
-    return (uint16_t)(MCU_FRE_CLK/(float)1000/5) - 18;
+    return t_of_1_ms;
 }
 
 /*****************************************************************************/
@@ -88,7 +89,7 @@ static uint16_t _sleep_getInitValue(void)
  * \remarks     private function. 
  *              total loops = (ar7 * 256) + ar6, each DJNZ takes 5 CPU cycles
 ******************************************************************************/
-static void _sleep_1ms(void)
+static void _sleep_inline(void)
 {
     __asm
         push ar6                    ;low
@@ -124,7 +125,7 @@ void sleep(uint16_t t)
         push dpl
 
     ; freq -> r6,r7
-        lcall __sleep_getInitValue
+        lcall __cycles_1ms
         mov ar6,dpl
         mov ar7,dph
 
@@ -150,7 +151,7 @@ void sleep(uint16_t t)
     ; loop for sleep
     ; loop from (0xFFFF - t) to (0xFFFF)
     LOOP$:
-        lcall __sleep_1ms               ;#5*(ar7*(256 + 1) + ar6)
+        lcall __sleep_inline            ;#5*(ar7*(256 + 1) + ar6)
         inc dptr                        ;#2
         mov a,dpl                       ;#1
         anl a,dph                       ;#1
