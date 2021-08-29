@@ -19,7 +19,7 @@
  *****************************************************************************/
 #include "hml/hml.h"
 
-#define CS P1_3
+#define MAX7219_CS P1_3
 
 #define DECODE_MODE  0x09
 #define INTENSITY    0x0A
@@ -49,12 +49,12 @@ const uint8_t numbers[]={
 0x00,0x00,0x7C,0xC6,0xC6,0xC6,0x7E,0x06,  // -9-  
 0x06,0x06,0x0C,0x78,0x00,0x00,0x00,0x00};
 
-void Write7219(uint8_t addr, uint8_t dat)
+void MAX7219_write(uint8_t addr, uint8_t dat)
 {
-    CS = 0;
+    MAX7219_CS = 0;
     SPI_RW(addr);
     SPI_RW(dat);
-    CS = 1;
+    MAX7219_CS = 1;
 }
 
 /*****************************************************************************/
@@ -67,13 +67,13 @@ void Write7219(uint8_t addr, uint8_t dat)
  * \ingroup     example
  * \remarks     
 ******************************************************************************/
-void Init7219(void)
+void MAX7219_init(void)
 {
-    Write7219(SHUT_DOWN,0x01);         // 0x00:shutdown, 0x01:normal
-    Write7219(DECODE_MODE,0x00);       // No decode
-    Write7219(SCAN_LIMIT,0x07);        // Display 8 digits
-    Write7219(INTENSITY,0x00);         // 0x00:min, 0xFF:max
-    Write7219(DISPLAY_TEST,0x00);      // 0x00:normal, 0x01:test mode
+    MAX7219_write(SHUT_DOWN,0x01);         // 0x00:shutdown, 0x01:normal
+    MAX7219_write(DECODE_MODE,0x00);       // No decode
+    MAX7219_write(SCAN_LIMIT,0x07);        // Display 8 digits
+    MAX7219_write(INTENSITY,0x00);         // 0x00:min, 0xFF:max
+    MAX7219_write(DISPLAY_TEST,0x00);      // 0x00:normal, 0x01:test mode
 }
 
 /*****************************************************************************/
@@ -86,7 +86,7 @@ void Init7219(void)
  * \ingroup     example
  * \remarks     
 ******************************************************************************/
-void initSys(void)
+void SPI_init(void)
 {
     SPI_configTypeDef sc;
     sc.baudRatePrescaler = SPI_BaudRatePrescaler_64;
@@ -102,8 +102,8 @@ void initSys(void)
 
 void main()
 {
-    initSys();
-    Init7219();
+    SPI_init();
+    MAX7219_init();
 
     P1_3 = 1;
     uint8_t pos = 0, size = sizeof(numbers), i, j;
@@ -112,7 +112,7 @@ void main()
         for (i = 0; i < 8; i++)
         {
             j = (pos + i) % size;
-            Write7219(i + 1, numbers[j]);
+            MAX7219_write(i + 1, numbers[j]);
         }
         pos = (pos + 1) % size;
         sleep(100);
