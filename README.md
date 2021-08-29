@@ -1,29 +1,25 @@
-# Background
+# HML_FwLib_STC12
 
 [![GitHub repo size](https://img.shields.io/github/repo-size/IOsetting/HML_FwLib_STC12)](https://github.com/IOsetting/HML_FwLib_STC12)
 [![GitHub](https://img.shields.io/github/license/IOsetting/HML_FwLib_STC12)](https://github.com/IOsetting/HML_FwLib_STC12/blob/master/LICENSE)
 [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/IOsetting/HML_FwLib_STC12?color=26a69a)](https://github.com/IOsetting/HML_FwLib_STC12/tags)
 
-## What is HML_FwLib_STC12
+## 关于
 
-This is a lite firmware library for STC12C5A60S2 series MCU, forked from [HML_FwLib_STC11](https://github.com/MCU-ZHISHAN-IoT/HML_FwLib_STC11).
+HML_FwLib_STC12 是一个面向 STC12 系列MCU的封装库, 是 [HML_FwLib_STC11](https://github.com/MCU-ZHISHAN-IoT/HML_FwLib_STC11) 项目的一个独立分支.
 
-HML_FwLib_STC12 is a member of HML firmware libraries, providing interface functions for on-chip resource of STC MCUs, including ADC, GPIO, IAP, PCA, TIM, UART, external interrupt, power management and watchdog. The STC12C5A60S2 series is a variant of Intel 8051 and a descendant of STC89,STC90,STC11, which offers additional hardware peripherals. More details can be found at http://www.stcmicro.com/stc/stc12c5a32s2.html.
+STC12 系列属于英特尔8051 MCU的一个变种, 是STC的STC89,STC90,STC11系列的后继型号, 相对于早期型号提供了更多的片上资源, 增加了硬件实现的ADC, PCA, SPI和PWM等常用功能. 更多的细节可以查看官方介绍 http://www.stcmicro.com/stc/stc12c5a32s2.html.
 
-We intend to provide a lite firmware library that makes coding easier (also more readable code). All source codes are written in C language and for [SDCC compiler](http://sdcc.sourceforge.net/), i.e., it can only be compiled by SDCC. This choice is motivated by the fact that SDCC is free and highly efficient, while there are very few examples of application about SDCC on the Internet. We hope that, as one of the early attempts to develop MCU projects using SDCC, this work will make SDCC become more popular among MCU developers.<br>
+HML_FwLib_STC12 与其它 HML 封装库一样, 将MCU的片上资源进行包装并提供便捷的编程接口, 让开发者可以在项目中以类似STM32的编程方式, 快捷使用 ADC, GPIO, IAP, PCA, TIM, UART, EXTI, 电源管理以及看门狗等片上资源.
 
-Please visit [detail page](https://hw.zhishan-iot.tk/page/hml/detail/fwlib_stc10.html) for more information!
+## 特性
 
-## Feature
-+ Based on [SDCC compiler](http://sdcc.sourceforge.net/).
-+ Cover most on-chip resource of STC12 series MCUs.
-+ GPL-3.0 licensed open source library.
-+ A variety of examples to help you get started in using HML_FwLib_STC12.
++ 基于 [SDCC compiler](http://sdcc.sourceforge.net/)
++ (几乎)完整覆盖 STC12 系列 MCU 的片上资源
++ GPL-3.0 开源协议
++ 丰富的代码例子供开发参考
 
-
-# Usage
-
-Here is a list of the all on-chip peripheral drivers and examples that need to be ported.
+此表格展示了支持的片上资源列表
 
 | Peripheral | Description | Status |
 | --- | --- | --- |
@@ -40,14 +36,18 @@ Here is a list of the all on-chip peripheral drivers and examples that need to b
 | UART | universal asynchronous receiver/transmitter | supported |
 | WDT | watchdog | supported |
 
-## Prerequisite
+# 如何使用
+
+请查看代码仓库的[WIKI](https://github.com/IOsetting/HML_FwLib_STC12/wiki)
+
+## 需要的环境
 + [GNU Make](http://www.gnu.org/software/make/manual/make.html)(recommend)
 + [SDCC compiler](http://sdcc.sourceforge.net/)
-+ *\[for Windows\]* Unix shell tools([msys](http://www.mingw.org/wiki/MSYS), [Cygwin](http://www.cygwin.com/), [GNUwin32](http://gnuwin32.sourceforge.net/)) needed by makefile for HML_FwLib_STC12
++ *\[Windows用户\]* Unix shell tools([msys](http://www.mingw.org/wiki/MSYS), [Cygwin](http://www.cygwin.com/), [GNUwin32](http://gnuwin32.sourceforge.net/)) needed by makefile for HML_FwLib_STC12
 
-## Development
+## 开发
 
-### file structure
+### 文件结构
 
 ```bash
 HML_FwLib_STC12
@@ -63,7 +63,7 @@ HML_FwLib_STC12
 └─VERSION      #version code of HML_FwLib_STC12
 ```
 
-### configuration
+### 编译参数
 
 There are several parameters need to be configured by user manually.
 
@@ -74,13 +74,13 @@ The macro mark frequency of clock source, including extern crystal oscillator or
 #### \_\_CONF\_MCU\_MODEL
 The macro mark the model of target MCU and is defined in *conf.h*.
 
-### code & compilation
+### 示例代码及编译
 
 There is a source file named *test.c* under *usr* directory, we have put a main function here. User can add and modify own code here, then enter <kbd>make</kbd> in terminal, the Makefile will work and complete compilation. Besides, user can enter <kbd>make help</kbd> to get all usages.
 
 Certainly, you can just add *inc* and *src* directory into your project structure, and write your own makefile to build a custom project. 
 
-## Development in PlatformIO with VSCode
+## 在VS Code中开发
 
 PlatformIO turns VSCode into a complete IDE for compiling and developing embeded projects. HML_FwLib_STC12 is a perfect library for STC12C5A60S2 series MCU projects. For example, see the structure of a typical PlatformIO project:
 ```
@@ -117,13 +117,3 @@ upload_speed = 115200
 upload_flags =
     -b$UPLOAD_SPEED
 ```
-
-
-## Contribute
-
-HML_FwLib_STC12 is GPL-3.0-licensed open source software. We welcome contributions big and small!
-
-
-## License
-
-HML_FwLib_STC12 is licensed under GPL-3.0.
