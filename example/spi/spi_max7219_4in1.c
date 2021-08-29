@@ -167,6 +167,7 @@ void SPI_init(void)
 
 void main()
 {
+    // lpos: the position of the bit for the left boundary of display area
     uint16_t pos = 0, lpos = 0;
     uint8_t i, j, cpos = 0, bpos = 0, tcpos = 0;
     SPI_init();
@@ -177,11 +178,11 @@ void main()
         lpos = pos + sizeof(numbers) - BLOCKS * 8;
         cpos = lpos / 8;        // char position
         bpos = lpos % 8;        // bit position
-        for (i = 0; i < 8; i++) // fill this line
+        for (i = 0; i < 8; i++) // fill each line
         {
             for (j = 0; j < BLOCKS; j++)
             {
-               tcpos = (cpos + j) % character_len;
+                tcpos = (cpos + j) % character_len;
                 val[j] = numbers[tcpos * 8 + i] << bpos;
                 tcpos = (cpos + j + 1) % character_len;
                 val[j] |= numbers[tcpos * 8 + i] >> (8 - bpos);
