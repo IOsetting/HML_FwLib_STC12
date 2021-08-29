@@ -98,9 +98,16 @@
 #define NRF24_PLOAD_WIDTH        32   // Payload width
 #define NRF24_TEST_ADDR          "nRF24"
 
+typedef enum
+{
+    NRF24_MODE_RX = 0x0,
+    NRF24_MODE_TX = 0x1
+} NRF24_MODE;
+
 const uint8_t TX_ADDRESS[NRF24_ADDR_WIDTH] = {0x32,0x4E,0x6F,0x64,0x65};
-const uint8_t RX_ADDRESS[NRF24_ADDR_WIDTH] = {0x11,0x22,0x33,0x44,0x55};
-uint8_t rece_buf[NRF24_PLOAD_WIDTH];
+const uint8_t RX_ADDRESS[NRF24_ADDR_WIDTH] = {0x32,0x4E,0x6F,0x64,0x22};
+const NRF24_MODE CURRENT_MODE = NRF24_MODE_TX;
+uint8_t rx_buf[NRF24_PLOAD_WIDTH];
 
 #define NRF_CSN  P1_4
 #define NRF_MOSI P1_5
@@ -206,16 +213,17 @@ void NRF24L01_ClearIRQFlags(void)
 
 uint8_t NRF24L01_RxPacket(uint8_t *rxbuf)
 {
-    uint8_t state;
-    state = NRF24L01_Read_Reg(NRF24_REG_STATUS);
+    while(NRF_IRQ);
+
+    uint8_t state = NRF24L01_Read_Reg(NRF24_REG_STATUS);
+    printf_tiny("Interrupted, state: %x\r\n", state);
     NRF24L01_Write_Reg(NRF24_CMD_REGISTER_W + NRF24_REG_STATUS, state);
     if (state & NRF24_FLAG_RX_DREADY)
     {
         NRF24L01_Read_To_Buf(NRF24_CMD_RX_PLOAD_R, rxbuf, NRF24_PLOAD_WIDTH);
-        NRF24L01_Write_Reg(NRF24_CMD_FLUSH_RX, 0xFF);
-        return 0;
+        NRF24L01_FlushRX();
     }
-    return 1;
+    return state;
 }
 
 uint8_t NRF24L01_TxPacket(uint8_t *txbuf)
@@ -241,34 +249,48 @@ uint8_t NRF24L01_TxPacket(uint8_t *txbuf)
 
 uint8_t NRF24L01_Check(void)
 {
-    uint8_t rxbuf[5];
 	uint8_t i;
 	uint8_t *ptr = (uint8_t *)NRF24_TEST_ADDR;
-
-	// Write test TX address and read TX_ADDR register
-	NRF24L01_Write_From_Buf(NRF24_CMD_REGISTER_W | NRF24_REG_TX_ADDR, ptr, 5);
-	NRF24L01_Read_To_Buf(NRF24_CMD_REGISTER_R | NRF24_REG_TX_ADDR, rxbuf, 5);
-	// Compare buffers, return error on first mismatch
-	for (i = 0; i < 5; i++) {
-		if (rxbuf[i] != *ptr++) return 1;
+	NRF24L01_Write_From_Buf(NRF24_CMD_REGISTER_W | NRF24_REG_TX_ADDR, ptr, NRF24_ADDR_WIDTH);
+	NRF24L01_Read_To_Buf(NRF24_CMD_REGISTER_R | NRF24_REG_TX_ADDR, rx_buf, NRF24_ADDR_WIDTH);
+	for (i = 0; i < NRF24_ADDR_WIDTH; i++) {
+		if (rx_buf[i] != *ptr++) return 1;
 	}
 	return 0;
 }
 
-void NRF24L01_Init(void)
+void NRF24L01_init(NRF24_MODE mode)
 {
     NRF_CE = 0;
     NRF24L01_Write_Reg(NRF24_CMD_REGISTER_W + NRF24_REG_RX_PW_P0, NRF24_PLOAD_WIDTH);
-    NRF24L01_Write_Reg(NRF24_CMD_FLUSH_RX, 0xff);
     NRF24L01_Write_From_Buf(NRF24_CMD_REGISTER_W + NRF24_REG_TX_ADDR, (uint8_t *)TX_ADDRESS, NRF24_ADDR_WIDTH);
-    NRF24L01_Write_From_Buf(NRF24_CMD_REGISTER_W + NRF24_REG_RX_ADDR_P0, (uint8_t *)TX_ADDRESS, NRF24_ADDR_WIDTH);
     NRF24L01_Write_Reg(NRF24_CMD_REGISTER_W + NRF24_REG_EN_AA, 0x3f);
     NRF24L01_Write_Reg(NRF24_CMD_REGISTER_W + NRF24_REG_EN_RXADDR, 0x3f);
     NRF24L01_Write_Reg(NRF24_CMD_REGISTER_W + NRF24_REG_SETUP_RETR, 0x0a);
     NRF24L01_Write_Reg(NRF24_CMD_REGISTER_W + NRF24_REG_RF_CH, 40);
     NRF24L01_Write_Reg(NRF24_CMD_REGISTER_W + NRF24_REG_RF_SETUP, 0x07);
-    NRF24L01_Write_Reg(NRF24_CMD_REGISTER_W + NRF24_REG_CONFIG, 0x0E);
+    switch (mode)
+    {
+        case NRF24_MODE_RX:
+            NRF24L01_Write_From_Buf(NRF24_CMD_REGISTER_W + NRF24_REG_RX_ADDR_P0, (uint8_t *)RX_ADDRESS, NRF24_ADDR_WIDTH);
+            NRF24L01_Write_Reg(NRF24_CMD_REGISTER_W + NRF24_REG_CONFIG, 0x0F);
+            break;
+        case NRF24_MODE_TX:
+        default:
+            NRF24L01_Write_From_Buf(NRF24_CMD_REGISTER_W + NRF24_REG_RX_ADDR_P0, (uint8_t *)TX_ADDRESS, NRF24_ADDR_WIDTH);
+            NRF24L01_Write_Reg(NRF24_CMD_REGISTER_W + NRF24_REG_CONFIG, 0x0E);
+            break;
+    }
     NRF_CE = 1;
+}
+
+void NRF24L01_printBuf(void)
+{
+    for (uint8_t i = 0; i < NRF24_PLOAD_WIDTH; i++)
+    {
+        printf_tiny("%x ", rx_buf[i]);
+    }
+    printf_tiny("\r\n");
 }
 
 void main(void)
@@ -282,17 +304,24 @@ void main(void)
         sleep(500);
     }
 
-    NRF24L01_Init();
+    NRF24L01_init(CURRENT_MODE);
 
-    uint8_t tmp[] = {
-        0x02, 0x80, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18,
-        0x21, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x28,
-        0x31, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x38,
-        0x41, 0x12, 0x13, 0x14, 0x15, 0x16, 0x37, 0x48
-      };
-
-    while (1)
+    if (CURRENT_MODE == NRF24_MODE_RX)
     {
+        while (1)
+        {
+            uint8_t sta = NRF24L01_RxPacket(rx_buf);
+            printf_tiny("RX stat: %x\r\n", sta);
+            NRF24L01_printBuf();
+        }
+    }
+    else
+    {
+        uint8_t tmp[] = {
+            0x1F, 0x80, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18,
+            0x21, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x28,
+            0x31, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x38,
+            0x41, 0x12, 0x13, 0x14, 0x15, 0x16, 0x37, 0x48};
         uint8_t sta = NRF24L01_TxPacket(tmp);
         tmp[1] = sta;
         printf_tiny("TX stat: %x\r\n", sta);
