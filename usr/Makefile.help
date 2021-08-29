@@ -7,7 +7,7 @@
 # E-mail     : mcu@zhishan-iot.tk
 # Make-tool  : GNU Make (http://www.gnu.org/software/make/manual/make.html)
 # Page       : https://hw.zhishan-iot.tk/page/hml/detail/fwlib_stc11.html
-# Project    : HML_FwLib_STC11
+# Project    : HML_FwLib_STC12
 # Version    : v0.3.1
 # ------------------------------------------------------------------------
 
@@ -49,6 +49,6 @@ other works, such as clean and rebuild."
 	@$(ECHO)  ""
 	@$(ECHO)  "Examples:"
 	@$(ECHO)  "    (1) make -j"
-	@$(ECHO)  "    (2) make -j MCU=stc11f04e"
-	@$(ECHO)  "    (3) make rebuild MCU=stc11f04e JOBS=4"
-	@$(ECHO)  "    (4) make -j library MCU=stc11f04e"
+	@$(ECHO)  "    (2) make -j MCU=STC12C5A60S2"
+	@$(ECHO)  "    (3) make rebuild MCU=STC12C5A60S2 JOBS=4"
+	@$(ECHO)  "    (4) make -j library MCU=STC12C5A60S2"

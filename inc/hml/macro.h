@@ -102,7 +102,7 @@
 /**
  * \brief check macro for MCU model
  */
-#define IS_STC11_MCU_MODEL(model)           \
+#define IS_STC12_MCU_MODEL(model)           \
     (                                       \
         (model == MCU_MODEL_GENERIC    )     || \
         (model == MCU_MODEL_STC12C5A08AD   ) || \
@@ -297,7 +297,7 @@
  * \brief MCU model check
  */
 #if (defined __CONF_MCU_MODEL)
-    #if IS_STC11_MCU_MODEL(__CONF_MCU_MODEL)
+    #if IS_STC12_MCU_MODEL(__CONF_MCU_MODEL)
         #if (__CONF_MCU_MODEL == MCU_MODEL_GENERIC)
             #warning the value of macro HML_MCU_MODEL will be filled with MCU_MODEL_STC12C5A08AD
             #define HML_MCU_MODEL MCU_MODEL_STC12C5A08AD

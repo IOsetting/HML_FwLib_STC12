@@ -7,7 +7,7 @@
 # E-mail     : mcu@zhishan-iot.tk
 # Make-tool  : GNU Make (http://www.gnu.org/software/make/manual/make.html)
 # Page       : https://hw.zhishan-iot.tk/page/hml/detail/fwlib_stc11.html
-# Project    : HML_FwLib_STC11
+# Project    : HML_FwLib_STC12
 # Version    : v0.3.1
 # ------------------------------------------------------------------------
 
@@ -65,7 +65,7 @@ else
 endif
 
 # Important file
-FILE_HML_FWLIB     := libhml_stc11.lib
+FILE_HML_FWLIB     := libhml_stc12.lib
 HML_SRC_FILES      := $(wildcard $(DIR_SRC)/*.c)
 HML_REL_FILES      := $(patsubst $(DIR_SRC)/%.c, $(DIR_OUTPUT)/%.rel, $(HML_SRC_FILES))
 MYFILE             ?= test.c
@@ -108,7 +108,7 @@ $(TARGET_FWLIB): $(HML_REL_FILES)
 $(MYFILE_REL): $(MYFILE) $(TARGET_FWLIB)
 	@$(EECHO) "$(TITLE_COLOR) - Compile user source code \033[0m"
 	$(VECHO) "CC  $<"
-	$(Q)$(CC) $< $(CFLAGS) -L$(DIR_OUTPUT) -lhml_stc11 -o $(DIR_OUTPUT)/`$(BASENAME) $@`
+	$(Q)$(CC) $< $(CFLAGS) -L$(DIR_OUTPUT) -lhml_stc12 -o $(DIR_OUTPUT)/`$(BASENAME) $@`
 
 # Generate .hex file
 $(DIR_OUTPUT)/$(TARGET).ihx: $(MYFILE_REL)
