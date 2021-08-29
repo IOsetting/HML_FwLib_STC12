@@ -21,6 +21,7 @@
  *                             header file                                   *
  *****************************************************************************/
 #include "hml/hml.h"
+#include <stdio.h>
 
 /**********  SPI(nRF24L01) commands  ***********/
 // 
@@ -272,10 +273,12 @@ void NRF24L01_Init(void)
 
 void main(void)
 {
+    UTIL_enablePrintf();
     initSys();
 
     while (NRF24L01_Check())
     {
+        printf_tiny("Check failed, waiting retry\r\n");
         sleep(500);
     }
 
@@ -292,6 +295,7 @@ void main(void)
     {
         uint8_t sta = NRF24L01_TxPacket(tmp);
         tmp[1] = sta;
+        printf_tiny("TX stat: %x\r\n", sta);
         sleep(500);
     }
 }
