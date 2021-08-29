@@ -100,13 +100,14 @@
 
 typedef enum
 {
-    NRF24_MODE_RX = 0x0,
-    NRF24_MODE_TX = 0x1
+    NRF24_MODE_RX = 0x00,
+    NRF24_MODE_TX = 0x01,
+    NRF24_MODE_IT = 0x02
 } NRF24_MODE;
 
 const uint8_t TX_ADDRESS[NRF24_ADDR_WIDTH] = {0x32,0x4E,0x6F,0x64,0x65};
 const uint8_t RX_ADDRESS[NRF24_ADDR_WIDTH] = {0x32,0x4E,0x6F,0x64,0x22};
-const NRF24_MODE CURRENT_MODE = NRF24_MODE_TX;
+const NRF24_MODE CURRENT_MODE = NRF24_MODE_IT;
 uint8_t rx_buf[NRF24_PLOAD_WIDTH];
 
 #define NRF_CSN  P1_4
@@ -116,19 +117,6 @@ uint8_t rx_buf[NRF24_PLOAD_WIDTH];
 #define NRF_IRQ  P3_2
 #define NRF_CE   P3_7
 
-void initSys(void)
-{
-    SPI_configTypeDef sc;
-    sc.baudRatePrescaler = SPI_BaudRatePrescaler_4;
-    sc.cpha = SPI_CPHA_1Edge;
-    sc.cpol = SPI_CPOL_low;
-    sc.firstBit = SPI_FirstBit_MSB;
-    sc.pinmap = SPI_pinmap_P1;
-    sc.nss = SPI_NSS_Soft;
-    sc.mode = SPI_Mode_Master;
-    SPI_config(&sc);
-    SPI_cmd(ENABLE);
-}
 
 uint8_t NRF24L01_Write_Reg(uint8_t reg,uint8_t value)
 {
@@ -272,6 +260,7 @@ void NRF24L01_init(NRF24_MODE mode)
     switch (mode)
     {
         case NRF24_MODE_RX:
+        case NRF24_MODE_IT:
             NRF24L01_Write_From_Buf(NRF24_CMD_REGISTER_W + NRF24_REG_RX_ADDR_P0, (uint8_t *)RX_ADDRESS, NRF24_ADDR_WIDTH);
             NRF24L01_Write_Reg(NRF24_CMD_REGISTER_W + NRF24_REG_CONFIG, 0x0F);
             break;
@@ -293,10 +282,48 @@ void NRF24L01_printBuf(void)
     printf_tiny("\r\n");
 }
 
+void NRF24L01_irqHandler(void) __interrupt IE0_VECTOR
+{
+    uint8_t state = NRF24L01_Read_Reg(NRF24_REG_STATUS);
+    printf_tiny("Interrupted, state: %x\r\n", state);
+    NRF24L01_Write_Reg(NRF24_CMD_REGISTER_W + NRF24_REG_STATUS, state);
+    if (state & NRF24_FLAG_RX_DREADY)
+    {
+        NRF24L01_Read_To_Buf(NRF24_CMD_RX_PLOAD_R, rx_buf, NRF24_PLOAD_WIDTH);
+        NRF24L01_FlushRX();
+        NRF24L01_printBuf();
+    }
+}
+
+void EXTI_init(void)
+{
+    EXTI_configTypeDef ec;
+
+    ec.mode     = EXTI_mode_lowLevel;
+    ec.priority = IntPriority_High;
+    EXTI_config(PERIPH_EXTI_0, &ec);
+    EXTI_cmd(PERIPH_EXTI_0, ENABLE);
+    UTIL_setInterrupts(ENABLE);
+}
+
+void SPI_init(void)
+{
+    SPI_configTypeDef sc;
+    sc.baudRatePrescaler = SPI_BaudRatePrescaler_4;
+    sc.cpha = SPI_CPHA_1Edge;
+    sc.cpol = SPI_CPOL_low;
+    sc.firstBit = SPI_FirstBit_MSB;
+    sc.pinmap = SPI_pinmap_P1;
+    sc.nss = SPI_NSS_Soft;
+    sc.mode = SPI_Mode_Master;
+    SPI_config(&sc);
+    SPI_cmd(ENABLE);
+}
+
 void main(void)
 {
     UTIL_enablePrintf();
-    initSys();
+    SPI_init();
 
     while (NRF24L01_Check())
     {
@@ -308,12 +335,17 @@ void main(void)
 
     if (CURRENT_MODE == NRF24_MODE_RX)
     {
-        while (1)
+        while (true)
         {
             uint8_t sta = NRF24L01_RxPacket(rx_buf);
             printf_tiny("RX stat: %x\r\n", sta);
             NRF24L01_printBuf();
         }
+    }
+    else if (CURRENT_MODE == NRF24_MODE_IT)
+    {
+        EXTI_init();
+        while(true);
     }
     else
     {
@@ -322,9 +354,12 @@ void main(void)
             0x21, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x28,
             0x31, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x38,
             0x41, 0x12, 0x13, 0x14, 0x15, 0x16, 0x37, 0x48};
-        uint8_t sta = NRF24L01_TxPacket(tmp);
-        tmp[1] = sta;
-        printf_tiny("TX stat: %x\r\n", sta);
-        sleep(500);
+        while (true)
+        {
+            uint8_t sta = NRF24L01_TxPacket(tmp);
+            tmp[1] = sta;
+            printf_tiny("TX stat: %x\r\n", sta);
+            sleep(500);
+        }
     }
 }
