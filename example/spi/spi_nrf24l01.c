@@ -127,13 +127,12 @@ uint8_t rx_buf[NRF24_PLOAD_WIDTH];
 
 uint8_t NRF24L01_writeReg(uint8_t reg,uint8_t value)
 {
-	uint8_t status;
-
-	NRF_CSN = 0;
-  	status = SPI_RW(reg);
-	SPI_RW(value);
-	NRF_CSN = 1;
-	return status;
+    uint8_t status;
+    NRF_CSN = 0;
+    status = SPI_RW(reg);
+    SPI_RW(value);
+    NRF_CSN = 1;
+    return status;
 }
 
 uint8_t NRF24L01_readReg(uint8_t reg)
@@ -182,7 +181,7 @@ void NRF24L01_printBuf(void)
 */
 void NRF24L01_flushRX(void)
 {
-	NRF24L01_writeReg(NRF24_CMD_FLUSH_RX, NRF24_CMD_NOP);
+    NRF24L01_writeReg(NRF24_CMD_FLUSH_RX, NRF24_CMD_NOP);
 }
 
 /**
@@ -190,7 +189,7 @@ void NRF24L01_flushRX(void)
 */
 void NRF24L01_flushTX(void)
 {
-	NRF24L01_writeReg(NRF24_CMD_FLUSH_TX, NRF24_CMD_NOP);
+    NRF24L01_writeReg(NRF24_CMD_FLUSH_TX, NRF24_CMD_NOP);
 }
 
 uint8_t NRF24L01_handelIrqFlag(void)
@@ -244,14 +243,14 @@ void NRF24L01_tx(uint8_t *txbuf)
 
 uint8_t NRF24L01_check(void)
 {
-	uint8_t i;
-	uint8_t *ptr = (uint8_t *)NRF24_TEST_ADDR;
-	NRF24L01_writeFromBuf(NRF24_CMD_REGISTER_W | NRF24_REG_TX_ADDR, ptr, NRF24_ADDR_WIDTH);
-	NRF24L01_readToBuf(NRF24_CMD_REGISTER_R | NRF24_REG_TX_ADDR, rx_buf, NRF24_ADDR_WIDTH);
-	for (i = 0; i < NRF24_ADDR_WIDTH; i++) {
-		if (rx_buf[i] != *ptr++) return 1;
-	}
-	return 0;
+    uint8_t i;
+    uint8_t *ptr = (uint8_t *)NRF24_TEST_ADDR;
+    NRF24L01_writeFromBuf(NRF24_CMD_REGISTER_W | NRF24_REG_TX_ADDR, ptr, NRF24_ADDR_WIDTH);
+    NRF24L01_readToBuf(NRF24_CMD_REGISTER_R | NRF24_REG_TX_ADDR, rx_buf, NRF24_ADDR_WIDTH);
+    for (i = 0; i < NRF24_ADDR_WIDTH; i++) {
+        if (rx_buf[i] != *ptr++) return 1;
+    }
+    return 0;
 }
 
 void NRF24L01_init(NRF24_MODE mode)
@@ -280,7 +279,7 @@ void NRF24L01_init(NRF24_MODE mode)
     NRF_CE = 1;
 }
 
-void NRF24L01_irqHandler(void) __interrupt IE0_VECTOR
+void NRF24L01_irqHandler(void) __interrupt (IE0_VECTOR)
 {
     NRF24L01_handelIrqFlag();
 }

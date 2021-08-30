@@ -60,7 +60,8 @@ void initSys(void)
  * \ingroup     example
  * \remarks     
 ******************************************************************************/
-void adc_isr() __interrupt ADC_VECTOR {
+void adc_isr() __interrupt (ADC_VECTOR)
+{
     ADC_INT_clear();
     UART_sendHex(ADC_RES);
     UART_sendString("\r\n");

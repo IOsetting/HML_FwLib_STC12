@@ -65,7 +65,7 @@ void main(void)
  * \ingroup     example
  * \remarks     
 ******************************************************************************/
-void exti1_isr(void) __interrupt IE1_VECTOR
+void exti1_isr(void) __interrupt (IE1_VECTOR)
 {
     GPIO_toggleBitValue(PERIPH_GPIO_2, PERIPH_GPIO_PIN_0);
 }
