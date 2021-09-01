@@ -25,20 +25,20 @@
 
 /**********  SPI(nRF24L01) commands  ***********/
 // 
-#define NRF24_CMD_REGISTER_R     0x00 // Register read
-#define NRF24_CMD_REGISTER_W     0x20 // Register write
-#define NRF24_CMD_ACTIVATE       0x50 // (De)Activates R_RX_PL_WID, W_ACK_PAYLOAD, W_TX_PAYLOAD_NOACK features
-#define NRF24_CMD_RX_PLOAD_WID_R 0x60 // Read RX-payload width for the top R_RX_PAYLOAD in the RX FIFO.
-#define NRF24_CMD_RX_PLOAD_R     0x61 // Read RX payload
-#define NRF24_CMD_TX_PLOAD_W     0xA0 // Write TX payload
-#define NRF24_CMD_ACK_PAYLOAD_W  0xA8 // Write ACK payload
-#define NRF24_CMD_TX_PAYLOAD_NOACK_W 0xB0 //Write TX payload and disable AUTOACK
+#define NRF24_CMD_R_REGISTER     0x00 // [000A AAAA] Register read
+#define NRF24_CMD_W_REGISTER     0x20 // [001A AAAA] Register write
+#define NRF24_CMD_R_RX_PAYLOAD   0x61 // Read RX payload
+#define NRF24_CMD_W_TX_PAYLOAD   0xA0 // Write TX payload
 #define NRF24_CMD_FLUSH_TX       0xE1 // Flush TX FIFO
 #define NRF24_CMD_FLUSH_RX       0xE2 // Flush RX FIFO
 #define NRF24_CMD_REUSE_TX_PL    0xE3 // Reuse TX payload
-#define NRF24_CMD_LOCK_UNLOCK    0x50 // Lock/unlock exclusive features
+#define NRF24_CMD_R_RX_PL_WID    0x60 // Read RX-payload width for the top R_RX_PAYLOAD in the RX FIFO.
+#define NRF24_CMD_W_ACK_PAYLOAD  0xA8 // [1010 1PPP] Write ACK Payload to be with ACK packet on PIPE PPP
+#define NRF24_CMD_W_TX_PAYLOAD_NOACK 0xB0 //Write TX payload and disable AUTOACK
 #define NRF24_CMD_NOP            0xFF // No operation (used for reading status register)
 
+#define NRF24_CMD_ACTIVATE       0x50 // (De)Activates R_RX_PL_WID, W_ACK_PAYLOAD, W_TX_PAYLOAD_NOACK features
+#define NRF24_CMD_LOCK_UNLOCK    0x50 // Lock/unlock exclusive features
 
 // SPI(nRF24L01) register address definitions
 #define NRF24_REG_CONFIG         0x00 // Configuration register
@@ -196,10 +196,10 @@ uint8_t NRF24L01_handelIrqFlag(void)
 {
     uint8_t state = NRF24L01_readReg(NRF24_REG_STATUS);
     printf_tiny("Interrupt state: %x\r\n", state);
-    NRF24L01_writeReg(NRF24_CMD_REGISTER_W + NRF24_REG_STATUS, state);
+    NRF24L01_writeReg(NRF24_CMD_W_REGISTER + NRF24_REG_STATUS, state);
     if (state & NRF24_FLAG_RX_DREADY)
     {
-        NRF24L01_readToBuf(NRF24_CMD_RX_PLOAD_R, rx_buf, NRF24_PLOAD_WIDTH);
+        NRF24L01_readToBuf(NRF24_CMD_R_RX_PAYLOAD, rx_buf, NRF24_PLOAD_WIDTH);
         NRF24L01_flushRX();
         NRF24L01_printBuf();
     }
@@ -223,7 +223,7 @@ uint8_t NRF24L01_blockingRx(void)
 uint8_t NRF24L01_blockingTx(uint8_t *txbuf)
 {
     NRF_CE = 0;
-    NRF24L01_writeFromBuf(NRF24_CMD_TX_PLOAD_W, txbuf, NRF24_PLOAD_WIDTH);
+    NRF24L01_writeFromBuf(NRF24_CMD_W_TX_PAYLOAD, txbuf, NRF24_PLOAD_WIDTH);
     NRF_CE = 1;
     while (NRF_IRQ == 1);
     return NRF24L01_handelIrqFlag();
@@ -232,12 +232,12 @@ uint8_t NRF24L01_blockingTx(uint8_t *txbuf)
 void NRF24L01_tx(uint8_t *txbuf)
 {
     NRF_CE = 0;
-    NRF24L01_writeReg(NRF24_CMD_REGISTER_W + NRF24_REG_CONFIG, 0x0E);
-    NRF24L01_writeFromBuf(NRF24_CMD_TX_PLOAD_W, txbuf, NRF24_PLOAD_WIDTH);
+    NRF24L01_writeReg(NRF24_CMD_W_REGISTER + NRF24_REG_CONFIG, 0x0E);
+    NRF24L01_writeFromBuf(NRF24_CMD_W_TX_PAYLOAD, txbuf, NRF24_PLOAD_WIDTH);
     NRF_CE = 1;
     sleep(4); // 4ms+ for reliable DS state when SETUP_RETR is 0x13
     NRF_CE = 0;
-    NRF24L01_writeReg(NRF24_CMD_REGISTER_W + NRF24_REG_CONFIG, 0x0F);
+    NRF24L01_writeReg(NRF24_CMD_W_REGISTER + NRF24_REG_CONFIG, 0x0F);
     NRF_CE = 1;
 }
 
@@ -245,8 +245,8 @@ uint8_t NRF24L01_check(void)
 {
     uint8_t i;
     uint8_t *ptr = (uint8_t *)NRF24_TEST_ADDR;
-    NRF24L01_writeFromBuf(NRF24_CMD_REGISTER_W | NRF24_REG_TX_ADDR, ptr, NRF24_ADDR_WIDTH);
-    NRF24L01_readToBuf(NRF24_CMD_REGISTER_R | NRF24_REG_TX_ADDR, rx_buf, NRF24_ADDR_WIDTH);
+    NRF24L01_writeFromBuf(NRF24_CMD_W_REGISTER | NRF24_REG_TX_ADDR, ptr, NRF24_ADDR_WIDTH);
+    NRF24L01_readToBuf(NRF24_CMD_R_REGISTER | NRF24_REG_TX_ADDR, rx_buf, NRF24_ADDR_WIDTH);
     for (i = 0; i < NRF24_ADDR_WIDTH; i++) {
         if (rx_buf[i] != *ptr++) return 1;
     }
@@ -256,24 +256,24 @@ uint8_t NRF24L01_check(void)
 void NRF24L01_init(NRF24_MODE mode)
 {
     NRF_CE = 0;
-    NRF24L01_writeFromBuf(NRF24_CMD_REGISTER_W + NRF24_REG_TX_ADDR, (uint8_t *)TX_ADDRESS, NRF24_ADDR_WIDTH);
-    NRF24L01_writeReg(NRF24_CMD_REGISTER_W + NRF24_REG_RX_PW_P0, NRF24_PLOAD_WIDTH);
-    NRF24L01_writeFromBuf(NRF24_CMD_REGISTER_W + NRF24_REG_RX_ADDR_P0, (uint8_t *)TX_ADDRESS, NRF24_ADDR_WIDTH);
-    NRF24L01_writeReg(NRF24_CMD_REGISTER_W + NRF24_REG_RX_PW_P1, NRF24_PLOAD_WIDTH);
-    NRF24L01_writeFromBuf(NRF24_CMD_REGISTER_W + NRF24_REG_RX_ADDR_P1, (uint8_t *)RX_ADDRESS, NRF24_ADDR_WIDTH);
-    NRF24L01_writeReg(NRF24_CMD_REGISTER_W + NRF24_REG_EN_AA, 0x3f);
-    NRF24L01_writeReg(NRF24_CMD_REGISTER_W + NRF24_REG_EN_RXADDR, 0x3f);
-    NRF24L01_writeReg(NRF24_CMD_REGISTER_W + NRF24_REG_SETUP_RETR, 0x13);
-    NRF24L01_writeReg(NRF24_CMD_REGISTER_W + NRF24_REG_RF_CH, 40);
-    NRF24L01_writeReg(NRF24_CMD_REGISTER_W + NRF24_REG_RF_SETUP, 0x07);
+    NRF24L01_writeFromBuf(NRF24_CMD_W_REGISTER + NRF24_REG_TX_ADDR, (uint8_t *)TX_ADDRESS, NRF24_ADDR_WIDTH);
+    NRF24L01_writeReg(NRF24_CMD_W_REGISTER + NRF24_REG_RX_PW_P0, NRF24_PLOAD_WIDTH);
+    NRF24L01_writeFromBuf(NRF24_CMD_W_REGISTER + NRF24_REG_RX_ADDR_P0, (uint8_t *)TX_ADDRESS, NRF24_ADDR_WIDTH);
+    NRF24L01_writeReg(NRF24_CMD_W_REGISTER + NRF24_REG_RX_PW_P1, NRF24_PLOAD_WIDTH);
+    NRF24L01_writeFromBuf(NRF24_CMD_W_REGISTER + NRF24_REG_RX_ADDR_P1, (uint8_t *)RX_ADDRESS, NRF24_ADDR_WIDTH);
+    NRF24L01_writeReg(NRF24_CMD_W_REGISTER + NRF24_REG_EN_AA, 0x3f);
+    NRF24L01_writeReg(NRF24_CMD_W_REGISTER + NRF24_REG_EN_RXADDR, 0x3f);
+    NRF24L01_writeReg(NRF24_CMD_W_REGISTER + NRF24_REG_SETUP_RETR, 0x13);
+    NRF24L01_writeReg(NRF24_CMD_W_REGISTER + NRF24_REG_RF_CH, 40);
+    NRF24L01_writeReg(NRF24_CMD_W_REGISTER + NRF24_REG_RF_SETUP, 0x07);
     switch (mode)
     {
         case NRF24_MODE_TX:
-            NRF24L01_writeReg(NRF24_CMD_REGISTER_W + NRF24_REG_CONFIG, 0x0E);
+            NRF24L01_writeReg(NRF24_CMD_W_REGISTER + NRF24_REG_CONFIG, 0x0E);
             break;
         case NRF24_MODE_RX:
         default:
-            NRF24L01_writeReg(NRF24_CMD_REGISTER_W + NRF24_REG_CONFIG, 0x0F);
+            NRF24L01_writeReg(NRF24_CMD_W_REGISTER + NRF24_REG_CONFIG, 0x0F);
             break;
     }
     NRF_CE = 1;
