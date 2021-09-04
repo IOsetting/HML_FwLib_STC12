@@ -6,7 +6,7 @@
 
 ## 关于
 
-HML_FwLib_STC12 是面向*STC12*系列单片机的C语言封装库, *STC12*系列单片机是[宏晶公司](https://www.stcmcudata.com/)的产品, 发布于2007年, 这个系列的型号有*STC12C5A60S2*, *STC12C5A56S2*等, *STC12*系列是STC89,STC90,STC11系列的后继型号, 相对于早期型号增加了ADC, PCA, SPI和PWM等片内外设. 更多的细节可以查看官方介绍 http://www.stcmicro.com/stc/stc12c5a32s2.html.
+HML_FwLib_STC12 是面向*STC12*系列单片机的C语言封装库, *STC12*系列单片机是[宏晶公司](https://www.stcmcudata.com/)的产品, 发布于2007年. 这个系列的型号有*STC12C5A60S2*, *STC12C5A56S2*等, *STC12*系列是STC89,STC90,STC11系列的后继型号, 相对于早期型号增加了ADC, PCA, SPI和PWM等片内外设. 更多的细节可以查看官方介绍 http://www.stcmicro.com/stc/stc12c5a32s2.html. 因为后续版本*STC15*系列使用了新的引脚布局, *STC12*可以认为是经典8051布局的STC系列最后(也是最强)一个版本.
 
 这个封装库是[HML_FwLib_STC11](https://github.com/MCU-ZHISHAN-IoT/HML_FwLib_STC11)项目的一个分支(在此感谢原开发团队), 在其基础上对*STC12*的寄存器定义做了调整和适配, 对新增的硬件外设ADC, PWM, UART2, SPI等增加了对应的库方法.
 
@@ -80,7 +80,7 @@ HML_FwLib_STC12
 
 ## 使用 PlatformIO + VS Code 进行开发
 
-PlatformIO turns VSCode into a complete IDE for compiling and developing embeded projects. HML_FwLib_STC12 is a perfect library for STC12C5A60S2 series MCU projects. For example, see the structure of a typical PlatformIO project:
+PlatformIO 是 VS Code 的一个扩展, 用于嵌入式项目的开发. 在开发*STC12*项目时, HML_FwLib_STC12可以作为库直接引用. 下面是一个典型的PlatformIO项目目录结构:
 ```
 |--include
 |--lib
@@ -98,12 +98,12 @@ PlatformIO turns VSCode into a complete IDE for compiling and developing embeded
 |--src
    |- main.c
 ```
-Building and uploading will be managed by PlatformIO, so additional flags are needed in you platformio.ini, 
-* `-D__CONF_FRE_CLKIN`, required, specify the oscillator frequency
-* `-D__CONF_MCU_MODEL`, required, specify the MCU model
-* `upload_speed` and `upload_flags`, optional, it will improve the ISP speed
+编译和烧录的工具都由PlatformIO自动安装和管理, 需要在platformio.ini中配置相应的编译参数
+* `-D__CONF_FRE_CLKIN`, 必填, 用于指定晶振频率
+* `-D__CONF_MCU_MODEL`, 必填, 用于指定单片机型号
+* `upload_speed` and `upload_flags`, 选填, 用于ISP提速
 
-For example
+配置示例
 ```bash
 [env:stc12c5a56s2]
 platform = intel_mcs51
@@ -120,11 +120,11 @@ upload_flags =
 
 ## STC单片机版本历史
 
-| 时间  | 版本                     |  
-| ---- | -----------------       |     
-| 2004 | STC89C52RC/STC89C58RD+  |  
-| 2007 | STC90 STC10 STC11 STC12 |  
-| 2010 | STC15                   |  
-| 2014 | IAP15                   |  
-| 2017 | STC8F/STC8A/STC8G/STC8H |  
+| 时间  | 版本                     |
+| ---- | -----------------       |
+| 2004 | STC89                   |
+| 2007 | STC90 STC10 STC11 STC12 |
+| 2010 | STC15                   |
+| 2014 | IAP15                   |
+| 2017 | STC8F/STC8A/STC8G/STC8H |
 
