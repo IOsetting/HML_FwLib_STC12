@@ -6,9 +6,9 @@
 
 ## 关于
 
-HML_FwLib_STC12 是一个面向 STC12 系列MCU的封装库, 是 [HML_FwLib_STC11](https://github.com/MCU-ZHISHAN-IoT/HML_FwLib_STC11) 项目的一个独立分支.
+HML_FwLib_STC12 是面向*STC12*系列单片机的C语言封装库, *STC12*系列单片机是[宏晶公司](https://www.stcmcudata.com/)的产品, 发布于2007年, 这个系列的型号有*STC12C5A60S2*, *STC12C5A56S2*等, *STC12*系列是STC89,STC90,STC11系列的后继型号, 相对于早期型号增加了ADC, PCA, SPI和PWM等片内外设. 更多的细节可以查看官方介绍 http://www.stcmicro.com/stc/stc12c5a32s2.html.
 
-STC12 系列属于英特尔8051 MCU的一个变种, 是STC的STC89,STC90,STC11系列的后继型号, 相对于早期型号提供了更多的片上资源, 增加了硬件实现的ADC, PCA, SPI和PWM等常用功能. 更多的细节可以查看官方介绍 http://www.stcmicro.com/stc/stc12c5a32s2.html.
+这个封装库是[HML_FwLib_STC11](https://github.com/MCU-ZHISHAN-IoT/HML_FwLib_STC11)项目的一个分支(在此感谢原开发团队), 在其基础上对*STC12*的寄存器定义做了调整和适配, 对新增的硬件外设ADC, PWM, UART2, SPI等增加了对应的库方法.
 
 HML_FwLib_STC12 与其它 HML 封装库一样, 将MCU的片上资源进行包装并提供便捷的编程接口, 让开发者可以在项目中以类似STM32的编程方式, 快捷使用 ADC, GPIO, IAP, PCA, TIM, UART, EXTI, 电源管理以及看门狗等片上资源.
 
@@ -17,9 +17,9 @@ HML_FwLib_STC12 与其它 HML 封装库一样, 将MCU的片上资源进行包装
 + 基于 [SDCC compiler](http://sdcc.sourceforge.net/)
 + (几乎)完整覆盖 STC12 系列 MCU 的片上资源
 + GPL-3.0 开源协议
-+ 丰富的代码例子供开发参考
++ 丰富的代码例子供开发参考, 有立即可用的MAX7219, nRF24L01参考代码
 
-此表格展示了支持的片上资源列表
+封装库支持的功能列表
 
 | Peripheral | Description | Status |
 | --- | --- | --- |
@@ -38,12 +38,12 @@ HML_FwLib_STC12 与其它 HML 封装库一样, 将MCU的片上资源进行包装
 
 # 如何使用
 
-请查看代码仓库的[WIKI](https://github.com/IOsetting/HML_FwLib_STC12/wiki)
+请查看[WIKI](https://github.com/IOsetting/HML_FwLib_STC12/wiki), 里面详细介绍了命令行方式和IDE界面方式的安装和使用.
 
 ## 需要的环境
+
 + [GNU Make](http://www.gnu.org/software/make/manual/make.html)(recommend)
 + [SDCC compiler](http://sdcc.sourceforge.net/)
-+ *\[Windows用户\]* Unix shell tools([msys](http://www.mingw.org/wiki/MSYS), [Cygwin](http://www.cygwin.com/), [GNUwin32](http://gnuwin32.sourceforge.net/)) needed by makefile for HML_FwLib_STC12
 
 ## 开发
 
@@ -51,36 +51,34 @@ HML_FwLib_STC12 与其它 HML 封装库一样, 将MCU的片上资源进行包装
 
 ```bash
 HML_FwLib_STC12
-├─doc          #store related documents about HML_FwLib_STC12
-├─example      #provide some example files with *.c format to help users learn about HML_FwLib_STC12
-├─inc          #include all header files(*.h) of HML_FwLib_STC12
-├─obj          #store all output files, including *.hex,*.ihx,*.lk,*.rel and others during compilation
-├─src          #store all source files(*.c) of HML_FwLib_STC12
-├─usr          #store makefile and a source file which includes main function
-├─library.json #library definition for PlatformIO integration
-├─LICENSE      #license of HML_FwLib_STC12
-├─README.md    #this file
-└─VERSION      #version code of HML_FwLib_STC12
+├─doc          # 文档
+├─example      # 使用封装库的代码例子
+├─inc          # 封装库的头文件(*.h)
+├─obj          # 编译过程中产生的文件
+├─src          # 封装库的源代码(*.c)
+├─usr          # 项目代码及 makefile
+├─library.json # 用于PlatformIO集成的库结构定义文件
+├─LICENSE      # 授权
+├─README.md    # 本文件
+└─VERSION      # 版本
 ```
 
 ### 编译参数
 
-There are several parameters need to be configured by user manually.
+使用本封装库时需要开发者配置的参数
 
-#### \_\_CONF\_COMPILE\_xxx (for conditional compilation)
-In order to ensure the projects based on HML_FwLib_STC12 can be downloaded into the limited on-chip flash space of STC12 MCUs, the developers can modify the macro definition named `__CONF_COMPILE_xxx` in *conf.h* to specify which piece of codewill take part in compilation, then it will reduce size of final .hex file. If user only use GPIO module, then user just need to enable `__CONF_COMPILE_GPIO` macro in *conf.h*. Some macros for conditional compilation rely on others. For example, before you define the macro definition `__CONF_COMPILE_RCC`, the macro `__CONF_COMPILE_UTIL` should be defined, otherwise the compilation would be failed.
+#### \_\_CONF\_COMPILE\_xxx (用于条件编译)
+为了节约有限的片内资源, 开发者可以修改*conf.h*中的`__CONF_COMPILE_xxx`用于选择参与编译的部分, 从而减小最终产生的.hex文件大小. 例如如果只用到GPIO模块, 可以只启用`__CONF_COMPILE_GPIO`. 因为一些模块的编译依赖于其他模块, 例如`__CONF_COMPILE_RCC`依赖于`__CONF_COMPILE_UTIL`, 启用前者时必须也启用后者, 否则编译会失败.
 ####  \_\_CONF\_FRE\_CLKIN
-The macro mark frequency of clock source, including extern crystal oscillator or internal RC oscillating circuit, and it's defined in *conf.h*.
+用于标记时钟源的频率, 在*conf.h*中定义
 #### \_\_CONF\_MCU\_MODEL
-The macro mark the model of target MCU and is defined in *conf.h*.
+标记目标单片机型号, 在*conf.h*中定义
 
 ### 示例代码及编译
 
-There is a source file named *test.c* under *usr* directory, we have put a main function here. User can add and modify own code here, then enter <kbd>make</kbd> in terminal, the Makefile will work and complete compilation. Besides, user can enter <kbd>make help</kbd> to get all usages.
+在*usr*下有一个文件名为*test.c*的示例文件, 您可以修改其中的代码后在命令行下输入 <kbd>make</kbd>, 这时会执行Makefile中定义的过程完成编译. 另外, 可以输入<kbd>make help</kbd>查看编译选项.
 
-Certainly, you can just add *inc* and *src* directory into your project structure, and write your own makefile to build a custom project. 
-
-## 在VS Code中开发
+## 使用 PlatformIO + VS Code 进行开发
 
 PlatformIO turns VSCode into a complete IDE for compiling and developing embeded projects. HML_FwLib_STC12 is a perfect library for STC12C5A60S2 series MCU projects. For example, see the structure of a typical PlatformIO project:
 ```
@@ -117,3 +115,16 @@ upload_speed = 115200
 upload_flags =
     -b$UPLOAD_SPEED
 ```
+
+# 附录
+
+## STC单片机版本历史
+
+| 时间  | 版本                     |  
+| ---- | -----------------       |     
+| 2004 | STC89C52RC/STC89C58RD+  |  
+| 2007 | STC90 STC10 STC11 STC12 |  
+| 2010 | STC15                   |  
+| 2014 | IAP15                   |  
+| 2017 | STC8F/STC8A/STC8G/STC8H |  
+
