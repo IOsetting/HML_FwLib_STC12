@@ -14,7 +14,10 @@
  * 
  * \version     v0.1
  * \ingroup     example
- * \remarks     test-board: Minimum System; test-MCU: STC12C5AF56S2
+ * \remarks     test-board: Minimum System; test-MCU: STC12C5A60S2
+ *              In my test STC12 cannot achive the best performance of nRF24L01,
+ *              you have to put 20~40ms delay betwen each sending, or error rate
+ *              will increase dramatically.
 ******************************************************************************/
 
 /*****************************************************************************
@@ -251,6 +254,13 @@ bool NRF24L01_writeFast(const void* txbuf)
     }
     NRF24L01_startFastWrite(txbuf);
     return true;
+}
+
+void NRF24L01_resetTX(void)
+{
+    NRF24L01_writeReg(NRF24_CMD_W_REGISTER + NRF24_REG_STATUS, NRF24_FLAG_MAX_RT);//Clear max retry flag
+    NRF_CE = 0;
+    NRF_CE = 1;
 }
 
 uint8_t NRF24L01_check(void)

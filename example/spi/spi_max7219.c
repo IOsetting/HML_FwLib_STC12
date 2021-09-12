@@ -11,7 +11,7 @@
  * 
  * \version     v0.1
  * \ingroup     example
- * \remarks     test-board: Minimum System; test-MCU: STC12C5AF56S2
+ * \remarks     test-board: Minimum System; test-MCU: STC12C5A56S2
 ******************************************************************************/
 
 /*****************************************************************************
