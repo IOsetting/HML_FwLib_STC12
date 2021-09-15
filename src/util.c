@@ -167,6 +167,7 @@ void sleep(uint16_t t)
         mov a,dpl                       ;#1
         anl a,dph                       ;#1
         cpl a                           ;#1
+        nop                             ;#1
         jnz LOOP$                       ;#2
     ENDL$:
         pop ar7
