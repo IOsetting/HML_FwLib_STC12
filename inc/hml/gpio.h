@@ -80,6 +80,7 @@ typedef struct
 void GPIO_config(PERIPH_GPIO gpio, GPIO_configTypeDef *gc);
 void GPIO_configBitValue(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin, FunctionalState f);
 void GPIO_configMode(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin, GPIO_mode mode);
+void GPIO_configPortMode(PERIPH_GPIO gpio, GPIO_mode mode);
 void GPIO_configPortValue(PERIPH_GPIO gpio, uint8_t val);
 FunctionalState GPIO_getBitValue(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin);
 uint8_t GPIO_getPortValue(PERIPH_GPIO gpio);

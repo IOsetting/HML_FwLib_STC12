@@ -115,6 +115,62 @@ void GPIO_configMode(PERIPH_GPIO gpio, PERIPH_GPIO_PIN pin, GPIO_mode mode)
 
 /*****************************************************************************/
 /** 
+ * \author      IOsetting
+ * \date        
+ * \brief       configure work mode of specified GPIO port
+ * \param[in]   gpio: target GPIO port
+ * \param[in]   mode : expected work mode
+ * \return      none
+ * \ingroup     GPIO
+ * \remarks     
+******************************************************************************/
+void GPIO_configPortMode(PERIPH_GPIO gpio, GPIO_mode mode)
+{
+    /**
+     * \note obtain mode bit
+     */
+    uint8_t m0 = TESTB(mode, 0)? 0xFF : 0x00;
+    uint8_t m1 = TESTB(mode, 1)? 0xFF : 0x00;
+
+    switch (gpio)
+    {
+        /* P0 */
+        case PERIPH_GPIO_0:
+        {
+            P0M0 = m0;
+            P0M1 = m1;
+        } break;
+        /* P1 */
+        case PERIPH_GPIO_1:
+        {
+            P1M0 = m0;
+            P1M1 = m1;
+        } break;
+        /* P2 */
+        case PERIPH_GPIO_2:
+        {
+            P2M0 = m0;
+            P2M1 = m1;
+        } break;
+        /* P3 */
+        case PERIPH_GPIO_3:
+        {
+            P3M0 = m0;
+            P3M1 = m1;
+        } break;
+        /* P4 */
+        case PERIPH_GPIO_4:
+        {
+            P4M0 = m0;
+            P4M1 = m1;
+        } break;
+        /* default */
+        default: break;
+    }
+}
+
+/*****************************************************************************/
+/** 
  * \author      Weilun Fong
  * \date        
  * \brief       configure value specified GPIO port
