@@ -79,6 +79,7 @@ void TM1650_write(uint8_t dat)
     TM1650_SCL = 0;
     for (i = 0; i < 8; i++)
     {
+        // From MSB to LSB
         dat = dat << 1;
         // CY:Carry Flag, is set if data is coming out of bit 7 of Acc during an Arithmetic operation.
         TM1650_SDA = CY;
@@ -98,6 +99,7 @@ uint8_t TM1650_scanKey(void)
     for (i = 0; i < 8; i++)
     {
         TM1650_SCL = 1;
+        // From MSB to LSB
         rekey = rekey << 1;
         if (TM1650_SDA)
         {

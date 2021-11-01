@@ -6,9 +6,9 @@
 
 ## 关于
 
-HML_FwLib_STC12 是面向*STC12*系列单片机的C语言封装库, *STC12*系列单片机是[宏晶公司](https://www.stcmcudata.com/)的产品, 发布于2007年. 这个系列的型号有*STC12C5A60S2*, *STC12C5A56S2*等, *STC12*系列是STC89,STC90,STC11系列的后继型号, 相对于早期型号增加了ADC, PCA, SPI和PWM等片内外设. 更多的细节可以查看官方介绍 http://www.stcmicro.com/stc/stc12c5a32s2.html. 因为后续版本*STC15*系列使用了新的引脚布局, *STC12*可以认为是经典8051布局的STC系列最后(也是最强)一个版本.
+HML_FwLib_STC12 是面向*STC12*系列单片机的C语言封装库, *STC12*系列单片机是[宏晶公司](https://www.stcmcudata.com/)的产品, 发布于2007年. 这个系列的型号有*STC12C5A60S2*, *STC12C5A56S2*等, *STC12*系列是STC89,STC90,STC11系列的后继型号, 相对于早期型号增加了ADC, PCA, SPI和PWM等片内外设. 更多的细节可以查看[官方介绍](http://www.stcmicro.com/stc/stc12c5a32s2.html), [STC12C5Axx Datasheet](http://www.stcmicro.com/datasheet/STC12C5A60S2-en.pdf). *STC12*是使用经典引脚布局的最后一个系列, 从*STC15*系列开始使用了新的引脚布局.
 
-这个封装库是[HML_FwLib_STC11](https://github.com/MCU-ZHISHAN-IoT/HML_FwLib_STC11)项目的一个分支(在此感谢原开发团队), 在其基础上对*STC12*的寄存器定义做了调整和适配, 对新增的硬件外设ADC, PWM, UART2, SPI等增加了对应的库方法.
+这个封装库是[HML_FwLib_STC11](https://github.com/MCU-ZHISHAN-IoT/HML_FwLib_STC11)项目的一个分支(在此感谢原开发团队), 在其基础上对*STC12*的寄存器定义做了调整和适配, 对新增的硬件外设ADC, PWM, UART2, SPI等增加了对应的库方法, 并增加了对应的代码示例.
 
 HML_FwLib_STC12 与其它 HML 封装库一样, 将MCU的片上资源进行包装并提供便捷的编程接口, 让开发者可以在项目中以类似STM32的编程方式, 快捷使用 ADC, GPIO, IAP, PCA, TIM, UART, EXTI, 电源管理以及看门狗等片上资源.
 
@@ -17,7 +17,7 @@ HML_FwLib_STC12 与其它 HML 封装库一样, 将MCU的片上资源进行包装
 + 基于 [SDCC compiler](http://sdcc.sourceforge.net/)
 + (几乎)完整覆盖 STC12 系列 MCU 的片上资源
 + GPL-3.0 开源协议
-+ 丰富的代码例子供开发参考, 有立即可用的MAX7219, nRF24L01参考代码
++ 丰富的代码例子供开发参考, 有立即可用的MAX7219, nRF24L01, DS1302, DS12C887, TM1650参考代码
 
 封装库支持的功能列表
 
