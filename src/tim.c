@@ -385,7 +385,7 @@ void TIM_TIM1_config(uint32_t baudrate, TIM_prescaler  timPrescaler, Action doub
     TIM_configTypeDef tc;
     tc.function          = TIM_function_tim;
     tc.interruptState    = DISABLE;
-    tc.interruptPriority = DISABLE;
+    tc.interruptPriority = IntPriority_Low;
     tc.mode              = TIM_mode_2;
     tc.prescaler         = timPrescaler;
     tc.value             = 0x00;   /* because of logic order, the value need to be reloaded one more time */

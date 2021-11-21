@@ -69,7 +69,7 @@ typedef struct
 {
     TIM_function  function;
     Action        interruptState;
-    Action        interruptPriority;
+    IntPriority   interruptPriority;
     TIM_mode      mode;
     TIM_prescaler prescaler;
     uint16_t      value;

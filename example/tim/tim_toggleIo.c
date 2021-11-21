@@ -32,7 +32,7 @@ void sys_init(void)
 
     tc.function          = TIM_function_tim;
     tc.interruptState    = ENABLE;
-    tc.interruptPriority = DISABLE;
+    tc.interruptPriority = IntPriority_High;
     tc.mode              = TIM_mode_1;
     tc.prescaler         = TIM_prescaler_12;
     tc.value             = 65536 - 50000;
@@ -68,7 +68,7 @@ void main(void)
  * \ingroup     example
  * \remarks     
 ******************************************************************************/
-void tim0_isr(void) __interrupt TF0_VECTOR
+void tim0_isr(void) __interrupt (TF0_VECTOR)
 {
     static uint8_t i = 0;
 
