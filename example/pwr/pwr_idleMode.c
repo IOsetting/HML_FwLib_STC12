@@ -31,7 +31,7 @@ void sys_init(void)
     EXTI_configTypeDef ec;
 
     ec.mode     = EXTI_mode_fallEdge;
-    ec.priority = DISABLE;
+    ec.priority = IntPriority_Low;
     EXTI_config(PERIPH_EXTI_0, &ec);
     EXTI_cmd(PERIPH_EXTI_0, ENABLE);
 
@@ -80,7 +80,7 @@ void main(void)
  * \ingroup     example
  * \remarks     
 ******************************************************************************/
-void exti0_isr(void) __interrupt IE0_VECTOR
+void exti0_isr(void) __interrupt (IE0_VECTOR)
 {    
     /* do nothing, recover when extern interrupt is triggered */
 }

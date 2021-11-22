@@ -49,8 +49,8 @@ typedef enum
  */
 typedef struct
 {
-    EXTI_mode mode;
-    Action    priority;
+    EXTI_mode   mode;
+    IntPriority priority;
 } EXTI_configTypeDef;
 
 /*****************************************************************************
