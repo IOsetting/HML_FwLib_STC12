@@ -78,7 +78,8 @@ MYFILE             ?= test.c
 MYFILE_NAME        := $(shell $(BASENAME) $(MYFILE) .c)
 MYFILE_REL         := $(DIR_OUTPUT)/$(MYFILE_NAME).rel
 # Target file
-TARGET             := output
+# TARGET             := output
+TARGET             := $(MYFILE_NAME)
 TARGET_FWLIB       := $(DIR_OUTPUT)/$(FILE_HML_FWLIB)
 
 all: $(DIR_OUTPUT)/$(TARGET).hex
